@@ -91,9 +91,9 @@ fi
 if ! type ddns-go &>/dev/null; then
   echo "ddns-go 未安装，正在安装..."
   bash <(curl -Ls https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-  echo "ddns-go 已安装"
+  echo "ddns-go 已安装，请打开 http://IP:9876 端口进行配置"
 else
-  echo "ddns-go 已安装"
+  echo "ddns-go 已安装，请打开 http://IP:9876 端口进行配置"
 fi
 
 # 检测x-ui是否已安装
