@@ -14,18 +14,19 @@ pubkey_auth=$(sed -n 's/^PubkeyAuthentication\s*\(.*\)/\1/p' /etc/ssh/sshd_confi
 
 # 如果PubkeyAuthentication参数为空值
 if [ -z "$pubkey_auth" ]; then
-  echo "PubkeyAuthentication参数为空值，将添加 PubkeyAuthentication yes 和 RSAAuthentication yes 参数"
+  echo "PubkeyAuthentication 参数为空值，将添加 PubkeyAuthentication yes 和 RSAAuthentication yes 参数"
   echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
   echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
   echo "SSH密钥登录选项已开启"
 # 如果PubkeyAuthentication参数为no
 elif [ "$pubkey_auth" = "no" ]; then
-  echo "PubkeyAuthentication参数为no，将修改为yes"
+  echo "PubkeyAuthentication 参数为 no，将修改为 yes，并添加 RSAAuthentication yes 参数"
   sed -i 's/^PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
   echo "SSH密钥登录选项已开启"
 # 如果PubkeyAuthentication参数为yes
 elif [ "$pubkey_auth" = "yes" ]; then
-  echo "PubkeyAuthentication参数已为yes，将添加 RSAAuthentication yes 参数"
+  echo "PubkeyAuthentication 参数已为 yes，将添加 RSAAuthentication yes 参数"
   echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
   echo "SSH密钥登录选项已开启"
 fi
