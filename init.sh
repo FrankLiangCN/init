@@ -107,10 +107,10 @@ fi
 if ! type ddns-go &>/dev/null; then
   echo "ddns-go 未安装，正在安装..."
   bash <(curl -Ls https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-  echo "ddns-go 已安装，请打开 http://IP:9876 端口进行配置"
+  echo "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置"
   echo ""
 else
-  echo "ddns-go 已安装，请打开 http://IP:9876 端口进行配置"
+  echo "ddns-go 已安装，请访问 http://IP:9876 进行配置"
   echo ""
 fi
 
@@ -120,6 +120,72 @@ if ! type x-ui &>/dev/null; then
   bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
 else
   echo "x-ui 已安装"
+  echo ""
+fi
+
+
+# 检测是否已经安装Caddy
+if ! type caddy &>/dev/null; then
+  echo "Caddy未安装，是否安装？ (y/n)"
+  read answer
+  if [ "$answer" = "y" ]; then
+    echo "开始安装Caddy..."
+    # Caddy安装指令
+    apt install -y debian-keyring debian-archive-keyring apt-transport-https
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+    apt update && apt install caddy
+    echo "Caddy安装成功"
+    echo ""
+  elif [ "$answer" = "n" ]; then
+  echo "取消安装"
+  exit 0
+  echo ""
+  fi
+else
+  echo "Caddy已安装"
+  echo ""
+fi
+
+
+# 检测是否已经安装Docker
+if ! type docker &>/dev/null; then
+  echo "Docker未安装，是否安装？ (y/n)"
+  read answer
+  if [ "$answer" = "y" ]; then
+    echo "开始安装Docker..."
+    # Docker安装指令
+    curl -fsSL https://get.docker.com | bash
+    echo "Docker安装成功"
+    echo ""
+  elif [ "$answer" = "n" ]; then
+  echo "取消安装"
+  exit 0
+  echo ""
+  fi
+else
+  echo "Docker已安装"
+  echo ""
+fi
+
+# 检测是否已经安装Docker容器portainer
+if ! docker ps | grep portainer &>/dev/null; then
+  echo "Portainer未安装，是否安装？ (y/n)"
+  read answer
+  if [ "$answer" = "y" ]; then
+    echo "开始安装Portainer..."
+    # Portainer安装指令
+    docker volume create portainer_data
+    docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+    echo "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置"
+    echo ""
+  elif [ "$answer" = "n" ]; then
+  echo "取消安装"
+  exit 0
+  echo ""
+  fi
+else
+  echo "Portainer已安装"
   echo ""
 fi
 
