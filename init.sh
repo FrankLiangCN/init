@@ -137,10 +137,9 @@ if ! type caddy &>/dev/null; then
     apt update && apt install caddy
     echo "Caddy安装成功"
     echo ""
-  elif [ "$answer" = "n" ]; then
-  echo "取消安装"
-  #exit 0
-  echo ""
+  else
+    echo "取消安装"
+    echo ""
   fi
 else
   echo "Caddy已安装"
