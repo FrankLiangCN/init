@@ -157,10 +157,9 @@ if ! type docker &>/dev/null; then
     curl -fsSL https://get.docker.com | bash
     echo "Docker安装成功"
     echo ""
-  elif [ "$answer" = "n" ]; then
-  echo "取消安装"
-  exit 0
-  echo ""
+  else
+    echo "取消安装"
+    echo ""
   fi
 else
   echo "Docker已安装"
@@ -178,10 +177,9 @@ if ! docker ps | grep portainer &>/dev/null; then
     docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
     echo "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置"
     echo ""
-  elif [ "$answer" = "n" ]; then
-  echo "取消安装"
-  exit 0
-  echo ""
+  else
+    echo "取消安装"
+    echo ""
   fi
 else
   echo "Portainer已安装"
