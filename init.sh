@@ -139,7 +139,7 @@ if ! type caddy &>/dev/null; then
     echo ""
   elif [ "$answer" = "n" ]; then
   echo "取消安装"
-  exit 0
+  #exit 0
   echo ""
   fi
 else
