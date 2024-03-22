@@ -105,10 +105,17 @@ fi
 
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
-  echo "ddns-go 未安装，正在安装..."
-  bash <(curl -Ls https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-  echo "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置"
-  echo ""
+  echo "ddns-go未安装，是否安装？ (y/n)"
+  read answer
+  if [ "$answer" = "y" ]; then
+    echo "开始安装ddns-go..."
+    bash <(curl -Ls https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
+    echo "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置"
+    echo ""
+  else
+    echo "取消安装"
+    echo ""
+  fi
 else
   echo "ddns-go 已安装，请访问 http://IP:9876 进行配置"
   echo ""
@@ -116,8 +123,16 @@ fi
 
 # 检测x-ui是否已安装
 if ! type x-ui &>/dev/null; then
-  echo "x-ui 未安装，正在安装..."
-  bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+  echo "x-ui未安装，是否安装？ (y/n)"
+  read answer
+  if [ "$answer" = "y" ]; then
+    echo "开始安装x-ui..."
+    bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+    echo ""
+  else
+    echo "取消安装"
+    echo ""
+  fi
 else
   echo "x-ui 已安装"
   echo ""
