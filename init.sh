@@ -54,6 +54,7 @@ elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo ""
 else
   echo "SSH密钥登录选项已开启，无需修改配置..."
+  echo ""
 fi
 
 
