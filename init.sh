@@ -149,7 +149,7 @@ fi
 # 检测清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
   echo "正在设置定时清理磁盘空间任务..."
-  wget --no-check-certificate -P /opt	https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+  wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
   chmod +x /opt/cleandata.sh
   #echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
   echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
