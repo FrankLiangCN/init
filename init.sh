@@ -81,10 +81,21 @@ else
   echo ""
 fi
 
+# 检测nano是否已安装
+if ! type nano &>/dev/null; then
+  echo "nano 未安装，正在安装..."
+  apt install nano -y
+  echo "nano 已安装"
+  echo ""
+else
+  echo "nano 已安装"
+  echo ""
+fi
+
 # 检测vim是否已安装
 if ! type vim &>/dev/null; then
   echo "vim 未安装，正在安装..."
-  apt install unzip -y
+  apt install vim -y
   echo "vim 已安装"
   echo ""
 else
