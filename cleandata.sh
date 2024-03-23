@@ -20,7 +20,6 @@ apt-get clean
 echo "apt-get 缓存已清理"
 echo ""
 
-
 #/tmp --设置查找的目录；
 #-mtime +30 --设置修改时间为30天前；
 #-type f --设置查找的类型为文件；其中f为文件，d则为文件夹
