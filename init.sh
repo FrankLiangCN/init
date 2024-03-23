@@ -106,8 +106,9 @@ fi
 # 定时清理磁盘空间
 echo "正在设置定时清理磁盘空间任务"
 wget --no-check-certificate -P /opt	https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
-chmod u+x /opt/cleandata.sh
-echo "0 0 */2 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+chmod +x /opt/cleandata.sh
+#echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
 echo "清理任务已设置"
 echo ""
 
