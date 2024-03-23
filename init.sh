@@ -47,10 +47,10 @@ echo ""
 
 # 设置系统时区
 # 获取当前时区
-current_timezone=$(timedatectl get-timezone)
+current_timezone=$(date +%Z)
 
 # 判断当前时区是否为Asia/Hong_Kong
-if [ "$current_timezone" != "Asia/Hong_Kong" ]; then
+if [ "$current_timezone" != "HKT" ]; then
   # 设置时区为Asia/Hong_Kong
   timedatectl set-timezone "Asia/Hong_Kong"
   echo "设置系统时区为 Asia/Hong_Kong 成功！"
