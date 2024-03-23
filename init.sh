@@ -22,26 +22,31 @@ if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
   echo "修改PubkeyAuthentication和RSAAuthentication参数为yes..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
+  echo "SSH密钥登录选项已开启"
+  echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
   echo "修改RSAAuthentication参数为yes..."
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
+  echo "SSH密钥登录选项已开启"
+  echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   echo "增加RSAAuthentication yes..."
   echo "RSAAuthentication yes" >> $ssh_config_file
+  echo "SSH密钥登录选项已开启"
+  echo ""
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "增加PubkeyAuthentication yes和RSAAuthentication yes..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
+  echo "SSH密钥登录选项已开启"
+  echo ""
 else
   echo "SSH密钥登录选项已开启，无需修改配置..."
 fi
 
 # 重启SSHD服务
-echo "重启SSHD服务..."
 service sshd restart
-
-# 提示用户
-echo "SSH密钥登录选项已开启"
+echo "SSHD服务已重启"
 echo ""
 
 
