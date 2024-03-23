@@ -46,9 +46,20 @@ echo ""
 
 
 # 设置系统时区
-timedatectl set-timezone Asia/Hong_Kong
-echo "设置系统时区为 Asia/Hong_Kong 成功！"
-echo ""
+# 获取当前时区
+current_timezone=$(timedatectl get-timezone)
+
+# 判断当前时区是否为Asia/Hong_Kong
+if [ "$current_timezone" != "Asia/Hong_Kong" ]; then
+  # 设置时区为Asia/Hong_Kong
+  timedatectl set-timezone "Asia/Hong_Kong"
+  echo "设置系统时区为 Asia/Hong_Kong 成功！"
+  echo ""
+else
+  # 输出信息
+  echo "当前时区已设置为Asia/Hong_Kong，无需修改"
+  echo ""
+fi
 
 # apt 更新
 echo "apt updating ..."
