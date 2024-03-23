@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 配置可执行
-# chmod u+x /opt/cleandata.sh
+# chmod +x /opt/cleandata.sh
 
 # 配置到crontab
 # 0 0 */2 * *  bash /opt/cleandata.sh > /dev/null 2>&1
@@ -27,5 +27,5 @@ apt-get clean
 # 清理 7 天前的日志
 find /var/log -mtime +7 -type f -name "*" -exec rm -rf {} \;
 
-# 清理 7 天前的临时文件夹
+# 清理 7 天前的临时文件
 find /tmp -mtime +7 -type f -name "*" -exec rm -rf {} \;
