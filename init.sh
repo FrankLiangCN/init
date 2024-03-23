@@ -7,35 +7,68 @@ echo " ========================================================= "
 echo ""
 
 
-# 开启SSH密钥登录选项
-# 检测PubkeyAuthentication参数
-echo "正在设置SSH密钥登录选项"
-pubkey_auth=$(sed -n 's/^PubkeyAuthentication\s*\(.*\)/\1/p' /etc/ssh/sshd_config)
+## 开启SSH密钥登录选项
+## 检测PubkeyAuthentication参数
+#echo "正在设置SSH密钥登录选项"
+#pubkey_auth=$(sed -n 's/^PubkeyAuthentication\s*\(.*\)/\1/p' /etc/ssh/sshd_config)
+#
+## 如果PubkeyAuthentication参数为空值
+#if [ -z "$pubkey_auth" ]; then
+#  echo "PubkeyAuthentication 参数为空值，将添加 PubkeyAuthentication yes 和 RSAAuthentication yes 参数"
+#  echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
+#  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
+#  echo "SSH密钥登录选项已开启"
+#  echo ""
+## 如果PubkeyAuthentication参数为no
+#elif [ "$pubkey_auth" = "no" ]; then
+#  echo "PubkeyAuthentication 参数为 no，将修改为 yes，并添加 RSAAuthentication yes 参数"
+#  sed -i 's/^PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
+#  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
+#  echo "SSH密钥登录选项已开启"
+#  echo ""
+## 如果PubkeyAuthentication参数为yes
+#elif [ "$pubkey_auth" = "yes" ]; then
+#  echo "PubkeyAuthentication 参数已为 yes，将添加 RSAAuthentication yes 参数"
+#  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
+#  echo "SSH密钥登录选项已开启"
+#  echo ""
+#fi
 
-# 如果PubkeyAuthentication参数为空值
-if [ -z "$pubkey_auth" ]; then
-  echo "PubkeyAuthentication 参数为空值，将添加 PubkeyAuthentication yes 和 RSAAuthentication yes 参数"
-  echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
-  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
-  echo "SSH密钥登录选项已开启"
-  echo ""
-# 如果PubkeyAuthentication参数为no
-elif [ "$pubkey_auth" = "no" ]; then
-  echo "PubkeyAuthentication 参数为 no，将修改为 yes，并添加 RSAAuthentication yes 参数"
-  sed -i 's/^PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
-  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
-  echo "SSH密钥登录选项已开启"
-  echo ""
-# 如果PubkeyAuthentication参数为yes
-elif [ "$pubkey_auth" = "yes" ]; then
-  echo "PubkeyAuthentication 参数已为 yes，将添加 RSAAuthentication yes 参数"
-  echo "RSAAuthentication yes" >> /etc/ssh/sshd_config
-  echo "SSH密钥登录选项已开启"
-  echo ""
+
+# 定义SSH配置文件路径
+ssh_config_file="/etc/ssh/sshd_config"
+
+# 检测PubkeyAuthentication参数
+pub_key_auth=$(grep -E "^PubkeyAuthentication\s+" $ssh_config_file | awk '{print $2}')
+
+# 检测RSAAuthentication参数
+rsa_auth=$(grep -E "^RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
+
+# 判断是否需要修改SSH配置文件
+if [ "$pub_key_auth" = "no" ] && [ "$rsa_auth" = "no" ]; then
+  # 修改PubkeyAuthentication和RSAAuthentication参数
+  echo "修改SSH配置文件..."
+  sed -i "s/^PubkeyAuthentication\s.*/PubkeyAuthentication yes/g" $ssh_config_file
+  sed -i "s/^RSAAuthentication\s.*/RSAAuthentication yes/g" $ssh_config_file
+elif [ "$pub_key_auth" = "yes" ] && [ "$rsa_auth" = "no" ]; then
+  # 修改RSAAuthentication参数
+  echo "修改SSH配置文件..."
+  sed -i "s/^RSAAuthentication\s.*/RSAAuthentication yes/g" $ssh_config_file
+elif [ -z "$pub_key_auth" ] && [ -z "$rsa_auth" ]; then
+  # 添加PubkeyAuthentication和RSAAuthentication参数
+  echo "添加SSH配置参数..."
+  echo "PubkeyAuthentication yes" >> $ssh_config_file
+  echo "RSAAuthentication yes" >> $ssh_config_file
 fi
 
-# 重启 sshd 服务
+# 重启SSHD服务
+echo "重启SSHD服务..."
 service sshd restart
+
+# 提示用户
+echo "SSH密钥登录选项已开启"
+echo ""
+
 
 # 设置系统时区
 timedatectl set-timezone Asia/Hong_Kong
