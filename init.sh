@@ -129,10 +129,10 @@ if ! type /opt/cleandata.sh &>/dev/null; then
   chmod +x /opt/cleandata.sh
   #echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
   echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
-  echo "清理任务已设置"
+  echo "定时清理磁盘空间任务已设置"
   echo ""
 else
-  echo "清理任务已设置"
+  echo "定时清理磁盘空间任务已设置"
   echo ""
 fi
 
