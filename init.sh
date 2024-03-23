@@ -34,31 +34,32 @@ echo ""
 #  echo ""
 #fi
 
-
 # 定义SSH配置文件路径
 ssh_config_file="/etc/ssh/sshd_config"
 
 # 检测PubkeyAuthentication参数
-pub_key_auth=$(grep -E "^PubkeyAuthentication\s+" $ssh_config_file | awk '{print $2}')
+pubkey_authentication=$(grep -E "^\s*PubkeyAuthentication\s+" $ssh_config_file | awk '{print $2}')
 
 # 检测RSAAuthentication参数
-rsa_auth=$(grep -E "^RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
+rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
 
-# 判断是否需要修改SSH配置文件
-if [ "$pub_key_auth" = "no" ] && [ "$rsa_auth" = "no" ]; then
-  # 修改PubkeyAuthentication和RSAAuthentication参数
-  echo "修改SSH配置文件..."
-  sed -i "s/^PubkeyAuthentication\s.*/PubkeyAuthentication yes/g" $ssh_config_file
-  sed -i "s/^RSAAuthentication\s.*/RSAAuthentication yes/g" $ssh_config_file
-elif [ "$pub_key_auth" = "yes" ] && [ "$rsa_auth" = "no" ]; then
-  # 修改RSAAuthentication参数
-  echo "修改SSH配置文件..."
-  sed -i "s/^RSAAuthentication\s.*/RSAAuthentication yes/g" $ssh_config_file
-elif [ -z "$pub_key_auth" ] && [ -z "$rsa_auth" ]; then
-  # 添加PubkeyAuthentication和RSAAuthentication参数
-  echo "添加SSH配置参数..."
+# 判断参数并修改配置
+if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
+  echo "修改PubkeyAuthentication和RSAAuthentication参数为yes..."
+  sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
+  sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
+elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
+  echo "修改RSAAuthentication参数为yes..."
+  sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
+elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
+  echo "增加RSAAuthentication yes..."
+  echo "RSAAuthentication yes" >> $ssh_config_file
+elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
+  echo "增加PubkeyAuthentication yes和RSAAuthentication yes..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
+else
+  echo "SSH密钥登录选项已开启，无需修改配置..."
 fi
 
 # 重启SSHD服务
