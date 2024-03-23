@@ -103,13 +103,21 @@ else
   echo ""
 fi
 
+# 定时清理磁盘空间
+echo "正在设置定时清理磁盘空间任务"
+wget --no-check-certificate -P /opt	https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+chmod u+x /opt/cleandata.sh
+echo "0 0 */2 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+echo "清理任务已设置"
+echo ""
+
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
   echo "ddns-go未安装，是否安装？ (y/n)"
   read answer
   if [ "$answer" = "y" ]; then
     echo "开始安装ddns-go..."
-    bash <(curl -Ls https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
+    bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     echo "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置"
     echo ""
   else
