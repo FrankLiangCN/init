@@ -12,9 +12,12 @@
 #journalctl --vacuum-size=10M
 	# 清理一天前的日志
 journalctl --vacuum-time=1d
+echo "journal 日志已清理"
+echo ""
 
 # 清理 apt-get 缓存
 apt-get clean
+echo "apt-get 缓存已清理"
 
 
 #/tmp --设置查找的目录；
@@ -26,6 +29,10 @@ apt-get clean
 
 # 清理 7 天前的日志
 find /var/log -mtime +7 -type f -name "*" -exec rm -rf {} \;
+echo "日志已清理"
+echo ""
 
 # 清理 7 天前的临时文件
 find /tmp -mtime +7 -type f -name "*" -exec rm -rf {} \;
+echo "临时文件已清理"
+echo ""
