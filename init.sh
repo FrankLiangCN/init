@@ -239,8 +239,8 @@ else
 fi
 
 # 检测是否已经安装Docker容器portainer
-echo "安装Portainer容器前，需先安装Docker"
 if ! docker ps | grep portainer &>/dev/null; then
+  echo "安装Portainer容器前，需先安装Docker"
   echo "Portainer未安装，是否安装？ (y/n)"
   read answer
   if [ "$answer" = "y" ]; then
