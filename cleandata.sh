@@ -18,6 +18,7 @@ echo ""
 # 清理 apt-get 缓存
 apt-get clean
 echo "apt-get 缓存已清理"
+echo ""
 
 
 #/tmp --设置查找的目录；
