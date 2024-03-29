@@ -43,6 +43,15 @@ elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   service ssh restart
   echo "SSH服务已重启"
   echo ""
+elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
+  echo "修改PubkeyAuthentication参数为yes 和 增加RSAAuthentication yes..."
+  sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
+  echo "RSAAuthentication yes" >> $ssh_config_file
+  echo "SSH密钥登录选项已开启"
+  # 重启SSH服务
+  service ssh restart
+  echo "SSH服务已重启"
+  echo ""
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "增加PubkeyAuthentication yes和RSAAuthentication yes..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
