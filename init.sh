@@ -84,10 +84,17 @@ else
 fi
 
 # apt 更新
-echo "apt updating ..."
-apt update >/dev/null 2>&1
-echo "apt 已更新"
-echo ""
+echo "是否进行apt更新？ (y/n)"
+read answer
+if [ "$answer" = "y" ]; then
+  echo "apt updating ..."
+  apt update >/dev/null 2>&1
+  echo "apt 已更新"
+  echo ""
+else
+  echo "取消apt更新"
+  echo ""
+fi
 
 # 检测curl是否已安装
 if ! type curl &>/dev/null; then
@@ -155,15 +162,22 @@ else
   echo ""
 fi
 
-# 检测清理磁盘空间任务是否已设置
+# 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  echo "正在设置定时清理磁盘空间任务..."
-  wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
-  chmod +x /opt/cleandata.sh
-  echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-  #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
-  echo "定时清理磁盘空间任务已设置"
-  echo ""
+  echo "是否设置定时清理磁盘空间任务？ (y/n)"
+  read answer
+  if [ "$answer" = "y" ]; then
+    echo "正在设置定时清理磁盘空间任务..."
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+    chmod +x /opt/cleandata.sh
+    echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    echo "定时清理磁盘空间任务已设置"
+    echo ""
+  else
+    echo "取消设置"
+    echo ""
+  fi
 else
   echo "定时清理磁盘空间任务已设置"
   echo ""
