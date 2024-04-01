@@ -8,9 +8,10 @@
 
 
 # 清理 journal 日志
-	# 清理日志到只剩下 10M
+# 清理日志到只剩下 10M
 #journalctl --vacuum-size=10M
-	# 清理一天前的日志
+
+# 清理一天前的日志
 journalctl --vacuum-time=1d
 echo "journal 日志已清理"
 echo ""
