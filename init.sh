@@ -79,7 +79,7 @@ if [ "$current_timezone" != "HKT" ]; then
   echo ""
 else
   # 输出信息
-  echo "当前时区已设置为Asia/Hong_Kong，无需修改"
+  echo "当前时区已设置为 Asia/Hong_Kong，无需修改..."
   echo ""
 fi
 
