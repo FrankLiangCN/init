@@ -19,7 +19,7 @@ rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '
 
 # 判断参数并修改配置
 if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
-  echo "修改PubkeyAuthentication和RSAAuthentication参数为yes..."
+  echo "修改 PubkeyAuthentication 和 RSAAuthentication 参数为 yes..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   echo "SSH密钥登录选项已开启"
@@ -28,7 +28,7 @@ if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
   echo "SSH服务已重启"
   echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
-  echo "修改RSAAuthentication参数为yes..."
+  echo "修改 RSAAuthentication 参数为yes..."
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
@@ -36,7 +36,7 @@ elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; t
   echo "SSH服务已重启"
   echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
-  echo "增加RSAAuthentication yes..."
+  echo "增加 RSAAuthentication yes..."
   echo "RSAAuthentication yes" >> $ssh_config_file
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
@@ -44,7 +44,7 @@ elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   echo "SSH服务已重启"
   echo ""
 elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
-  echo "修改PubkeyAuthentication参数为yes 和 增加RSAAuthentication yes..."
+  echo "修改 PubkeyAuthentication 参数为 yes 和 增加 RSAAuthentication yes..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   echo "SSH密钥登录选项已开启"
@@ -53,7 +53,7 @@ elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
   echo "SSH服务已重启"
   echo ""
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
-  echo "增加PubkeyAuthentication yes和RSAAuthentication yes..."
+  echo "增加 PubkeyAuthentication yes 和 RSAAuthentication yes..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   echo "SSH密钥登录选项已开启"
@@ -65,7 +65,6 @@ else
   echo "SSH密钥登录选项已开启，无需修改配置..."
   echo ""
 fi
-
 
 # 设置系统时区
 # 获取当前时区
@@ -171,7 +170,7 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
     chmod +x /opt/cleandata.sh
     echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-    #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
     echo "定时清理磁盘空间任务已设置"
     echo ""
   else
@@ -182,6 +181,7 @@ else
   echo "定时清理磁盘空间任务已设置"
   echo ""
 fi
+
 
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
@@ -218,7 +218,6 @@ else
   echo ""
 fi
 
-
 # 检测是否已经安装Caddy
 if ! type caddy &>/dev/null; then
   echo "Caddy未安装，是否安装？ (y/n)"
@@ -240,7 +239,6 @@ else
   echo "Caddy已安装"
   echo ""
 fi
-
 
 # 检测是否已经安装Docker
 if ! type docker &>/dev/null; then
