@@ -117,6 +117,17 @@ else
   echo ""
 fi
 
+# 检测tar是否已安装
+if ! type tar &>/dev/null; then
+  echo "tar 未安装，正在安装..."
+  apt install tar -y
+  echo "tar 已安装"
+  echo ""
+else
+  echo "tar 已安装"
+  echo ""
+fi
+
 # 检测unzip是否已安装
 if ! type unzip &>/dev/null; then
   echo "unzip 未安装，正在安装..."
