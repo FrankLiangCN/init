@@ -234,25 +234,30 @@ if ! type docker &>/dev/null; then
     curl -fsSL https://get.docker.com | bash
     if type docker &>/dev/null; then
       echo -e "Docker安装成功\n"
-  	  if ! docker ps | grep portainer &>/dev/null; then
-      read -p "Portainer未安装，是否安装？ (y/n)": answer
-      if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
-        echo -e "开始安装Portainer...\n"
-        # Portainer安装指令
-        docker volume create portainer_data
-        docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-        echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
+      if ! docker ps | grep portainer &>/dev/null; then
+        read -p "Portainer未安装，是否安装？ (y/n)": answer
+        if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+          echo -e "开始安装Portainer...\n"
+          # Portainer安装指令
+          docker volume create portainer_data
+          docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+          echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
+        else
+          echo -e "取消安装Portainer\n"
+        fi
       else
-        echo -e "取消安装Portainer\n"
+        echo -e "Portainer已安装\n"
       fi
-    else
-      echo -e "Portainer已安装\n"
-    fi
+	else
+	  echo -e "Docker未安装成功!\n"
+	  exit 1
   else
 	echo -e "Docker未安装成功!\n"
+	exit 1
   fi
 else
-  echo -e "取消安装Docker并退出Portainer容器安装\n" && exit 1
+  echo -e "取消安装Docker并退出Portainer容器安装\n"
+  exit 1
 fi
 
 echo -e "Linux 环境初始化自动部署成功！\n"
