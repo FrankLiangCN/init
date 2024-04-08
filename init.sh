@@ -226,7 +226,7 @@ fi
 
 # 检测是否已经安装Docker容器Portainer
 if type docker &>/dev/null; then
-  echo -e "Docker安装成功\n"
+  echo -e "进入Portainer安装脚本...\n"
   if ! docker ps | grep portainer &>/dev/null; then
     read -p "Portainer未安装，是否安装？ (y/n)": answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
@@ -242,7 +242,7 @@ if type docker &>/dev/null; then
     echo -e "Portainer已安装\n"
   fi
 else
-  echo -e "Docker未安装成功!\n"
+  echo -e "Docker未安装成功，退出Portainer容器安装!\n"
 fi
 
 
