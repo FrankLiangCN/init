@@ -75,9 +75,8 @@ else
 fi
 
 # apt 更新
-echo -e "是否进行apt更新？ (y/n)"
-read answer
-if [ "$answer" = "y" ]; then
+read -p "是否进行apt更新？ (y/n)": answer
+if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
   echo -e "apt 已更新\n"
