@@ -229,9 +229,18 @@ else
   echo -e "Docker已安装\n"
 fi
 
-# 检测是否已经安装Docker容器portainer
+# 检测是否已经安装Docker容器Portainer
 if ! type docker &>/dev/null; then
-  echo -e "安装Portainer容器前，需先安装Docker!\n" && exit 1
+  echo -e "安装Portainer容器前，需先安装Docker!\n"
+  read -p "是否安装Docker？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    echo "开始安装Docker..."
+    # Docker安装指令
+    curl -fsSL https://get.docker.com | bash
+    echo -e "Docker安装成功\n"
+  else
+    echo -e "取消安装并退出Portainer容器安装\n" && exit 1
+  fi
 elif ! docker ps | grep portainer &>/dev/null; then
   read -p "Portainer未安装，是否安装？ (y/n)": answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
