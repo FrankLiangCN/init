@@ -242,7 +242,7 @@ if ! type docker &>/dev/null; then
           docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
           echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
         else
-          echo -e "取消安装Portainer\n"
+          echo -e "Portainer取消安装\n"
         fi
       else
         echo -e "Portainer已安装\n"
