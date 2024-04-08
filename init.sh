@@ -248,10 +248,10 @@ if ! type docker &>/dev/null; then
         echo -e "Portainer已安装\n"
       fi
     else
-      echo -e "Docker已安装，退出Portainer容器安装!\n"
+      echo -e "Docker安装失败，退出Portainer容器安装!\n"
     fi
   else
-    echo -e "Docker安装失败，请重试！\n"
+    echo -e "Docker取消安装，退出Portainer容器安装!\n"
   fi
 else
   echo -e "Portainer已安装\n"
