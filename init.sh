@@ -26,7 +26,6 @@ if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
   # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
-  echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
   echo "修改 RSAAuthentication 参数为yes..."
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
@@ -34,7 +33,6 @@ elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; t
   # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
-  echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   echo "增加 RSAAuthentication yes..."
   echo "RSAAuthentication yes" >> $ssh_config_file
@@ -42,7 +40,6 @@ elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
-  echo ""
 elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
   echo "修改 PubkeyAuthentication 参数为 yes 和 增加 RSAAuthentication yes..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
@@ -51,7 +48,6 @@ elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
   # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
-  echo ""
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "增加 PubkeyAuthentication yes 和 RSAAuthentication yes..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
@@ -60,10 +56,8 @@ elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
-  echo ""
 else
   echo -e "SSH密钥登录选项已开启，无需修改配置...\n"
-  echo ""
 fi
 
 # 设置系统时区
@@ -74,12 +68,10 @@ current_timezone=$(date +%Z)
 if [ "$current_timezone" != "HKT" ]; then
   # 设置时区为Asia/Hong_Kong
   timedatectl set-timezone "Asia/Hong_Kong"
-  echo "设置系统时区为 Asia/Hong_Kong 成功！"
-  echo ""
+  echo -e "设置系统时区为 Asia/Hong_Kong 成功！\n"
 else
   # 输出信息
-  echo "当前时区已设置为 Asia/Hong_Kong，无需修改..."
-  echo ""
+  echo -e "当前时区已设置为Asia/Hong_Kong，无需修改\n"
 fi
 
 # apt 更新
@@ -88,88 +80,72 @@ read answer
 if [ "$answer" = "y" ]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
-  echo "apt 已更新"
-  echo ""
+  echo -e "apt 已更新\n"
 else
-  echo "取消apt更新"
-  echo ""
+  echo -e "取消apt更新\n"
 fi
 
 # 检测curl是否已安装
 if ! type curl &>/dev/null; then
   echo "curl 未安装，正在安装..."
   apt install curl -y
-  echo "curl 已安装"
-  echo ""
+  echo -e "curl 已安装\n"
 else
-  echo "curl 已安装"
-  echo ""
+  echo -e "curl 已安装\n"
 fi
 
 # 检测wget是否已安装
 if ! type wget &>/dev/null; then
   echo "wget 未安装，正在安装..."
   apt install wget -y
-  echo "wget 已安装"
-  echo ""
+  echo -e "wget 已安装\n"
 else
-  echo "wget 已安装"
-  echo ""
+  echo -e "wget 已安装\n"
 fi
 
 # 检测tar是否已安装
 if ! type tar &>/dev/null; then
   echo "tar 未安装，正在安装..."
   apt install tar -y
-  echo "tar 已安装"
-  echo ""
+  echo -e "tar 已安装\n"
 else
-  echo "tar 已安装"
-  echo ""
+  echo -e "tar 已安装\n"
 fi
 
 # 检测unzip是否已安装
 if ! type unzip &>/dev/null; then
   echo "unzip 未安装，正在安装..."
   apt install unzip -y
-  echo "unzip 已安装"
-  echo ""
+  echo -e "unzip 已安装\n"
 else
-  echo "unzip 已安装"
-  echo ""
+  echo -e "unzip 已安装\n"
 fi
 
 # 检测nano是否已安装
 if ! type nano &>/dev/null; then
   echo "nano 未安装，正在安装..."
   apt install nano -y
-  echo "nano 已安装"
-  echo ""
+  echo -e "nano 已安装\n"
 else
-  echo "nano 已安装"
-  echo ""
+  echo -e "nano 已安装\n"
 fi
 
 # 检测vim是否已安装
 if ! type vim &>/dev/null; then
   echo "vim 未安装，正在安装..."
   apt install vim -y
-  echo "vim 已安装"
-  echo ""
+  echo -e "vim 已安装\n"
 else
-  echo "vim 已安装"
-  echo ""
+  echo -e "vim 已安装\n"
 fi
 
 # 检测vnstat是否已安装
 if ! type vnstat &>/dev/null; then
   echo "vnstat 未安装，正在安装..."
   apt install vnstat -y
-  echo "vnstat 已安装"
-  echo ""
+  echo -e "vnstat 已安装\n"
 else
-  echo "vnstat 已安装"
-  echo ""
+  echo -e "vnstat 已安装\n"
 fi
 
 # 检测定时清理磁盘空间任务是否已设置
@@ -182,17 +158,13 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     chmod +x /opt/cleandata.sh
     echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
     #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
-    echo "定时清理磁盘空间任务已设置"
-    echo ""
+    echo -e "定时清理磁盘空间任务已设置\n"
   else
-    echo "取消设置"
-    echo ""
+    echo -e "取消设置\n"
   fi
 else
-  echo "定时清理磁盘空间任务已设置"
-  echo ""
+  echo -e "定时清理磁盘空间任务已设置\n"
 fi
-
 
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
@@ -201,15 +173,12 @@ if ! type ddns-go &>/dev/null; then
   if [ "$answer" = "y" ]; then
     echo "开始安装ddns-go..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-    echo "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置"
-    echo ""
+    echo -e "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置\n"
   else
-    echo "取消安装"
-    echo ""
+    echo -e "取消安装\n"
   fi
 else
-  echo "ddns-go 已安装，请访问 http://IP:9876 进行配置"
-  echo ""
+  echo -e "ddns-go 已安装，请访问 http://IP:9876 进行配置\n"
 fi
 
 # 检测x-ui是否已安装
@@ -217,16 +186,13 @@ if ! type x-ui &>/dev/null; then
   echo "x-ui未安装，是否安装？ (y/n)"
   read answer
   if [ "$answer" = "y" ]; then
-    echo "开始安装x-ui..."
+    echo -e "开始安装x-ui...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
-    echo ""
   else
-    echo "取消安装"
-    echo ""
+    echo -e "取消安装\n"
   fi
 else
-  echo "x-ui 已安装"
-  echo ""
+  echo -e "x-ui 已安装\n"
 fi
 
 # 检测是否已经安装Caddy
@@ -240,15 +206,12 @@ if ! type caddy &>/dev/null; then
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
     apt update && apt install caddy
-    echo "Caddy安装成功"
-    echo ""
+    echo -e "Caddy安装成功\n"
   else
-    echo "取消安装"
-    echo ""
+    echo -e "取消安装\n"
   fi
 else
-  echo "Caddy已安装"
-  echo ""
+  echo -e "Caddy已安装\n"
 fi
 
 # 检测是否已经安装Docker
@@ -259,15 +222,12 @@ if ! type docker &>/dev/null; then
     echo "开始安装Docker..."
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
-    echo "Docker安装成功"
-    echo ""
+    echo -e "Docker安装成功\n"
   else
-    echo "取消安装"
-    echo ""
+    echo -e "取消安装\n"
   fi
 else
-  echo "Docker已安装"
-  echo ""
+  echo -e "Docker已安装\n"
 fi
 
 # 检测是否已经安装Docker容器portainer
@@ -280,16 +240,12 @@ if ! docker ps | grep portainer &>/dev/null; then
     # Portainer安装指令
     docker volume create portainer_data
     docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-    echo "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置"
-    echo ""
+    echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
   else
-    echo "取消安装"
-    echo ""
+    echo -e "取消安装\n"
   fi
 else
-  echo "Portainer已安装"
-  echo ""
+  echo -e "Portainer已安装\n"
 fi
 
-echo "Linux 环境初始化自动部署成功！"
-echo ""
+echo -e "Linux 环境初始化自动部署成功！\n"
