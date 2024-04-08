@@ -149,9 +149,8 @@ fi
 
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  echo -e "是否设置定时清理磁盘空间任务？ (y/n)"
-  read answer
-  if [ "$answer" = "y" ]; then
+  read -p "是否设置定时清理磁盘空间任务？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
     chmod +x /opt/cleandata.sh
@@ -167,9 +166,8 @@ fi
 
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
-  echo -e "ddns-go未安装，是否安装？ (y/n)"
-  read answer
-  if [ "$answer" = "y" ]; then
+  read -p "ddns-go未安装，是否安装？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装ddns-go..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     echo -e "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置\n"
@@ -182,9 +180,8 @@ fi
 
 # 检测x-ui是否已安装
 if ! type x-ui &>/dev/null; then
-  echo -e "x-ui未安装，是否安装？ (y/n)"
-  read answer
-  if [ "$answer" = "y" ]; then
+  read -p "x-ui未安装，是否安装？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo -e "开始安装x-ui...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
   else
@@ -196,9 +193,8 @@ fi
 
 # 检测是否已经安装Caddy
 if ! type caddy &>/dev/null; then
-  echo -e "Caddy未安装，是否安装？ (y/n)"
-  read answer
-  if [ "$answer" = "y" ]; then
+  read -p "Caddy未安装，是否安装？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装Caddy..."
     # Caddy安装指令
     apt install -y debian-keyring debian-archive-keyring apt-transport-https
@@ -215,9 +211,8 @@ fi
 
 # 检测是否已经安装Docker
 if ! type docker &>/dev/null; then
-  echo -e "Docker未安装，是否安装？ (y/n)"
-  read answer
-  if [ "$answer" = "y" ]; then
+  read -p "Docker未安装，是否安装？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装Docker..."
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
@@ -239,7 +234,7 @@ if ! type docker &>/dev/null; then
     curl -fsSL https://get.docker.com | bash
     echo -e "Docker安装成功\n"
   else
-    echo -e "取消安装并退出Portainer容器安装\n" && exit 1
+    echo -e "取消安装Docker并退出Portainer容器安装\n" && exit 1
   fi
 elif ! docker ps | grep portainer &>/dev/null; then
   read -p "Portainer未安装，是否安装？ (y/n)": answer
