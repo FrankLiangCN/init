@@ -230,12 +230,12 @@ else
 fi
 
 # 检测是否已经安装Docker容器portainer
-if ! docker ps | grep portainer &>/dev/null; then
-  echo "安装Portainer容器前，需先安装Docker"
-  echo -e "Portainer未安装，是否安装？ (y/n)"
-  read answer
-  if [ "$answer" = "y" ]; then
-    echo "开始安装Portainer..."
+if ! type docker &>/dev/null; then
+  echo -e "安装Portainer容器前，需先安装Docker!\n" && exit 1
+elif ! docker ps | grep portainer &>/dev/null; then
+  read -p "Portainer未安装，是否安装？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    echo -e "开始安装Portainer...\n"
     # Portainer安装指令
     docker volume create portainer_data
     docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
