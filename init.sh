@@ -254,7 +254,7 @@ if ! type docker &>/dev/null; then
     echo -e "Docker安装失败，请重试！\n"
   fi
 else
-  echo -e "Docker已安装，并退出Portainer容器安装\n"
+  echo -e "Portainer已安装\n"
 fi
 
 echo -e "Linux 环境初始化自动部署成功！\n"
