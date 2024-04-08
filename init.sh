@@ -17,7 +17,7 @@ pubkey_authentication=$(grep -E "^\s*PubkeyAuthentication\s+" $ssh_config_file |
 # 检测RSAAuthentication参数
 rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
 
-# 判断参数并修改配置
+# 判断SSH参数并修改配置
 if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
   echo "修改 PubkeyAuthentication 和 RSAAuthentication 参数为 yes..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
@@ -25,7 +25,7 @@ if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
   service ssh restart
-  echo "SSH服务已重启"
+  echo "SSH服务已重启\n"
   echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
   echo "修改 RSAAuthentication 参数为yes..."
@@ -33,7 +33,7 @@ elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; t
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
   service ssh restart
-  echo "SSH服务已重启"
+  echo "SSH服务已重启\n"
   echo ""
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   echo "增加 RSAAuthentication yes..."
@@ -41,7 +41,7 @@ elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
   service ssh restart
-  echo "SSH服务已重启"
+  echo "SSH服务已重启\n"
   echo ""
 elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
   echo "修改 PubkeyAuthentication 参数为 yes 和 增加 RSAAuthentication yes..."
@@ -50,7 +50,7 @@ elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
   service ssh restart
-  echo "SSH服务已重启"
+  echo "SSH服务已重启\n"
   echo ""
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "增加 PubkeyAuthentication yes 和 RSAAuthentication yes..."
@@ -59,10 +59,10 @@ elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "SSH密钥登录选项已开启"
   # 重启SSH服务
   service ssh restart
-  echo "SSH服务已重启"
+  echo "SSH服务已重启\n"
   echo ""
 else
-  echo "SSH密钥登录选项已开启，无需修改配置..."
+  echo "SSH密钥登录选项已开启，无需修改配置...\n"
   echo ""
 fi
 
