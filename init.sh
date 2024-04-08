@@ -75,7 +75,7 @@ else
 fi
 
 # apt 更新
-echo "是否进行apt更新？ (y/n)"
+echo -e "是否进行apt更新？ (y/n)\n"
 read answer
 if [ "$answer" = "y" ]; then
   echo "apt updating ..."
@@ -150,7 +150,7 @@ fi
 
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  echo "是否设置定时清理磁盘空间任务？ (y/n)"
+  echo -e "是否设置定时清理磁盘空间任务？ (y/n)\n"
   read answer
   if [ "$answer" = "y" ]; then
     echo "正在设置定时清理磁盘空间任务..."
@@ -168,7 +168,7 @@ fi
 
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
-  echo "ddns-go未安装，是否安装？ (y/n)"
+  echo -e "ddns-go未安装，是否安装？ (y/n)\n"
   read answer
   if [ "$answer" = "y" ]; then
     echo "开始安装ddns-go..."
@@ -183,7 +183,7 @@ fi
 
 # 检测x-ui是否已安装
 if ! type x-ui &>/dev/null; then
-  echo "x-ui未安装，是否安装？ (y/n)"
+  echo -e "x-ui未安装，是否安装？ (y/n)\n"
   read answer
   if [ "$answer" = "y" ]; then
     echo -e "开始安装x-ui...\n"
@@ -197,7 +197,7 @@ fi
 
 # 检测是否已经安装Caddy
 if ! type caddy &>/dev/null; then
-  echo "Caddy未安装，是否安装？ (y/n)"
+  echo -e "Caddy未安装，是否安装？ (y/n)\n"
   read answer
   if [ "$answer" = "y" ]; then
     echo "开始安装Caddy..."
@@ -216,7 +216,7 @@ fi
 
 # 检测是否已经安装Docker
 if ! type docker &>/dev/null; then
-  echo "Docker未安装，是否安装？ (y/n)"
+  echo -e "Docker未安装，是否安装？ (y/n)\n"
   read answer
   if [ "$answer" = "y" ]; then
     echo "开始安装Docker..."
@@ -233,7 +233,7 @@ fi
 # 检测是否已经安装Docker容器portainer
 if ! docker ps | grep portainer &>/dev/null; then
   echo "安装Portainer容器前，需先安装Docker"
-  echo "Portainer未安装，是否安装？ (y/n)"
+  echo -e "Portainer未安装，是否安装？ (y/n)\n"
   read answer
   if [ "$answer" = "y" ]; then
     echo "开始安装Portainer..."
