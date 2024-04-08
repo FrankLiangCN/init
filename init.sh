@@ -251,6 +251,7 @@ if ! type docker &>/dev/null; then
 	else
 	  echo -e "Docker未安装成功!\n"
 	  exit 1
+        fi
   else
 	echo -e "Docker未安装成功!\n"
 	exit 1
