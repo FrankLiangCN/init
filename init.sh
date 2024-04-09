@@ -272,4 +272,50 @@ else
   echo -e "Portainer已安装\n"
 fi
 
+# 检测是否已经安装Docker容器Watchtower
+if ! type docker &>/dev/null; then
+  echo -e "安装Watchtower容器前，需先安装Docker!\n"
+  read -p "是否安装Docker？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    echo -e "开始安装Docker...\n"
+    curl -fsSL https://get.docker.com | bash
+    echo ""
+    if type docker &>/dev/null; then
+      echo -e "进入Watchtower安装脚本...\n"
+      if ! docker ps | grep watchtower &>/dev/null; then
+        read -p "Watchtower未安装，是否安装？ (y/n)": answer
+        if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+          echo -e "开始安装Watchtower...\n"
+          docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
+          echo -e "Watchtower安装成功\n"
+        else
+          echo -e "Watchtower取消安装\n"
+        fi
+      else
+        echo -e "Watchtower已安装\n"
+      fi
+    else
+      echo -e "Docker安装失败，退出Watchtower容器安装!\n"
+    fi
+  else
+    echo -e "Docker取消安装，退出Watchtower容器安装!\n"
+  fi
+elif type docker &>/dev/null; then
+  echo -e "进入Watchtower安装脚本...\n"
+  if ! docker ps | grep watchtower &>/dev/null; then
+    read -p "Watchtower未安装，是否安装？ (y/n)": answer
+    if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+      echo -e "开始安装Watchtower...\n"
+      docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
+      echo -e "Watchtower安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
+    else
+      echo -e "Watchtower取消安装\n"
+    fi
+  else
+    echo -e "Watchtower已安装\n"
+  fi
+else
+  echo -e "Watchtower已安装\n"
+fi
+
 echo -e "Linux 环境初始化自动部署成功！\n"
