@@ -79,72 +79,72 @@ read -p "是否进行apt更新？ (y/n)": answer
 if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
-  echo -e "apt 已更新\n"
+  echo -e "apt已更新\n"
 else
   echo -e "取消apt更新\n"
 fi
 
 # 检测curl是否已安装
 if ! type curl &>/dev/null; then
-  echo "curl 未安装，正在安装..."
+  echo "curl未安装，正在安装..."
   apt install curl -y
-  echo -e "curl 已安装\n"
+  echo -e "curl已安装\n"
 else
-  echo -e "curl 已安装\n"
+  echo -e "curl已安装\n"
 fi
 
 # 检测wget是否已安装
 if ! type wget &>/dev/null; then
-  echo "wget 未安装，正在安装..."
+  echo "wget未安装，正在安装..."
   apt install wget -y
-  echo -e "wget 已安装\n"
+  echo -e "wget已安装\n"
 else
-  echo -e "wget 已安装\n"
+  echo -e "wget已安装\n"
 fi
 
 # 检测tar是否已安装
 if ! type tar &>/dev/null; then
-  echo "tar 未安装，正在安装..."
+  echo "tar未安装，正在安装..."
   apt install tar -y
-  echo -e "tar 已安装\n"
+  echo -e "tar已安装\n"
 else
-  echo -e "tar 已安装\n"
+  echo -e "tar已安装\n"
 fi
 
 # 检测unzip是否已安装
 if ! type unzip &>/dev/null; then
-  echo "unzip 未安装，正在安装..."
+  echo "unzip未安装，正在安装..."
   apt install unzip -y
-  echo -e "unzip 已安装\n"
+  echo -e "unzip已安装\n"
 else
-  echo -e "unzip 已安装\n"
+  echo -e "unzip已安装\n"
 fi
 
 # 检测nano是否已安装
 if ! type nano &>/dev/null; then
-  echo "nano 未安装，正在安装..."
+  echo "nano未安装，正在安装..."
   apt install nano -y
-  echo -e "nano 已安装\n"
+  echo -e "nano已安装\n"
 else
-  echo -e "nano 已安装\n"
+  echo -e "nano已安装\n"
 fi
 
 # 检测vim是否已安装
 if ! type vim &>/dev/null; then
-  echo "vim 未安装，正在安装..."
+  echo "vim未安装，正在安装..."
   apt install vim -y
-  echo -e "vim 已安装\n"
+  echo -e "vim已安装\n"
 else
-  echo -e "vim 已安装\n"
+  echo -e "vim已安装\n"
 fi
 
 # 检测vnstat是否已安装
 if ! type vnstat &>/dev/null; then
-  echo "vnstat 未安装，正在安装..."
+  echo "vnstat未安装，正在安装..."
   apt install vnstat -y
-  echo -e "vnstat 已安装\n"
+  echo -e "vnstat已安装\n"
 else
-  echo -e "vnstat 已安装\n"
+  echo -e "vnstat已安装\n"
 fi
 
 # 检测定时清理磁盘空间任务是否已设置
@@ -170,12 +170,12 @@ if ! type ddns-go &>/dev/null; then
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装ddns-go..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-    echo -e "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置\n"
+    echo -e "ddns-go已安装，请访问 http://IP:9876 进行初始化配置\n"
   else
     echo -e "取消安装\n"
   fi
 else
-  echo -e "ddns-go 已安装，请访问 http://IP:9876 进行配置\n"
+  echo -e "ddns-go已安装，请访问 http://IP:9876 进行配置\n"
 fi
 
 # 检测x-ui是否已安装
@@ -188,7 +188,7 @@ if ! type x-ui &>/dev/null; then
     echo -e "取消安装\n"
   fi
 else
-  echo -e "x-ui 已安装\n"
+  echo -e "x-ui已安装\n"
 fi
 
 # 检测是否已经安装Caddy
