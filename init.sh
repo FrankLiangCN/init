@@ -319,41 +319,41 @@ if type fail2ban-client &>/dev/null; then
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo -e "开始配置Fail2ban...\n"
     if [ -f /etc/fail2ban/jail.local ]; then
-	  echo -e "jail.local文件已存在\n"
-	else
+      echo -e "jail.local文件已存在\n"
+    else
       # 复制默认的 jail.conf 文件
       cp /etc/fail2ban/jail.{conf,local}
-	fi
+    fi
     # 设置要修改的文件
     jail_file="/etc/fail2ban/jail.local"
     # 检测bantime参数
-    bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $3}' | head -n 1)
+    current_bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $3}' | head -n 1)
     # 检测findtime参数
-    findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $3}' | head -n 1)
+    current_findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $3}' | head -n 1)
     # 检测maxretry参数
-    maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
+    current_maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
     # 设置要修改的值
-    echo "当前 bantime 值为：$bantime"
+    echo "当前 bantime 值为：$current_bantime"
     read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
     if [ -z "$new_bantime" ]; then
-      new_bantime=$bantime
+      new_bantime=$current_bantime
     fi
     echo -e "新的 bantime 值为：$new_bantime\n"
-    sed -i 's/bantime\s*=\s*[$bantime]/bantime = $new_bantime/g' $jail_file
-	echo "当前 findtime 值为：$findtime"
-    read -p "请输入新的 findtime 值（回车保留原始值）：" new_findtime
+    sed -i 's/bantime\s*=\s*[$current_bantime]/bantime = $new_bantime/g' $jail_file
+	echo "当前 findtime 值为：$current_findtime"
+    read -p "请输入新的 findtime 值（回车保留默认值）：" new_findtime
     if [ -z "$new_findtime" ]; then
-      new_findtime=$findtime
+      new_findtime=$current_findtime
     fi
     echo -e "新的 findtime 值为：$new_findtime\n"
-    sed -i 's/findtime\s*=\s*[$findtime]/findtime = $new_findtime/g' $jail_file
-	echo "当前 maxretry 值为：$maxretry"
-    read -p "请输入新的 maxretry 值（回车保留原始值）：" new_maxretry
+    sed -i 's/findtime\s*=\s*[$current_findtime]/findtime = $new_findtime/g' $jail_file
+	echo "当前 maxretry 值为：$current_maxretry"
+    read -p "请输入新的 maxretry 值（回车保留默认值）：" new_maxretry
     if [ -z "$new_maxretry" ]; then
-      new_maxretry=$maxretry
+      new_maxretry=$current_maxretry
     fi
     echo -e "新的 maxretry 值为：$new_maxretry\n"
-    sed -i 's/maxretry\s*=\s*[$maxretry]/maxretry = $new_maxretry/g' $jail_file
+    sed -i 's/maxretry\s*=\s*[$current_maxretry]/maxretry = $new_maxretry/g' $jail_file
     # 重启 fail2ban 服务
     systemctl restart fail2ban
     echo -e "Fail2ban 配置已更新并重启。\n"
