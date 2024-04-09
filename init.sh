@@ -254,7 +254,6 @@ if ! type docker &>/dev/null; then
     echo -e "Docker取消安装，退出Portainer容器安装!\n"
   fi
 elif type docker &>/dev/null; then
-  echo -e "进入Portainer安装脚本...\n"
   if ! docker ps | grep portainer &>/dev/null; then
     read -p "Portainer未安装，是否安装？ (y/n)": answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
@@ -301,7 +300,6 @@ if ! type docker &>/dev/null; then
     echo -e "Docker取消安装，退出Watchtower容器安装!\n"
   fi
 elif type docker &>/dev/null; then
-  echo -e "进入Watchtower安装脚本...\n"
   if ! docker ps | grep watchtower &>/dev/null; then
     read -p "Watchtower未安装，是否安装？ (y/n)": answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
