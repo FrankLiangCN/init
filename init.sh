@@ -318,8 +318,12 @@ if type fail2ban-client &>/dev/null; then
   read -p "是否修改Fail2ban默认配置？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo -e "开始配置Fail2ban...\n"
-    # 复制默认的 jail.conf 文件
-    cp /etc/fail2ban/jail.{conf,local}
+    if [ -f /etc/fail2ban/jail.local ]; then
+	  echo -e "jail.local文件已存在\n"
+	else
+      # 复制默认的 jail.conf 文件
+      cp /etc/fail2ban/jail.{conf,local}
+	fi
     # 设置要修改的文件
     jail_file="/etc/fail2ban/jail.local"
     # 检测bantime参数
