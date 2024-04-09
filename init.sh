@@ -253,6 +253,21 @@ if ! type docker &>/dev/null; then
   else
     echo -e "Docker取消安装，退出Portainer容器安装!\n"
   fi
+elif type docker &>/dev/null; then
+  echo -e "进入Portainer安装脚本...\n"
+  if ! docker ps | grep portainer &>/dev/null; then
+    read -p "Portainer未安装，是否安装？ (y/n)": answer
+    if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+      echo -e "开始安装Portainer...\n"
+      docker volume create portainer_data
+      docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+      echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
+    else
+      echo -e "Portainer取消安装\n"
+    fi
+  else
+    echo -e "Portainer已安装\n"
+  fi
 else
   echo -e "Portainer已安装\n"
 fi
