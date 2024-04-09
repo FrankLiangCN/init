@@ -147,23 +147,6 @@ else
   echo -e "vnstat已安装\n"
 fi
 
-# 检测定时清理磁盘空间任务是否已设置
-if ! type /opt/cleandata.sh &>/dev/null; then
-  read -p "是否设置定时清理磁盘空间任务？ (y/n)": answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
-    echo "正在设置定时清理磁盘空间任务..."
-    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
-    chmod +x /opt/cleandata.sh
-    echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-    #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
-    echo -e "定时清理磁盘空间任务已设置\n"
-  else
-    echo -e "取消设置\n"
-  fi
-else
-  echo -e "定时清理磁盘空间任务已设置\n"
-fi
-
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
   read -p "ddns-go未安装，是否安装？ (y/n)": answer
@@ -314,6 +297,23 @@ elif type docker &>/dev/null; then
   fi
 else
   echo -e "Watchtower已安装\n"
+fi
+
+# 检测定时清理磁盘空间任务是否已设置
+if ! type /opt/cleandata.sh &>/dev/null; then
+  read -p "是否设置定时清理磁盘空间任务？ (y/n)": answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    echo "正在设置定时清理磁盘空间任务..."
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+    chmod +x /opt/cleandata.sh
+    echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    echo -e "定时清理磁盘空间任务已设置\n"
+  else
+    echo -e "取消设置\n"
+  fi
+else
+  echo -e "定时清理磁盘空间任务已设置\n"
 fi
 
 echo -e "Linux 环境初始化自动部署成功！\n"
