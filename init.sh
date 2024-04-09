@@ -7,7 +7,7 @@ echo " ========================================================= "
 echo ""
 
 
-## 开启SSH密钥登录选项
+# 开启SSH密钥登录选项
 # 定义SSH配置文件路径
 ssh_config_file="/etc/ssh/sshd_config"
 
@@ -76,7 +76,7 @@ fi
 
 # apt 更新
 read -p "是否进行apt更新？(y/n):" answer
-if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
   echo -e "apt已更新\n"
@@ -150,7 +150,7 @@ fi
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
   read -p "ddns-go未安装，是否安装？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装ddns-go..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     echo -e "ddns-go已安装，请访问 http://IP:9876 进行初始化配置\n"
@@ -164,7 +164,7 @@ fi
 # 检测x-ui是否已安装
 if ! type x-ui &>/dev/null; then
   read -p "x-ui未安装，是否安装？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "开始安装x-ui...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
   else
@@ -177,7 +177,7 @@ fi
 # 检测是否已经安装Caddy
 if ! type caddy &>/dev/null; then
   read -p "Caddy未安装，是否安装？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装Caddy..."
     # Caddy安装指令
     apt install -y debian-keyring debian-archive-keyring apt-transport-https
@@ -195,7 +195,7 @@ fi
 # 检测是否已经安装Docker
 if ! type docker &>/dev/null; then
   read -p "Docker未安装，是否安装？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装Docker..."
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
@@ -211,7 +211,7 @@ fi
 if ! type docker &>/dev/null; then
   echo -e "安装Portainer容器前，需先安装Docker!\n"
   read -p "是否安装Docker？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "开始安装Docker...\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
@@ -219,7 +219,7 @@ if ! type docker &>/dev/null; then
       echo -e "进入Portainer安装脚本...\n"
       if ! docker ps | grep portainer &>/dev/null; then
         read -p "Portainer未安装，是否安装？(y/n):" answer
-        if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+        if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
           echo -e "开始安装Portainer...\n"
           docker volume create portainer_data
           docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
@@ -239,7 +239,7 @@ if ! type docker &>/dev/null; then
 elif type docker &>/dev/null; then
   if ! docker ps | grep portainer &>/dev/null; then
     read -p "Portainer未安装，是否安装？(y/n):" answer
-    if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
       echo -e "开始安装Portainer...\n"
       docker volume create portainer_data
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
@@ -258,7 +258,7 @@ fi
 if ! type docker &>/dev/null; then
   echo -e "安装Watchtower容器前，需先安装Docker!\n"
   read -p "是否安装Docker？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "开始安装Docker...\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
@@ -266,7 +266,7 @@ if ! type docker &>/dev/null; then
       echo -e "进入Watchtower安装脚本...\n"
       if ! docker ps | grep watchtower &>/dev/null; then
         read -p "Watchtower未安装，是否安装？(y/n):" answer
-        if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+        if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
           echo -e "开始安装Watchtower...\n"
           docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
           echo -e "Watchtower安装成功\n"
@@ -285,7 +285,7 @@ if ! type docker &>/dev/null; then
 elif type docker &>/dev/null; then
   if ! docker ps | grep watchtower &>/dev/null; then
     read -p "Watchtower未安装，是否安装？(y/n):" answer
-    if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
       echo -e "开始安装Watchtower...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
       echo -e "Watchtower安装成功\n"
@@ -302,7 +302,7 @@ fi
 # 检测是否已经安装Fail2ban
 if ! type fail2ban-client &>/dev/null; then
   read -p "Fail2ban未安装，是否安装？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装Fail2ban..."
     apt-get -y install fail2ban
     echo -e "Fail2ban安装成功\n"
@@ -316,7 +316,7 @@ fi
 # 修改Fail2ban默认配置
 if type fail2ban-client &>/dev/null; then
   read -p "是否修改Fail2ban默认配置？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "开始配置Fail2ban...\n"
     if [ -f /etc/fail2ban/jail.local ]; then
       echo -e "jail.local文件已存在\n"
@@ -367,8 +367,8 @@ fi
 
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  read -p "是否设置定时清理磁盘空间任务？ (y/n)": answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+  read -p "是否设置定时清理磁盘空间任务？(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
     chmod +x /opt/cleandata.sh
