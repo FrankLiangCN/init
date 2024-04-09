@@ -322,12 +322,15 @@ if type fail2ban-client &>/dev/null; then
     cp /etc/fail2ban/jail.{conf,local}
     # 设置要修改的文件
     jail_file="/etc/fail2ban/jail.local"
-	# 检测bantime参数
-	bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $2}')
-	# 检测findtime参数
-	findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $2}')
-	# 检测maxretry参数
-	maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $2}')
+#	# 检测bantime参数
+#	bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $2}')
+#	# 检测findtime参数
+#	findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $2}')
+#	# 检测maxretry参数
+#	maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $2}')
+    bantime=$(awk '/^bantime=/ { print $2 }' $jail_file)
+    findtime=$(grep -E "^findtime=" /etc/fail2ban/jail.local | cut -d "=" -f 2)
+    maxretry=$(grep -E "^maxretry=" /etc/fail2ban/jail.local | cut -d "=" -f 2)
     # 设置要修改的值
 	echo "当前 bantime 值为：$bantime"
     read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
