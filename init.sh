@@ -335,21 +335,21 @@ if type fail2ban-client &>/dev/null; then
       new_bantime=$bantime
     fi
     echo "新的 bantime 值为：$new_bantime"
-    sed -i "s/bantime\s*=\s*[$bantime]/bantime\s*=\s*$new_bantime/g" $jail_file
+    sed -i 's/^\s*bantime\s*=\s*[$bantime]/bantime = $new_bantime/g' $jail_file
 	echo "当前 findtime 值为：$findtime"
     read -p "请输入新的 findtime 值（回车保留原始值）：" new_findtime
     if [ -z "$new_findtime" ]; then
       new_findtime=$findtime
     fi
     echo "新的 findtime 值为：$new_findtime"
-    sed -i "s/findtime\s*=\s*[$findtime]/findtime\s*=\s*$new_findtime/g" $jail_file
+    sed -i "s/findtime\s*=\s*[$findtime]/findtime = $new_findtime/g" $jail_file
 	echo "当前 maxretry 值为：$maxretry"
     read -p "请输入新的 maxretry 值（回车保留原始值）：" new_maxretry
     if [ -z "$new_maxretry" ]; then
       new_maxretry=$maxretry
     fi
     echo "新的 maxretry 值为：$new_maxretry"
-    sed -i "s/maxretry\s*=\s*[$maxretry]/maxretry\s*=\s*$new_maxretry/g" $jail_file
+    sed -i "s/maxretry\s*=\s*[$maxretry]/maxretry = $new_maxretry/g" $jail_file
 	# 重启 fail2ban 服务
     systemctl restart fail2ban
     echo -e "Fail2ban 配置已更新并重启。\n"
