@@ -299,6 +299,64 @@ else
   echo -e "Watchtower已安装\n"
 fi
 
+# 检测是否已经安装Fail2ban
+if ! type fail2ban-client &>/dev/null; then
+  read -p "Fail2ban未安装，是否安装？(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    echo "开始安装Fail2ban..."
+    apt-get -y install fail2ban
+    echo -e "Fail2ban安装成功\n"
+  else
+    echo -e "取消安装\n"
+  fi
+else
+  echo -e "Fail2ban已安装\n"
+fi
+
+# 修改Fail2ban默认配置
+if type fail2ban-client &>/dev/null; then
+  read -p "是否修改Fail2ban默认配置？(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
+    echo -e "开始配置Fail2ban...\n"
+    # 复制默认的 jail.conf 文件
+    cp /etc/fail2ban/jail.{conf,local}
+    # 设置要修改的文件
+    jail_file="/etc/fail2ban/jail.local"
+	# 检测bantime参数
+	bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $2}')
+	# 检测findtime参数
+	findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $2}')
+	# 检测maxretry参数
+	maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $2}')
+    # 设置要修改的值
+	echo "当前 bantime 值为：$bantime"
+    read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
+    if [ -z "$new_bantime" ]; then
+      new_bantime=$bantime
+    fi
+    echo "新的 bantime 值为：$new_bantime"
+    sed -i "s/bantime\s*=\s*[$bantime]/bantime\s*=\s*$new_bantime/g" $jail_file
+	echo "当前 findtime 值为：$findtime"
+    read -p "请输入新的 findtime 值（回车保留原始值）：" new_findtime
+    if [ -z "$new_findtime" ]; then
+      new_findtime=$findtime
+    fi
+    echo "新的 findtime 值为：$new_findtime"
+    sed -i "s/findtime\s*=\s*[$findtime]/findtime\s*=\s*$new_findtime/g" $jail_file
+	echo "当前 maxretry 值为：$maxretry"
+    read -p "请输入新的 maxretry 值（回车保留原始值）：" new_maxretry
+    if [ -z "$new_maxretry" ]; then
+      new_maxretry=$maxretry
+    fi
+    echo "新的 maxretry 值为：$new_maxretry"
+    sed -i "s/maxretry\s*=\s*[$maxretry]/maxretry\s*=\s*$new_maxretry/g" $jail_file
+	# 重启 fail2ban 服务
+    systemctl restart fail2ban
+    echo -e "Fail2ban 配置已更新并重启。\n"
+else
+  echo ""
+fi
+
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？ (y/n)": answer
