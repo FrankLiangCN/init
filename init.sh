@@ -75,7 +75,7 @@ else
 fi
 
 # apt 更新
-read -p "是否进行apt更新？ (y/n)": answer
+read -p "是否进行apt更新？(y/n):" answer
 if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
@@ -149,7 +149,7 @@ fi
 
 # 检测ddns-go是否已安装
 if ! type ddns-go &>/dev/null; then
-  read -p "ddns-go未安装，是否安装？ (y/n)": answer
+  read -p "ddns-go未安装，是否安装？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装ddns-go..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
@@ -163,7 +163,7 @@ fi
 
 # 检测x-ui是否已安装
 if ! type x-ui &>/dev/null; then
-  read -p "x-ui未安装，是否安装？ (y/n)": answer
+  read -p "x-ui未安装，是否安装？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo -e "开始安装x-ui...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
@@ -176,7 +176,7 @@ fi
 
 # 检测是否已经安装Caddy
 if ! type caddy &>/dev/null; then
-  read -p "Caddy未安装，是否安装？ (y/n)": answer
+  read -p "Caddy未安装，是否安装？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装Caddy..."
     # Caddy安装指令
@@ -194,7 +194,7 @@ fi
 
 # 检测是否已经安装Docker
 if ! type docker &>/dev/null; then
-  read -p "Docker未安装，是否安装？ (y/n)": answer
+  read -p "Docker未安装，是否安装？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo "开始安装Docker..."
     # Docker安装指令
@@ -210,7 +210,7 @@ fi
 # 检测是否已经安装Docker容器Portainer
 if ! type docker &>/dev/null; then
   echo -e "安装Portainer容器前，需先安装Docker!\n"
-  read -p "是否安装Docker？ (y/n)": answer
+  read -p "是否安装Docker？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo -e "开始安装Docker...\n"
     curl -fsSL https://get.docker.com | bash
@@ -218,7 +218,7 @@ if ! type docker &>/dev/null; then
     if type docker &>/dev/null; then
       echo -e "进入Portainer安装脚本...\n"
       if ! docker ps | grep portainer &>/dev/null; then
-        read -p "Portainer未安装，是否安装？ (y/n)": answer
+        read -p "Portainer未安装，是否安装？(y/n):" answer
         if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
           echo -e "开始安装Portainer...\n"
           docker volume create portainer_data
@@ -238,7 +238,7 @@ if ! type docker &>/dev/null; then
   fi
 elif type docker &>/dev/null; then
   if ! docker ps | grep portainer &>/dev/null; then
-    read -p "Portainer未安装，是否安装？ (y/n)": answer
+    read -p "Portainer未安装，是否安装？(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
       echo -e "开始安装Portainer...\n"
       docker volume create portainer_data
@@ -257,7 +257,7 @@ fi
 # 检测是否已经安装Docker容器Watchtower
 if ! type docker &>/dev/null; then
   echo -e "安装Watchtower容器前，需先安装Docker!\n"
-  read -p "是否安装Docker？ (y/n)": answer
+  read -p "是否安装Docker？(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
     echo -e "开始安装Docker...\n"
     curl -fsSL https://get.docker.com | bash
@@ -265,7 +265,7 @@ if ! type docker &>/dev/null; then
     if type docker &>/dev/null; then
       echo -e "进入Watchtower安装脚本...\n"
       if ! docker ps | grep watchtower &>/dev/null; then
-        read -p "Watchtower未安装，是否安装？ (y/n)": answer
+        read -p "Watchtower未安装，是否安装？(y/n):" answer
         if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
           echo -e "开始安装Watchtower...\n"
           docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
@@ -284,7 +284,7 @@ if ! type docker &>/dev/null; then
   fi
 elif type docker &>/dev/null; then
   if ! docker ps | grep watchtower &>/dev/null; then
-    read -p "Watchtower未安装，是否安装？ (y/n)": answer
+    read -p "Watchtower未安装，是否安装？(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" ]]; then
       echo -e "开始安装Watchtower...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
