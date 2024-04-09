@@ -342,14 +342,14 @@ if type fail2ban-client &>/dev/null; then
       new_findtime=$findtime
     fi
     echo -e "新的 findtime 值为：$new_findtime\n"
-    sed -i "s/^\s*findtime\s*=\s*[$findtime]/findtime = $new_findtime/g" $jail_file
+    sed -i 's/^\s*findtime\s*=\s*[$findtime]/findtime = $new_findtime/g' $jail_file
 	echo "当前 maxretry 值为：$maxretry"
     read -p "请输入新的 maxretry 值（回车保留原始值）：" new_maxretry
     if [ -z "$new_maxretry" ]; then
       new_maxretry=$maxretry
     fi
     echo -e "新的 maxretry 值为：$new_maxretry\n"
-    sed -i "s/^\s*maxretry\s*=\s*[$maxretry]/maxretry = $new_maxretry/g" $jail_file
+    sed -i 's/^\s*maxretry\s*=\s*[$maxretry]/maxretry = $new_maxretry/g' $jail_file
 	# 重启 fail2ban 服务
     systemctl restart fail2ban
     echo -e "Fail2ban 配置已更新并重启。\n"
