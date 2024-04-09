@@ -353,6 +353,7 @@ if type fail2ban-client &>/dev/null; then
 	# 重启 fail2ban 服务
     systemctl restart fail2ban
     echo -e "Fail2ban 配置已更新并重启。\n"
+  fi
 else
   echo ""
 fi
