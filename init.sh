@@ -323,6 +323,7 @@ if type fail2ban-client &>/dev/null; then
     else
       # 复制默认的 jail.conf 文件
       cp /etc/fail2ban/jail.{conf,local}
+      echo -e "jail.local文件已复制\n"
     fi
     # 设置要修改的文件
     jail_file="/etc/fail2ban/jail.local"
