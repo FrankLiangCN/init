@@ -74,9 +74,14 @@ else
   echo -e "当前时区已设置为Asia/Hong_Kong，无需修改\n"
 fi
 
+# 定义选择项
+Option() {
+  [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]];
+}
+
 # apt 更新
 read -p "是否进行apt更新？（回车默认yes）(y/n):" answer
-if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+if Option then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
   echo -e "apt 已更新\n"
