@@ -84,68 +84,31 @@ else
   echo -e "取消 apt 更新\n"
 fi
 
-# 安装curl
-if ! type curl &>/dev/null; then
-  echo "正在安装 curl ..."
-  apt install -y curl
-  echo -e "curl 已安装\n"
-else
-  echo -e "curl 已安装\n"
-fi
 
-# 安装wget
-if ! type wget &>/dev/null; then
-  echo "正在安装 wget ..."
-  apt install -y wget
-  echo -e "wget 已安装\n"
-else
-  echo -e "wget 已安装\n"
-fi
+# 安装常用软件
+cmdline=(
+    "curl"
+    "wget"
+    "tar"
+#    "unzip"
+    "vim"
+    "nano"
+    "vnstat"
+)
 
-# 安装tar
-if ! type tar &>/dev/null; then
-  echo "正在安装 tar ..."
-  apt install -y tar
-  echo -e "tar 已安装\n"
-else
-  echo -e "tar 已安装\n"
-fi
-
-# 安装unzip
-#if ! type unzip &>/dev/null; then
-#  echo "正在安装 unzip ..."
-#  apt install -y unzip
-#  echo -e "unzip 已安装\n"
-#else
-#  echo -e "unzip 已安装\n"
-#fi
-
-# 安装vim
-if ! type vim &>/dev/null; then
-  echo "正在安装 vim ..."
-  apt install -y vim
-  echo -e "vim 已安装\n"
-else
-  echo -e "vim 已安装\n"
-fi
-
-# 安装nano
-if ! type nano &>/dev/null; then
-  echo "正在安装 nano ..."
-  apt install -y nano
-  echo -e "nano 已安装\n"
-else
-  echo -e "nano 已安装\n"
-fi
-
-# 安装vnstat
-if ! type vnstat &>/dev/null; then
-  echo "正在安装 vnstat ..."
-  apt install -y vnstat
-  echo -e "vnstat 已安装\n"
-else
-  echo -e "vnstat 已安装\n"
-fi
+for app in "${cmdline[@]}"; do
+    if command -v "$app" >/dev/null; then
+      echo -e "$app 已安装\n"
+    else
+        name=${app##*which }
+        apt install -y ${name}
+        if [[ $? -eq 0 ]]; then
+          echo -e "${name} 安装成功\n"
+        else
+          echo -e "${name} 安装失败\n"
+        fi
+    fi
+done
 
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
