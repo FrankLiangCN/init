@@ -75,7 +75,7 @@ else
 fi
 
 # apt 更新
-read -p "是否进行apt更新？(y/n):" answer
+read -p "是否进行apt更新？（回车默认yes）(y/n):" answer
 if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
@@ -84,74 +84,74 @@ else
   echo -e "取消apt更新\n"
 fi
 
-# 检测curl是否已安装
+# 安装curl
 if ! type curl &>/dev/null; then
-  echo "curl未安装，正在安装..."
+  echo "正在安装 curl ..."
   apt install curl -y
   echo -e "curl已安装\n"
 else
   echo -e "curl已安装\n"
 fi
 
-# 检测wget是否已安装
+# 安装wget
 if ! type wget &>/dev/null; then
-  echo "wget未安装，正在安装..."
+  echo "正在安装 wget ..."
   apt install wget -y
   echo -e "wget已安装\n"
 else
   echo -e "wget已安装\n"
 fi
 
-# 检测tar是否已安装
+# 安装tar
 if ! type tar &>/dev/null; then
-  echo "tar未安装，正在安装..."
+  echo "正在安装 tar ..."
   apt install tar -y
   echo -e "tar已安装\n"
 else
   echo -e "tar已安装\n"
 fi
 
-# 检测unzip是否已安装
+# 安装unzip
 if ! type unzip &>/dev/null; then
-  echo "unzip未安装，正在安装..."
+  echo "正在安装 unzip ..."
   apt install unzip -y
   echo -e "unzip已安装\n"
 else
   echo -e "unzip已安装\n"
 fi
 
-# 检测nano是否已安装
+# 安装nano
 if ! type nano &>/dev/null; then
-  echo "nano未安装，正在安装..."
+  echo "正在安装 nano ..."
   apt install nano -y
   echo -e "nano已安装\n"
 else
   echo -e "nano已安装\n"
 fi
 
-# 检测vim是否已安装
+# 安装vim
 if ! type vim &>/dev/null; then
-  echo "vim未安装，正在安装..."
+  echo "正在安装 vim ..."
   apt install vim -y
   echo -e "vim已安装\n"
 else
   echo -e "vim已安装\n"
 fi
 
-# 检测vnstat是否已安装
+# 安装vnstat
 if ! type vnstat &>/dev/null; then
-  echo "vnstat未安装，正在安装..."
+  echo "正在安装 vnstat ..."
   apt install vnstat -y
   echo -e "vnstat已安装\n"
 else
   echo -e "vnstat已安装\n"
 fi
 
-# 检测ddns-go是否已安装
+# 安装ddns-go
 if ! type ddns-go &>/dev/null; then
-  read -p "ddns-go未安装，是否安装？(y/n):" answer
+  read -p "ddns-go未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo "开始安装ddns-go..."
+    echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     echo -e "ddns-go已安装，请访问 http://IP:9876 进行初始化配置\n"
   else
@@ -161,9 +161,9 @@ else
   echo -e "ddns-go已安装，请访问 http://IP:9876 进行配置\n"
 fi
 
-# 检测x-ui是否已安装
+# 安装x-ui
 if ! type x-ui &>/dev/null; then
-  read -p "x-ui未安装，是否安装？(y/n):" answer
+  read -p "x-ui未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "开始安装x-ui...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
@@ -174,11 +174,11 @@ else
   echo -e "x-ui已安装\n"
 fi
 
-# 检测是否已经安装Caddy
+# 安装Caddy
 if ! type caddy &>/dev/null; then
-  read -p "Caddy未安装，是否安装？(y/n):" answer
+  read -p "Caddy未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo "开始安装Caddy..."
+    echo "正在安装 Caddy ..."
     # Caddy安装指令
     apt install -y debian-keyring debian-archive-keyring apt-transport-https
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -192,11 +192,11 @@ else
   echo -e "Caddy已安装\n"
 fi
 
-# 检测是否已经安装Docker
+# 安装Docker
 if ! type docker &>/dev/null; then
-  read -p "Docker未安装，是否安装？(y/n):" answer
+  read -p "Docker未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo "开始安装Docker..."
+    echo "正在安装 Docker ..."
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
     echo -e "Docker安装成功\n"
@@ -207,38 +207,10 @@ else
   echo -e "Docker已安装\n"
 fi
 
-# 检测是否已经安装Docker容器Portainer
-if ! type docker &>/dev/null; then
-  echo -e "安装Portainer容器前，需先安装Docker!\n"
-  read -p "是否安装Docker？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo -e "开始安装Docker...\n"
-    curl -fsSL https://get.docker.com | bash
-    echo ""
-    if type docker &>/dev/null; then
-      echo -e "进入Portainer安装脚本...\n"
-      if ! docker ps | grep portainer &>/dev/null; then
-        read -p "Portainer未安装，是否安装？(y/n):" answer
-        if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-          echo -e "开始安装Portainer...\n"
-          docker volume create portainer_data
-          docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-          echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
-        else
-          echo -e "Portainer取消安装\n"
-        fi
-      else
-        echo -e "Portainer已安装\n"
-      fi
-    else
-      echo -e "Docker安装失败，退出Portainer容器安装!\n"
-    fi
-  else
-    echo -e "Docker取消安装，退出Portainer容器安装!\n"
-  fi
-elif type docker &>/dev/null; then
+# 安装Docker容器Portainer
+install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
-    read -p "Portainer未安装，是否安装？(y/n):" answer
+    read -p "Portainer未安装，是否安装？（回车默认yes）(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
       echo -e "开始安装Portainer...\n"
       docker volume create portainer_data
@@ -250,41 +222,34 @@ elif type docker &>/dev/null; then
   else
     echo -e "Portainer已安装\n"
   fi
+}
+
+if ! type docker &>/dev/null; then
+  echo -e "安装Portainer容器前，需先安装Docker!\n"
+  read -p "是否安装Docker？（回车默认yes）(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    echo -e "正在安装 Docker ...\n"
+    curl -fsSL https://get.docker.com | bash
+    echo ""
+    if type docker &>/dev/null; then
+      echo -e "进入Portainer安装脚本...\n"
+      install_portainer
+    else
+      echo -e "Docker安装失败，退出Portainer容器安装!\n"
+    fi
+  else
+    echo -e "Docker取消安装，退出Portainer容器安装!\n"
+  fi
+elif type docker &>/dev/null; then
+  install_portainer
 else
   echo -e "Portainer已安装\n"
 fi
 
-# 检测是否已经安装Docker容器Watchtower
-if ! type docker &>/dev/null; then
-  echo -e "安装Watchtower容器前，需先安装Docker!\n"
-  read -p "是否安装Docker？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo -e "开始安装Docker...\n"
-    curl -fsSL https://get.docker.com | bash
-    echo ""
-    if type docker &>/dev/null; then
-      echo -e "进入Watchtower安装脚本...\n"
-      if ! docker ps | grep watchtower &>/dev/null; then
-        read -p "Watchtower未安装，是否安装？(y/n):" answer
-        if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-          echo -e "开始安装Watchtower...\n"
-          docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
-          echo -e "Watchtower安装成功\n"
-        else
-          echo -e "Watchtower取消安装\n"
-        fi
-      else
-        echo -e "Watchtower已安装\n"
-      fi
-    else
-      echo -e "Docker安装失败，退出Watchtower容器安装!\n"
-    fi
-  else
-    echo -e "Docker取消安装，退出Watchtower容器安装!\n"
-  fi
-elif type docker &>/dev/null; then
+# 安装Docker容器Watchtower
+install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
-    read -p "Watchtower未安装，是否安装？(y/n):" answer
+    read -p "Watchtower未安装，是否安装？（回车默认yes）(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
       echo -e "开始安装Watchtower...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
@@ -295,79 +260,103 @@ elif type docker &>/dev/null; then
   else
     echo -e "Watchtower已安装\n"
   fi
+}
+
+if ! type docker &>/dev/null; then
+  echo -e "安装Watchtower容器前，需先安装Docker!\n"
+  read -p "是否安装Docker？（回车默认yes）(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    echo -e "开始安装Docker...\n"
+    curl -fsSL https://get.docker.com | bash
+    echo ""
+    if type docker &>/dev/null; then
+      echo -e "进入Watchtower安装脚本...\n"
+      install_watchtower
+    else
+      echo -e "Docker安装失败，退出Watchtower容器安装!\n"
+    fi
+  else
+    echo -e "Docker取消安装，退出Watchtower容器安装!\n"
+  fi
+elif type docker &>/dev/null; then
+  install_watchtower
 else
   echo -e "Watchtower已安装\n"
 fi
 
-# 检测是否已经安装Fail2ban
+# 安装Fail2ban
+# 修改Fail2ban默认配置
+config_fail2ban() {
+  if type fail2ban-client &>/dev/null; then
+    read -p "是否修改Fail2ban默认配置？（回车默认yes）(y/n):" answer
+    if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+      echo -e "开始配置Fail2ban...\n"
+      if [ -f /etc/fail2ban/jail.local ]; then
+        echo -e "jail.local文件已存在\n"
+      else
+        # 复制默认的 jail.conf 文件
+        cp /etc/fail2ban/jail.{conf,local}
+        echo -e "jail.local文件已复制\n"
+      fi
+      # 设置要修改的文件
+      jail_file="/etc/fail2ban/jail.local"
+      # 检测bantime参数
+      current_bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $3}' | head -n 1)
+      # 检测findtime参数
+      current_findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $3}' | head -n 1)
+      # 检测maxretry参数
+      current_maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
+      # 设置要修改的值
+      echo "当前 bantime 值为：$current_bantime"
+      read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
+      if [ -z "$new_bantime" ]; then
+        new_bantime=$current_bantime
+      fi
+      echo -e "新的 bantime 值为：$new_bantime\n"
+      sed -i "s/^bantime\s*=\s*$current_bantime/bantime = $new_bantime/1" $jail_file
+  	echo "当前 findtime 值为：$current_findtime"
+      read -p "请输入新的 findtime 值（回车保留默认值）：" new_findtime
+      if [ -z "$new_findtime" ]; then
+        new_findtime=$current_findtime
+      fi
+      echo -e "新的 findtime 值为：$new_findtime\n"
+      sed -i "s/^findtime\s*=\s*$current_findtime/findtime = $new_findtime/1" $jail_file
+  	echo "当前 maxretry 值为：$current_maxretry"
+      read -p "请输入新的 maxretry 值（回车保留默认值）：" new_maxretry
+      if [ -z "$new_maxretry" ]; then
+        new_maxretry=$current_maxretry
+      fi
+      echo -e "新的 maxretry 值为：$new_maxretry\n"
+      sed -i "s/^maxretry\s*=\s*$current_maxretry/maxretry = $new_maxretry/1" $jail_file
+      # 重启 fail2ban 服务
+      sudo systemctl restart fail2ban
+      echo -e "Fail2ban 配置已更新并重启。\n"
+    else
+      echo -e "保留默认设置\n"
+    fi
+  else
+    echo ""
+  fi
+}
+
 if ! type fail2ban-client &>/dev/null; then
-  read -p "Fail2ban未安装，是否安装？(y/n):" answer
+  read -p "Fail2ban未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装Fail2ban..."
     apt-get -y install fail2ban
     echo -e "Fail2ban安装成功\n"
+	config_fail2ban
   else
     echo -e "取消安装\n"
   fi
+elif config_fail2ban
 else
-  echo -e "Fail2ban已安装\n"
-fi
-
-# 修改Fail2ban默认配置
-if type fail2ban-client &>/dev/null; then
-  read -p "是否修改Fail2ban默认配置？(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo -e "开始配置Fail2ban...\n"
-    if [ -f /etc/fail2ban/jail.local ]; then
-      echo -e "jail.local文件已存在\n"
-    else
-      # 复制默认的 jail.conf 文件
-      cp /etc/fail2ban/jail.{conf,local}
-      echo -e "jail.local文件已复制\n"
-    fi
-    # 设置要修改的文件
-    jail_file="/etc/fail2ban/jail.local"
-    # 检测bantime参数
-    current_bantime=$(grep -E "^\s*bantime\s+" $jail_file | awk '{print $3}' | head -n 1)
-    # 检测findtime参数
-    current_findtime=$(grep -E "^\s*findtime\s+" $jail_file | awk '{print $3}' | head -n 1)
-    # 检测maxretry参数
-    current_maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
-    # 设置要修改的值
-    echo "当前 bantime 值为：$current_bantime"
-    read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
-    if [ -z "$new_bantime" ]; then
-      new_bantime=$current_bantime
-    fi
-    echo -e "新的 bantime 值为：$new_bantime\n"
-    sed -i "s/^bantime\s*=\s*$current_bantime/bantime = $new_bantime/1" $jail_file
-	echo "当前 findtime 值为：$current_findtime"
-    read -p "请输入新的 findtime 值（回车保留默认值）：" new_findtime
-    if [ -z "$new_findtime" ]; then
-      new_findtime=$current_findtime
-    fi
-    echo -e "新的 findtime 值为：$new_findtime\n"
-    sed -i "s/^findtime\s*=\s*$current_findtime/findtime = $new_findtime/1" $jail_file
-	echo "当前 maxretry 值为：$current_maxretry"
-    read -p "请输入新的 maxretry 值（回车保留默认值）：" new_maxretry
-    if [ -z "$new_maxretry" ]; then
-      new_maxretry=$current_maxretry
-    fi
-    echo -e "新的 maxretry 值为：$new_maxretry\n"
-    sed -i "s/^maxretry\s*=\s*$current_maxretry/maxretry = $new_maxretry/1" $jail_file
-    # 重启 fail2ban 服务
-    sudo systemctl restart fail2ban
-    echo -e "Fail2ban 配置已更新并重启。\n"
-  else
-    echo -e "保留默认设置\n"
-  fi
-else
-  echo ""
+  echo -e "Fail2ban已安装并已配置\n"
 fi
 
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  read -p "是否设置定时清理磁盘空间任务？(y/n):" answer
+  read -p "是否设置定时清理磁盘空间任务？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
