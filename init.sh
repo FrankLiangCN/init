@@ -149,7 +149,7 @@ fi
 
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
-  read -p "ddns-go 未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "是否安装 ddns-go？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
@@ -163,7 +163,7 @@ fi
 
 # 安装x-ui
 if ! type x-ui &>/dev/null; then
-  read -p "x-ui 未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "是否安装 x-ui？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "开始安装 x-ui ...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
@@ -176,7 +176,7 @@ fi
 
 # 安装Caddy
 if ! type caddy &>/dev/null; then
-  read -p "Caddy 未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Caddy？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "正在安装 Caddy ..."
     # Caddy安装指令
@@ -194,7 +194,7 @@ fi
 
 # 安装Docker
 if ! type docker &>/dev/null; then
-  read -p "Docker 未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "正在安装 Docker ..."
     # Docker安装指令
@@ -210,7 +210,7 @@ fi
 # 安装Docker容器Portainer
 install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
-    read -p "是否安装Portainer？（回车默认yes）(y/n):" answer
+    read -p "是否安装 Portainer？（回车默认yes）(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
       echo -e "开始安装 Portainer ...\n"
       docker volume create portainer_data
@@ -350,6 +350,7 @@ if ! type fail2ban-client &>/dev/null; then
     echo -e "取消安装\n"
   fi
 elif type fail2ban-client &>/dev/null; then
+  echo -e "Fail2ban 已安装\n"
   config_fail2ban
 else
   echo -e "Fail2ban 已安装并已配置\n"
