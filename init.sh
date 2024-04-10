@@ -23,21 +23,18 @@ if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   echo "SSH密钥登录选项已开启"
-  # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
   echo "修改 RSAAuthentication 参数为yes..."
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   echo "SSH密钥登录选项已开启"
-  # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
   echo "增加 RSAAuthentication yes..."
   echo "RSAAuthentication yes" >> $ssh_config_file
   echo "SSH密钥登录选项已开启"
-  # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
 elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
@@ -45,7 +42,6 @@ elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   echo "SSH密钥登录选项已开启"
-  # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
@@ -53,7 +49,6 @@ elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "PubkeyAuthentication yes" >> $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   echo "SSH密钥登录选项已开启"
-  # 重启SSH服务
   service ssh restart
   echo -e "SSH服务已重启\n"
 else
@@ -70,7 +65,6 @@ if [ "$current_timezone" != "HKT" ]; then
   timedatectl set-timezone "Asia/Hong_Kong"
   echo -e "设置系统时区为 Asia/Hong_Kong 成功！\n"
 else
-  # 输出信息
   echo -e "当前时区已设置为Asia/Hong_Kong，无需修改\n"
 fi
 
