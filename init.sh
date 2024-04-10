@@ -99,13 +99,14 @@ for app in "${cmdline[@]}"; do
     if command -v "$app" >/dev/null; then
       echo -e "$app 已安装\n"
     else
-        name=${app##*which }
-        apt install -y ${name}
-        if [[ $? -eq 0 ]]; then
-          echo -e "${name} 安装成功\n"
-        else
-          echo -e "${name} 安装失败\n"
-        fi
+      name=${app##*which }
+      echo -e "${name} 安装中 ..."
+      apt install -y ${name} >/dev/null 2>&1
+      if [[ $? -eq 0 ]]; then
+        echo -e "${name} 安装成功\n"
+      else
+        echo -e "${name} 安装失败\n"
+      fi
     fi
 done
 
