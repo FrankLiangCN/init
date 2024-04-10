@@ -76,12 +76,12 @@ fi
 
 # 定义选择项
 Option() {
-  [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]];
+  [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]
 }
 
 # apt 更新
 read -p "是否进行apt更新？（回车默认yes）(y/n):" answer
-if Option then
+if Option; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
   echo -e "apt 已更新\n"
