@@ -350,7 +350,7 @@ if ! type fail2ban-client &>/dev/null; then
     echo -e "取消安装\n"
   fi
 elif type fail2ban-client &>/dev/null; then
-  echo -e "Fail2ban 已安装\n"
+  echo -e "Fail2ban 已安装"
   config_fail2ban
 else
   echo -e "Fail2ban 已安装并已配置\n"
