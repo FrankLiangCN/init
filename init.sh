@@ -374,3 +374,35 @@ else
 fi
 
 echo -e "Linux 环境初始化自动部署成功！\n"
+
+# 安装 Rust 版 ServerStatus 云探针
+install_ServerStatus() {
+  read -p "是否安装/更新 Rust 版 ServerStatus 云探针客户端？（回车默认yes）(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    read -p "请输入服务端域名/IP:端口：" url
+    if [ -z "$url" ]; then
+      url=https://vps.simpletechcn.com
+    fi
+    echo -e "新的服务端域名/IP:端口为：$url\n"
+    read -p "请输入用户名：" username
+    if [ -z "$username" ]; then
+      username=uid
+    fi
+    echo -e "新的用户名为：$username\n"
+    read -p "请输入密码：" password
+    if [ -z "$password" ]; then
+      password=pp
+    fi
+    echo -e "新的密码为：$password\n"
+    curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=1" | bash
+    echo -e "ServerStatus 云探针客户端 已安装\n"
+  else
+    echo -e "取消安装 ServerStatus 云探针客户端\n"
+  fi
+}
+
+if ! find /opt/ServerStatus/stat_client &>/dev/null; then
+  install_ServerStatus
+else
+  install_ServerStatus
+fi
