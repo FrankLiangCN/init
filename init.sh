@@ -356,23 +356,6 @@ else
   echo -e "Fail2ban 已安装并已配置\n"
 fi
 
-# 检测定时清理磁盘空间任务是否已设置
-if ! type /opt/cleandata.sh &>/dev/null; then
-  read -p "是否设置定时清理磁盘空间任务？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo "正在设置定时清理磁盘空间任务..."
-    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
-    chmod +x /opt/cleandata.sh
-    echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-    #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
-    echo -e "定时清理磁盘空间任务已设置\n"
-  else
-    echo -e "取消设置\n"
-  fi
-else
-  echo -e "定时清理磁盘空间任务已设置\n"
-fi
-
 # 安装 Rust 版 ServerStatus 云探针
 install_ServerStatus() {
   read -p "是否 安装/更新 客户端？（回车默认yes）(y/n):" answer
@@ -405,6 +388,23 @@ if ! find /opt/ServerStatus/stat_client &>/dev/null; then
 else
   echo -e "Rust 版 ServerStatus 云探针客户端已安装"
   install_ServerStatus
+fi
+
+# 检测定时清理磁盘空间任务是否已设置
+if ! type /opt/cleandata.sh &>/dev/null; then
+  read -p "是否设置定时清理磁盘空间任务？（回车默认yes）(y/n):" answer
+  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    echo "正在设置定时清理磁盘空间任务..."
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+    chmod +x /opt/cleandata.sh
+    echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    echo -e "定时清理磁盘空间任务已设置\n"
+  else
+    echo -e "取消设置\n"
+  fi
+else
+  echo -e "定时清理磁盘空间任务已设置\n"
 fi
 
 echo -e "Linux 环境初始化自动部署成功！\n"
