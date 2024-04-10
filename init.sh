@@ -79,104 +79,104 @@ read -p "是否进行apt更新？（回车默认yes）(y/n):" answer
 if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
-  echo -e "apt已更新\n"
+  echo -e "apt 已更新\n"
 else
-  echo -e "取消apt更新\n"
+  echo -e "取消 apt 更新\n"
 fi
 
 # 安装curl
 if ! type curl &>/dev/null; then
   echo "正在安装 curl ..."
   apt install curl -y
-  echo -e "curl已安装\n"
+  echo -e "curl 已安装\n"
 else
-  echo -e "curl已安装\n"
+  echo -e "curl 已安装\n"
 fi
 
 # 安装wget
 if ! type wget &>/dev/null; then
   echo "正在安装 wget ..."
   apt install wget -y
-  echo -e "wget已安装\n"
+  echo -e "wget 已安装\n"
 else
-  echo -e "wget已安装\n"
+  echo -e "wget 已安装\n"
 fi
 
 # 安装tar
 if ! type tar &>/dev/null; then
   echo "正在安装 tar ..."
   apt install tar -y
-  echo -e "tar已安装\n"
+  echo -e "tar 已安装\n"
 else
-  echo -e "tar已安装\n"
+  echo -e "tar 已安装\n"
 fi
 
 # 安装unzip
-if ! type unzip &>/dev/null; then
-  echo "正在安装 unzip ..."
-  apt install unzip -y
-  echo -e "unzip已安装\n"
-else
-  echo -e "unzip已安装\n"
-fi
+#if ! type unzip &>/dev/null; then
+#  echo "正在安装 unzip ..."
+#  apt install unzip -y
+#  echo -e "unzip 已安装\n"
+#else
+#  echo -e "unzip 已安装\n"
+#fi
 
 # 安装nano
 if ! type nano &>/dev/null; then
   echo "正在安装 nano ..."
   apt install nano -y
-  echo -e "nano已安装\n"
+  echo -e "nano 已安装\n"
 else
-  echo -e "nano已安装\n"
+  echo -e "nano 已安装\n"
 fi
 
 # 安装vim
 if ! type vim &>/dev/null; then
   echo "正在安装 vim ..."
   apt install vim -y
-  echo -e "vim已安装\n"
+  echo -e "vim 已安装\n"
 else
-  echo -e "vim已安装\n"
+  echo -e "vim 已安装\n"
 fi
 
 # 安装vnstat
 if ! type vnstat &>/dev/null; then
   echo "正在安装 vnstat ..."
   apt install vnstat -y
-  echo -e "vnstat已安装\n"
+  echo -e "vnstat 已安装\n"
 else
-  echo -e "vnstat已安装\n"
+  echo -e "vnstat 已安装\n"
 fi
 
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
-  read -p "ddns-go未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "ddns-go 未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-    echo -e "ddns-go已安装，请访问 http://IP:9876 进行初始化配置\n"
+    echo -e "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置\n"
   else
     echo -e "取消安装\n"
   fi
 else
-  echo -e "ddns-go已安装，请访问 http://IP:9876 进行配置\n"
+  echo -e "ddns-go 已安装，请访问 http://IP:9876 进行配置\n"
 fi
 
 # 安装x-ui
 if ! type x-ui &>/dev/null; then
-  read -p "x-ui未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "x-ui 未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo -e "开始安装x-ui...\n"
+    echo -e "开始安装 x-ui ...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
   else
     echo -e "取消安装\n"
   fi
 else
-  echo -e "x-ui已安装\n"
+  echo -e "x-ui 已安装\n"
 fi
 
 # 安装Caddy
 if ! type caddy &>/dev/null; then
-  read -p "Caddy未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "Caddy 未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "正在安装 Caddy ..."
     # Caddy安装指令
@@ -184,119 +184,119 @@ if ! type caddy &>/dev/null; then
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
     apt update && apt install caddy
-    echo -e "Caddy安装成功\n"
+    echo -e "Caddy 安装成功\n"
   else
     echo -e "取消安装\n"
   fi
 else
-  echo -e "Caddy已安装\n"
+  echo -e "Caddy 已安装\n"
 fi
 
 # 安装Docker
 if ! type docker &>/dev/null; then
-  read -p "Docker未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "Docker 未安装，是否安装？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo "正在安装 Docker ..."
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
-    echo -e "Docker安装成功\n"
+    echo -e "Docker 安装成功\n"
   else
     echo -e "取消安装\n"
   fi
 else
-  echo -e "Docker已安装\n"
+  echo -e "Docker 已安装\n"
 fi
 
 # 安装Docker容器Portainer
 install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
-    read -p "Portainer未安装，是否安装？（回车默认yes）(y/n):" answer
+    read -p "是否安装Portainer？（回车默认yes）(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-      echo -e "开始安装Portainer...\n"
+      echo -e "开始安装 Portainer ...\n"
       docker volume create portainer_data
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-      echo -e "Portainer安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
+      echo -e "Portainer 安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
     else
-      echo -e "Portainer取消安装\n"
+      echo -e "Portainer 取消安装\n"
     fi
   else
-    echo -e "Portainer已安装\n"
+    echo -e "Portainer 已安装\n"
   fi
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装Portainer容器前，需先安装Docker!\n"
-  read -p "是否安装Docker？（回车默认yes）(y/n):" answer
+  echo -e "安装 Portainer 容器前，需先安装 Docker!\n"
+  read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     echo -e "正在安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
     if type docker &>/dev/null; then
-      echo -e "进入Portainer安装脚本...\n"
+      echo -e "进入 Portainer 安装脚本...\n"
       install_portainer
     else
-      echo -e "Docker安装失败，退出Portainer容器安装!\n"
+      echo -e "Docker 安装失败，退出 Portainer 容器安装!\n"
     fi
   else
-    echo -e "Docker取消安装，退出Portainer容器安装!\n"
+    echo -e "Docker 取消安装，退出 Portainer 容器安装!\n"
   fi
 elif type docker &>/dev/null; then
   install_portainer
 else
-  echo -e "Portainer已安装\n"
+  echo -e "Portainer 已安装\n"
 fi
 
 # 安装Docker容器Watchtower
 install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
-    read -p "Watchtower未安装，是否安装？（回车默认yes）(y/n):" answer
+    read -p "是否安装 Watchtower？（回车默认yes）(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-      echo -e "开始安装Watchtower...\n"
+      echo -e "开始安装 Watchtower ...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
-      echo -e "Watchtower安装成功\n"
+      echo -e "Watchtower 安装成功\n"
     else
-      echo -e "Watchtower取消安装\n"
+      echo -e "Watchtower 取消安装\n"
     fi
   else
-    echo -e "Watchtower已安装\n"
+    echo -e "Watchtower 已安装\n"
   fi
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装Watchtower容器前，需先安装Docker!\n"
-  read -p "是否安装Docker？（回车默认yes）(y/n):" answer
+  echo -e "安装 Watchtower 容器前，需先安装 Docker!\n"
+  read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo -e "开始安装Docker...\n"
+    echo -e "开始安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
     if type docker &>/dev/null; then
-      echo -e "进入Watchtower安装脚本...\n"
+      echo -e "进入 Watchtower 安装脚本...\n"
       install_watchtower
     else
-      echo -e "Docker安装失败，退出Watchtower容器安装!\n"
+      echo -e "Docker 安装失败，退出 Watchtower 容器安装!\n"
     fi
   else
-    echo -e "Docker取消安装，退出Watchtower容器安装!\n"
+    echo -e "Docker 取消安装，退出 Watchtower 容器安装!\n"
   fi
 elif type docker &>/dev/null; then
   install_watchtower
 else
-  echo -e "Watchtower已安装\n"
+  echo -e "Watchtower 已安装\n"
 fi
 
 # 安装Fail2ban
 # 修改Fail2ban默认配置
 config_fail2ban() {
   if type fail2ban-client &>/dev/null; then
-    read -p "是否修改Fail2ban默认配置？（回车默认yes）(y/n):" answer
+    read -p "是否修改 Fail2ban 默认配置？（回车默认yes）(y/n):" answer
     if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-      echo -e "开始配置Fail2ban...\n"
+      echo -e "开始配置 Fail2ban ...\n"
       if [ -f /etc/fail2ban/jail.local ]; then
-        echo -e "jail.local文件已存在\n"
+        echo -e "jail.local 文件已存在\n"
       else
         # 复制默认的 jail.conf 文件
         cp /etc/fail2ban/jail.{conf,local}
-        echo -e "jail.local文件已复制\n"
+        echo -e "jail.local 文件已复制\n"
       fi
       # 设置要修改的文件
       jail_file="/etc/fail2ban/jail.local"
@@ -340,11 +340,11 @@ config_fail2ban() {
 }
 
 if ! type fail2ban-client &>/dev/null; then
-  read -p "Fail2ban未安装，是否安装？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Fail2ban？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
-    echo "开始安装Fail2ban..."
+    echo "开始安装 Fail2ban ..."
     apt-get -y install fail2ban
-    echo -e "Fail2ban安装成功\n"
+    echo -e "Fail2ban 安装成功\n"
     config_fail2ban
   else
     echo -e "取消安装\n"
@@ -352,7 +352,7 @@ if ! type fail2ban-client &>/dev/null; then
 elif type fail2ban-client &>/dev/null; then
   config_fail2ban
 else
-  echo -e "Fail2ban已安装并已配置\n"
+  echo -e "Fail2ban 已安装并已配置\n"
 fi
 
 # 检测定时清理磁盘空间任务是否已设置
