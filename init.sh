@@ -84,7 +84,6 @@ else
   echo -e "取消 apt 更新\n"
 fi
 
-
 # 安装常用软件
 cmdline=(
     "curl"
