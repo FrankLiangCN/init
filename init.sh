@@ -375,6 +375,11 @@ install_ServerStatus() {
       password=pp
     fi
     echo -e "新的密码为：$password\n"
+    read -p "是否启用 vnstat (默认0:不启用 / 1:启用)：" vnstat
+    if [ -z "$vnstat" ]; then
+      vnstat=0
+    fi
+    echo -e "vnstat 值为：$vnstat\n"
     curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=1" | bash
     echo -e "ServerStatus 云探针客户端已安装/更新\n"
   else
