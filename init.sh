@@ -400,10 +400,10 @@ install_ServerStatus() {
 }
 
 if ! find /opt/ServerStatus/stat_client &>/dev/null; then
-  read -p "Rust 版 ServerStatus 云探针客户端未安装"
+  echo -e "Rust 版 ServerStatus 云探针客户端未安装"
   install_ServerStatus
 else
-  read -p "Rust 版 ServerStatus 云探针客户端已安装"
+  echo -e "Rust 版 ServerStatus 云探针客户端已安装"
   install_ServerStatus
 fi
 
