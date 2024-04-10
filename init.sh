@@ -345,11 +345,12 @@ if ! type fail2ban-client &>/dev/null; then
     echo "开始安装Fail2ban..."
     apt-get -y install fail2ban
     echo -e "Fail2ban安装成功\n"
-	config_fail2ban
+    config_fail2ban
   else
     echo -e "取消安装\n"
   fi
-elif config_fail2ban
+elif type fail2ban-client &>/dev/null; then
+  config_fail2ban
 else
   echo -e "Fail2ban已安装并已配置\n"
 fi
