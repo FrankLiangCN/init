@@ -87,7 +87,7 @@ fi
 # 安装curl
 if ! type curl &>/dev/null; then
   echo "正在安装 curl ..."
-  apt install curl -y
+  apt install -y curl
   echo -e "curl 已安装\n"
 else
   echo -e "curl 已安装\n"
@@ -96,7 +96,7 @@ fi
 # 安装wget
 if ! type wget &>/dev/null; then
   echo "正在安装 wget ..."
-  apt install wget -y
+  apt install -y wget
   echo -e "wget 已安装\n"
 else
   echo -e "wget 已安装\n"
@@ -105,7 +105,7 @@ fi
 # 安装tar
 if ! type tar &>/dev/null; then
   echo "正在安装 tar ..."
-  apt install tar -y
+  apt install -y tar
   echo -e "tar 已安装\n"
 else
   echo -e "tar 已安装\n"
@@ -114,34 +114,34 @@ fi
 # 安装unzip
 #if ! type unzip &>/dev/null; then
 #  echo "正在安装 unzip ..."
-#  apt install unzip -y
+#  apt install -y unzip
 #  echo -e "unzip 已安装\n"
 #else
 #  echo -e "unzip 已安装\n"
 #fi
 
-# 安装nano
-if ! type nano &>/dev/null; then
-  echo "正在安装 nano ..."
-  apt install nano -y
-  echo -e "nano 已安装\n"
-else
-  echo -e "nano 已安装\n"
-fi
-
 # 安装vim
 if ! type vim &>/dev/null; then
   echo "正在安装 vim ..."
-  apt install vim -y
+  apt install -y vim
   echo -e "vim 已安装\n"
 else
   echo -e "vim 已安装\n"
+fi
+
+# 安装nano
+if ! type nano &>/dev/null; then
+  echo "正在安装 nano ..."
+  apt install -y nano
+  echo -e "nano 已安装\n"
+else
+  echo -e "nano 已安装\n"
 fi
 
 # 安装vnstat
 if ! type vnstat &>/dev/null; then
   echo "正在安装 vnstat ..."
-  apt install vnstat -y
+  apt install -y vnstat
   echo -e "vnstat 已安装\n"
 else
   echo -e "vnstat 已安装\n"
