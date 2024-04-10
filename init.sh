@@ -393,9 +393,9 @@ install_ServerStatus() {
     fi
     echo -e "新的密码为：$password\n"
     curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=1" | bash
-    echo -e "ServerStatus 云探针客户端已安装\n"
+    echo -e "ServerStatus 云探针客户端已安装/更新\n"
   else
-    echo -e "取消安装 ServerStatus 云探针客户端\n"
+    echo -e "取消安装/更新 ServerStatus 云探针客户端\n"
   fi
 }
 
