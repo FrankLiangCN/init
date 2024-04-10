@@ -118,7 +118,7 @@ done
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
   read -p "是否安装 ddns-go？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     echo -e "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置\n"
@@ -132,7 +132,7 @@ fi
 # 安装x-ui
 if ! type x-ui &>/dev/null; then
   read -p "是否安装 x-ui？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo -e "开始安装 x-ui ...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
   else
@@ -145,7 +145,7 @@ fi
 # 安装Caddy
 if ! type caddy &>/dev/null; then
   read -p "是否安装 Caddy？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo "正在安装 Caddy ..."
     # Caddy安装指令
     apt install -y debian-keyring debian-archive-keyring apt-transport-https
@@ -163,7 +163,7 @@ fi
 # 安装Docker
 if ! type docker &>/dev/null; then
   read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo "正在安装 Docker ..."
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
@@ -179,7 +179,7 @@ fi
 install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
     read -p "是否安装 Portainer？（回车默认yes）(y/n):" answer
-    if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    if Option; then
       echo -e "开始安装 Portainer ...\n"
       docker volume create portainer_data
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
@@ -195,7 +195,7 @@ install_portainer () {
 if ! type docker &>/dev/null; then
   echo -e "安装 Portainer 容器前，需先安装 Docker!\n"
   read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo -e "正在安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
@@ -218,7 +218,7 @@ fi
 install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
     read -p "是否安装 Watchtower？（回车默认yes）(y/n):" answer
-    if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    if Option; then
       echo -e "开始安装 Watchtower ...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
       echo -e "Watchtower 安装成功\n"
@@ -233,7 +233,7 @@ install_watchtower() {
 if ! type docker &>/dev/null; then
   echo -e "安装 Watchtower 容器前，需先安装 Docker!\n"
   read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo -e "开始安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
@@ -257,7 +257,7 @@ fi
 config_fail2ban() {
   if type fail2ban-client &>/dev/null; then
     read -p "是否修改 Fail2ban 默认配置？（回车默认yes）(y/n):" answer
-    if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+    if Option; then
       echo -e "开始配置 Fail2ban ...\n"
       if [ -f /etc/fail2ban/jail.local ]; then
         echo -e "jail.local 文件已存在\n"
@@ -309,7 +309,7 @@ config_fail2ban() {
 
 if ! type fail2ban-client &>/dev/null; then
   read -p "是否安装 Fail2ban？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo "开始安装 Fail2ban ..."
     apt-get -y install fail2ban
     echo -e "Fail2ban 安装成功\n"
@@ -327,10 +327,10 @@ fi
 # 安装 Rust 版 ServerStatus 云探针
 install_ServerStatus() {
   read -p "是否 安装/更新 客户端？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     read -p "请输入服务端域名/IP:端口：" url
     if [ -z "$url" ]; then
-      url=https://xxx_Or_http://xxx:8888
+      url=https://vps.simpletechcn.com
     fi
     echo -e "新的服务端域名/IP:端口为：$url\n"
     read -p "请输入用户名：" username
@@ -352,7 +352,7 @@ install_ServerStatus() {
     else
       echo -e "vnstat不启用\n"
     fi
-    curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=1" | bash
+    curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=${vnstat}" | bash
     echo -e "ServerStatus 云探针客户端已安装/更新\n"
   else
     echo -e "取消安装/更新 ServerStatus 云探针客户端\n"
@@ -370,7 +370,7 @@ fi
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？（回车默认yes）(y/n):" answer
-  if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  if Option; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
     chmod +x /opt/cleandata.sh
