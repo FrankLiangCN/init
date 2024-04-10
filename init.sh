@@ -379,10 +379,10 @@ install_ServerStatus() {
     if [ -z "$vnstat" ]; then
       vnstat=1
     fi
-    if [ "$vnstat" = "0" ]; then
-      echo -e "vnstat不启用\n"
-    else
+    if [ "$vnstat" = "1" ]; then
       echo -e "vnstat已启用\n"
+    else
+      echo -e "vnstat不启用\n"
     fi
     curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=1" | bash
     echo -e "ServerStatus 云探针客户端已安装/更新\n"
