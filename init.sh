@@ -379,7 +379,7 @@ install_ServerStatus() {
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     read -p "请输入服务端域名/IP:端口：" url
     if [ -z "$url" ]; then
-      url=https://vps.simpletechcn.com
+      url=https://xxx_Or_http://xxx:8888
     fi
     echo -e "新的服务端域名/IP:端口为：$url\n"
     read -p "请输入用户名：" username
