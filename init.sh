@@ -373,11 +373,9 @@ else
   echo -e "定时清理磁盘空间任务已设置\n"
 fi
 
-echo -e "Linux 环境初始化自动部署成功！\n"
-
 # 安装 Rust 版 ServerStatus 云探针
 install_ServerStatus() {
-  read -p "是否安装/更新 Rust 版 ServerStatus 云探针客户端？（回车默认yes）(y/n):" answer
+  read -p "是否 安装/更新 客户端？（回车默认yes）(y/n):" answer
   if [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
     read -p "请输入服务端域名/IP:端口：" url
     if [ -z "$url" ]; then
@@ -395,14 +393,18 @@ install_ServerStatus() {
     fi
     echo -e "新的密码为：$password\n"
     curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=1" | bash
-    echo -e "ServerStatus 云探针客户端 已安装\n"
+    echo -e "ServerStatus 云探针客户端已安装\n"
   else
     echo -e "取消安装 ServerStatus 云探针客户端\n"
   fi
 }
 
 if ! find /opt/ServerStatus/stat_client &>/dev/null; then
+  read -p "Rust 版 ServerStatus 云探针客户端未安装"
   install_ServerStatus
 else
+  read -p "Rust 版 ServerStatus 云探针客户端已安装"
   install_ServerStatus
 fi
+
+echo -e "Linux 环境初始化自动部署成功！\n"
