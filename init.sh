@@ -332,7 +332,7 @@ config_fail2ban() {
       sudo systemctl restart fail2ban
       echo -e "Fail2ban 配置已更新并重启。\n"
     else
-      echo -e "保留默认设置\n"
+      echo -e "保留默认配置\n"
     fi
   else
     echo ""
