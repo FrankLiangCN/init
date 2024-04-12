@@ -70,7 +70,7 @@ fi
 
 # 定义选择项
 Option() {
-  [[ x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]
+  [[ x"$answer" == x"yes" || x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]
 }
 
 # apt 更新
