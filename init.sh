@@ -88,7 +88,7 @@ cmdline=(
     "curl"
     "wget"
     "tar"
-#    "unzip"
+    "unzip"
     "vim"
     "nano"
     "vnstat"
