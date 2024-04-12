@@ -381,7 +381,7 @@ else
   echo -e "定时清理磁盘空间任务已设置\n"
 fi
 
-echo -e "Linux 环境初始化自动部署成功！\n"
+echo -e "Linux 环境初始化自动部署成功！\n\n"
 
 # 修改Root密码
 read -p "是否修改root密码？(y/n) [默认yes]:" answer
