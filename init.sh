@@ -74,7 +74,7 @@ Option() {
 }
 
 # apt 更新
-read -p "是否进行apt更新？（回车默认yes）(y/n):" answer
+read -p "是否进行apt更新？(y/n) [默认yes]:" answer
 if Option; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
@@ -88,7 +88,7 @@ cmdline=(
     "curl"
     "wget"
     "tar"
-    "unzip"
+#    "unzip"
     "vim"
     "nano"
     "vnstat"
@@ -111,7 +111,7 @@ done
 
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
-  read -p "是否安装 ddns-go？（回车默认yes）(y/n):" answer
+  read -p "是否安装 ddns-go？(y/n) [默认yes]:" answer
   if Option; then
     echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
@@ -125,7 +125,7 @@ fi
 
 # 安装x-ui
 if ! type x-ui &>/dev/null; then
-  read -p "是否安装 x-ui？（回车默认yes）(y/n):" answer
+  read -p "是否安装 x-ui？(y/n) [默认yes]:" answer
   if Option; then
     echo -e "开始安装 x-ui ...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
@@ -138,7 +138,7 @@ fi
 
 # 安装Caddy
 if ! type caddy &>/dev/null; then
-  read -p "是否安装 Caddy？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Caddy？(y/n) [默认yes]:" answer
   if Option; then
     echo "正在安装 Caddy ..."
     # Caddy安装指令
@@ -156,7 +156,7 @@ fi
 
 # 安装Docker
 if ! type docker &>/dev/null; then
-  read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Docker？(y/n) [默认yes]:" answer
   if Option; then
     echo "正在安装 Docker ..."
     # Docker安装指令
@@ -172,7 +172,7 @@ fi
 # 安装Docker容器Portainer
 install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
-    read -p "是否安装 Portainer？（回车默认yes）(y/n):" answer
+    read -p "是否安装 Portainer？(y/n) [默认yes]:" answer
     if Option; then
       echo -e "开始安装 Portainer ...\n"
       docker volume create portainer_data
@@ -188,7 +188,7 @@ install_portainer () {
 
 if ! type docker &>/dev/null; then
   echo -e "安装 Portainer 容器前，需先安装 Docker!\n"
-  read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Docker？(y/n) [默认yes]:" answer
   if Option; then
     echo -e "正在安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
@@ -211,7 +211,7 @@ fi
 # 安装Docker容器Watchtower
 install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
-    read -p "是否安装 Watchtower？（回车默认yes）(y/n):" answer
+    read -p "是否安装 Watchtower？(y/n) [默认yes]:" answer
     if Option; then
       echo -e "开始安装 Watchtower ...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
@@ -226,7 +226,7 @@ install_watchtower() {
 
 if ! type docker &>/dev/null; then
   echo -e "安装 Watchtower 容器前，需先安装 Docker!\n"
-  read -p "是否安装 Docker？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Docker？(y/n) [默认yes]:" answer
   if Option; then
     echo -e "开始安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
@@ -250,7 +250,7 @@ fi
 # 修改Fail2ban默认配置
 config_fail2ban() {
   if type fail2ban-client &>/dev/null; then
-    read -p "是否修改 Fail2ban 默认配置？（回车默认yes）(y/n):" answer
+    read -p "是否修改 Fail2ban 默认配置？(y/n) [默认yes]:" answer
     if Option; then
       echo -e "开始配置 Fail2ban ...\n"
       if [ -f /etc/fail2ban/jail.local ]; then
@@ -305,7 +305,7 @@ config_fail2ban() {
 }
 
 if ! type fail2ban-client &>/dev/null; then
-  read -p "是否安装 Fail2ban？（回车默认yes）(y/n):" answer
+  read -p "是否安装 Fail2ban？(y/n) [默认yes]:" answer
   if Option; then
     echo "开始安装 Fail2ban ..."
     apt-get -y install fail2ban
@@ -323,7 +323,7 @@ fi
 
 # 安装 Rust 版 ServerStatus 云探针
 install_ServerStatus() {
-  read -p "是否 安装/更新 客户端？（回车默认yes）(y/n):" answer
+  read -p "是否 安装/更新 客户端？(y/n) [默认yes]:" answer
   if Option; then
     read -p "请输入服务端域名/IP:端口：" url
     if [ -z "$url" ]; then
@@ -366,7 +366,7 @@ fi
 
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  read -p "是否设置定时清理磁盘空间任务？（回车默认yes）(y/n):" answer
+  read -p "是否设置定时清理磁盘空间任务？(y/n) [默认yes]:" answer
   if Option; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
