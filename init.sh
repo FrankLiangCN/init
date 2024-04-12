@@ -382,3 +382,17 @@ else
 fi
 
 echo -e "Linux 环境初始化自动部署成功！\n"
+
+# 修改Root密码
+read -p "是否修改root密码？(y/n) [默认yes]:" answer
+if Option; then
+  read -p "请输入新密码：" pass
+  if [ -z "$pass" ]; then
+    pass=@Sz123456
+  fi
+  echo -e "新的服务端域名/IP:端口为：$pass\n"
+  echo -e "修改密码后会断开所有已连接用户\n"
+  current_tty=$(tty); pts_list=$(who | awk '{print $2}'); for pts in $pts_list; do [ "$current_tty" != "/dev/$pts" ] && pkill -9 -t $pts; done; echo 'root:${pass}' | chpasswd && sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config && service ssh restart; current_tty=$(tty); pts_list=$(who | awk '{print $2}'); for pts in $pts_list; do [ "$current_tty" != "/dev/$pts" ] && pkill -9 -t $pts; done
+else
+  echo -e "保留原root密码\n"
+fi
