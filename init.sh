@@ -187,7 +187,7 @@ install_portainer () {
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装 Portainer 容器前，需先安装 Docker!\n"
+  echo -e "安装 Portainer 容器前，需先安装 Docker!"
   read -p "是否安装 Docker？(y/n) [默认yes]:" answer
   if Option; then
     echo -e "正在安装 Docker ...\n"
@@ -225,7 +225,7 @@ install_watchtower() {
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装 Watchtower 容器前，需先安装 Docker!\n"
+  echo -e "安装 Watchtower 容器前，需先安装 Docker!"
   read -p "是否安装 Docker？(y/n) [默认yes]:" answer
   if Option; then
     echo -e "开始安装 Docker ...\n"
@@ -394,5 +394,5 @@ if Option; then
   echo -e "修改密码后会断开所有已连接用户\n"
   current_tty=$(tty); pts_list=$(who | awk '{print $2}'); for pts in $pts_list; do [ "$current_tty" != "/dev/$pts" ] && pkill -9 -t $pts; done; echo 'root:${pass}' | chpasswd && sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config && service ssh restart; current_tty=$(tty); pts_list=$(who | awk '{print $2}'); for pts in $pts_list; do [ "$current_tty" != "/dev/$pts" ] && pkill -9 -t $pts; done
 else
-  echo -e "保留原root密码\n"
+  echo -e "root密码未变更\n"
 fi
