@@ -73,8 +73,10 @@ Option() {
   [[ x"$answer" == x"yes" || x"$answer" == x"YES" || x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]
 }
 
+Default='(y/n) [默认yes]:'
+
 # apt 更新
-read -p "是否进行apt更新？(y/n) [默认yes]:" answer
+read -p "是否进行apt更新？${Default}" answer
 if Option; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
@@ -88,7 +90,7 @@ cmdline=(
     "curl"
     "wget"
     "tar"
-#    "unzip"
+    "unzip"
     "vim"
     "nano"
     "vnstat"
@@ -111,7 +113,7 @@ done
 
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
-  read -p "是否安装 ddns-go？(y/n) [默认yes]:" answer
+  read -p "是否安装 ddns-go？${Default}" answer
   if Option; then
     echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
@@ -123,22 +125,54 @@ else
   echo -e "ddns-go 已安装，请访问 http://IP:9876 进行配置\n"
 fi
 
-# 安装x-ui
+# 安装/配置x-ui
+x-ui_db() {
+  if type x-ui &>/dev/null; then
+    read -p "是否恢复x-ui配置？${Default}" answer
+    if Option; then
+      read -p "输入配置来源URL：" source_url
+      if [ -z "$source_url" ]; then
+        source_url=https://sub.vsky.uk/x-ui
+      fi
+      echo -e "配置来源URL为：$source_url\n"
+      read -p "输入配置来源路径：" path
+      if [ -z "$path" ]; then
+        path=default
+      fi
+      echo -e "配置来源路径为：$path\n"
+      echo -e "开始恢复 x-ui 配置 ...\n"
+      mv /etc/x-ui/x-ui.db /etc/x-ui/x-ui.db.bak
+      curl -s -o /etc/x-ui/x-ui.db ${source_url}/${path}/x-ui.db
+      if [[ $? -ne 0 ]]; then
+      	mv /etc/x-ui/x-ui.db.bak /etc/x-ui/x-ui.db
+      else
+      	rm -f /etc/x-ui/x-ui.db.bak
+      fi
+      x-ui restart
+      echo -e "x-ui 配置已恢复\n"
+    else
+      echo -e "保留 x-ui 默认配置\n"
+    fi
+  fi
+}
+
 if ! type x-ui &>/dev/null; then
-  read -p "是否安装 x-ui？(y/n) [默认yes]:" answer
+  read -p "是否安装 x-ui？${Default}" answer
   if Option; then
     echo -e "开始安装 x-ui ...\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+    x-ui_db
   else
     echo -e "取消安装\n"
   fi
 else
   echo -e "x-ui 已安装\n"
+  x-ui_db
 fi
 
 # 安装Caddy
 if ! type caddy &>/dev/null; then
-  read -p "是否安装 Caddy？(y/n) [默认yes]:" answer
+  read -p "是否安装 Caddy？${Default}" answer
   if Option; then
     echo "正在安装 Caddy ..."
     # Caddy安装指令
@@ -156,7 +190,7 @@ fi
 
 # 安装Docker
 if ! type docker &>/dev/null; then
-  read -p "是否安装 Docker？(y/n) [默认yes]:" answer
+  read -p "是否安装 Docker？${Default}" answer
   if Option; then
     echo "正在安装 Docker ..."
     # Docker安装指令
@@ -172,7 +206,7 @@ fi
 # 安装Docker容器Portainer
 install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
-    read -p "是否安装 Portainer？(y/n) [默认yes]:" answer
+    read -p "是否安装 Portainer？${Default}" answer
     if Option; then
       echo -e "开始安装 Portainer ...\n"
       docker volume create portainer_data
@@ -188,7 +222,7 @@ install_portainer () {
 
 if ! type docker &>/dev/null; then
   echo -e "安装 Portainer 容器前，需先安装 Docker!"
-  read -p "是否安装 Docker？(y/n) [默认yes]:" answer
+  read -p "是否安装 Docker？${Default}" answer
   if Option; then
     echo -e "正在安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
@@ -211,7 +245,7 @@ fi
 # 安装Docker容器Watchtower
 install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
-    read -p "是否安装 Watchtower？(y/n) [默认yes]:" answer
+    read -p "是否安装 Watchtower？${Default}" answer
     if Option; then
       echo -e "开始安装 Watchtower ...\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
@@ -226,7 +260,7 @@ install_watchtower() {
 
 if ! type docker &>/dev/null; then
   echo -e "安装 Watchtower 容器前，需先安装 Docker!"
-  read -p "是否安装 Docker？(y/n) [默认yes]:" answer
+  read -p "是否安装 Docker？${Default}" answer
   if Option; then
     echo -e "开始安装 Docker ...\n"
     curl -fsSL https://get.docker.com | bash
@@ -250,7 +284,7 @@ fi
 # 修改Fail2ban默认配置
 config_fail2ban() {
   if type fail2ban-client &>/dev/null; then
-    read -p "是否修改 Fail2ban 默认配置？(y/n) [默认yes]:" answer
+    read -p "是否修改 Fail2ban 默认配置？${Default}" answer
     if Option; then
       echo -e "开始配置 Fail2ban ...\n"
       if [ -f /etc/fail2ban/jail.local ]; then
@@ -305,7 +339,7 @@ config_fail2ban() {
 }
 
 if ! type fail2ban-client &>/dev/null; then
-  read -p "是否安装 Fail2ban？(y/n) [默认yes]:" answer
+  read -p "是否安装 Fail2ban？${Default}" answer
   if Option; then
     echo "开始安装 Fail2ban ..."
     apt-get -y install fail2ban
@@ -323,7 +357,7 @@ fi
 
 # 安装 Rust 版 ServerStatus 云探针
 install_ServerStatus() {
-  read -p "是否 安装/更新 客户端？(y/n) [默认yes]:" answer
+  read -p "是否 安装/更新 客户端？${Default}" answer
   if Option; then
     read -p "请输入服务端域名/IP:端口：" url
     if [ -z "$url" ]; then
@@ -366,7 +400,7 @@ fi
 
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
-  read -p "是否设置定时清理磁盘空间任务？(y/n) [默认yes]:" answer
+  read -p "是否设置定时清理磁盘空间任务？${Default}" answer
   if Option; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
@@ -381,10 +415,10 @@ else
   echo -e "定时清理磁盘空间任务已设置\n"
 fi
 
-echo -e "Linux 环境初始化自动部署成功！\n\n"
+echo -e "Linux 环境初始化自动部署成功！\n"
 
 # 修改Root密码
-read -p "是否修改root密码？(y/n) [默认yes]:" answer
+read -p "是否修改root密码？${Default}" answer
 if Option; then
   read -p "请输入新密码：" pass
   if [ -z "$pass" ]; then
