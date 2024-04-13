@@ -75,6 +75,10 @@ Option() {
 
 Default='(y/n) [默认yes]:'
 
+Cancel() {
+  Cancel
+}
+
 # apt 更新
 read -p "是否进行apt更新？${Default}" answer
 if Option; then
@@ -96,11 +100,11 @@ cmdline=(
     "vnstat"
 )
 
-for app in "${cmdline[@]}"; do
-    if command -v "$app" >/dev/null; then
-      echo -e "$app 已安装\n"
+for soft in "${cmdline[@]}"; do
+    if command -v "$soft" >/dev/null; then
+      echo -e "$soft 已安装\n"
     else
-      name=${app##*which }
+      name=${soft##*which }
       echo -e "${name} 安装中 ..."
       apt install -y ${name} >/dev/null 2>&1
       if [[ $? -eq 0 ]]; then
@@ -119,7 +123,7 @@ if ! type ddns-go &>/dev/null; then
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     echo -e "ddns-go 已安装，请访问 http://IP:9876 进行初始化配置\n"
   else
-    echo -e "取消安装\n"
+    Cancel
   fi
 else
   echo -e "ddns-go 已安装，请访问 http://IP:9876 进行配置\n"
@@ -163,7 +167,7 @@ if ! type x-ui &>/dev/null; then
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
     x-ui_db
   else
-    echo -e "取消安装\n"
+    Cancel
   fi
 else
   echo -e "x-ui 已安装"
@@ -182,7 +186,7 @@ if ! type caddy &>/dev/null; then
     apt update && apt install caddy
     echo -e "Caddy 安装成功\n"
   else
-    echo -e "取消安装\n"
+    Cancel
   fi
 else
   echo -e "Caddy 已安装\n"
@@ -197,7 +201,7 @@ if ! type docker &>/dev/null; then
     curl -fsSL https://get.docker.com | bash
     echo -e "Docker 安装成功\n"
   else
-    echo -e "取消安装\n"
+    Cancel
   fi
 else
   echo -e "Docker 已安装\n"
@@ -213,7 +217,7 @@ install_portainer () {
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
       echo -e "Portainer 安装成功，5分钟内访问 http://IP:9000 进行初始化配置\n"
     else
-      echo -e "Portainer 取消安装\n"
+      Cancel
     fi
   else
     echo -e "Portainer 已安装\n"
@@ -251,7 +255,7 @@ install_watchtower() {
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
       echo -e "Watchtower 安装成功\n"
     else
-      echo -e "Watchtower 取消安装\n"
+      Cancel
     fi
   else
     echo -e "Watchtower 已安装\n"
@@ -346,7 +350,7 @@ if ! type fail2ban-client &>/dev/null; then
     echo -e "Fail2ban 安装成功\n"
     config_fail2ban
   else
-    echo -e "取消安装\n"
+    Cancel
   fi
 elif type fail2ban-client &>/dev/null; then
   echo -e "Fail2ban 已安装"
