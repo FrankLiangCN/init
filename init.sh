@@ -425,10 +425,11 @@ if Option; then
     new_password=@Sz123456
   fi
   echo -e "新的 Root 密码为：$new_password"
-  echo "$new_password" | passwd root --stdin > /dev/null 2>&1
+  # 更改 root 密码
+  echo "root:$new_password" | chpasswd
   # 检查是否成功更改密码
   if [ $? -eq 0 ]; then
-    echo "Root 密码已成功更改为 $new_password"
+    echo "Root 密码已成功更改为：$new_password"
   else
     echo "更改 Root 密码失败"
   fi
