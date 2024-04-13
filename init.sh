@@ -297,7 +297,7 @@ config_fail2ban() {
       else
         # 复制默认的 jail.conf 文件
         cp /etc/fail2ban/jail.{conf,local}
-        echo -e "jail.local 文件已复制\n"
+        echo -e "${yellow}jail.local 文件已复制${plain}\n"
       fi
       # 设置要修改的文件
       jail_file="/etc/fail2ban/jail.local"
@@ -309,21 +309,21 @@ config_fail2ban() {
       current_maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
       # 设置要修改的值
       echo "当前 bantime 值为：$current_bantime"
-      read -p "请输入新的 bantime 值${yellow}（回车保留默认值）${plain}：" new_bantime
+      read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
       if [ -z "$new_bantime" ]; then
         new_bantime=$current_bantime
       fi
       echo -e "新的 bantime 值为：$new_bantime\n"
       sed -i "s/^bantime\s*=\s*$current_bantime/bantime = $new_bantime/1" $jail_file
   	echo "当前 findtime 值为：$current_findtime"
-      read -p "请输入新的 findtime 值${yellow}（回车保留默认值）${plain}：" new_findtime
+      read -p "请输入新的 findtime 值（回车保留默认值）：" new_findtime
       if [ -z "$new_findtime" ]; then
         new_findtime=$current_findtime
       fi
       echo -e "新的 findtime 值为：$new_findtime\n"
       sed -i "s/^findtime\s*=\s*$current_findtime/findtime = $new_findtime/1" $jail_file
   	echo "当前 maxretry 值为：$current_maxretry"
-      read -p "请输入新的 maxretry 值${yellow}（回车保留默认值）${plain}：" new_maxretry
+      read -p "请输入新的 maxretry 值（回车保留默认值）：" new_maxretry
       if [ -z "$new_maxretry" ]; then
         new_maxretry=$current_maxretry
       fi
