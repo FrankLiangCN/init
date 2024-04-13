@@ -151,7 +151,7 @@ x-ui_db() {
       x-ui restart
       echo -e "x-ui 配置已恢复\n"
     else
-      echo -e "保留 x-ui 默认配置\n"
+      echo -e "保留 x-ui 当前配置\n"
     fi
   fi
 }
