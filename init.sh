@@ -38,7 +38,7 @@ pubkey_authentication=$(grep -E "^\s*PubkeyAuthentication\s+" $ssh_config_file |
 rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
 
 ssh_key_enable() {
-  echo -e "SSH Key登录选项${green}已开启${plain}"
+  echo -e "SSH Key 登录选项${green}已开启${plain}"
   service ssh restart
   echo -e "${red}SSH服务已重启${plain}\n"
 }
@@ -68,7 +68,7 @@ elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
 else
-  echo -e "SSH Key登录选项${green}已开启${plain}，无需修改配置...\n"
+  echo -e "SSH Key 登录选项${green}已开启${plain}，无需修改配置...\n"
 fi
 
 # 设置系统时区
