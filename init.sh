@@ -418,15 +418,20 @@ fi
 echo -e "Linux 环境初始化自动部署成功！\n"
 
 # 修改Root密码
-read -p "是否修改root密码？${Default}" answer
+read -p "是否修改 Root 密码？${Default}" answer
 if Option; then
-  read -p "请输入新密码：" pass
-  if [ -z "$pass" ]; then
-    pass=@Sz123456
+  read -p "请输入新密码：" new_password
+  if [ -z "$new_password" ]; then
+    new_password=@Sz123456
   fi
-  echo -e "新的服务端域名/IP:端口为：$pass\n"
-  echo -e "修改密码后会断开所有已连接用户\n"
-  current_tty=$(tty); pts_list=$(who | awk '{print $2}'); for pts in $pts_list; do [ "$current_tty" != "/dev/$pts" ] && pkill -9 -t $pts; done; echo 'root:${pass}' | chpasswd && sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config && service ssh restart; current_tty=$(tty); pts_list=$(who | awk '{print $2}'); for pts in $pts_list; do [ "$current_tty" != "/dev/$pts" ] && pkill -9 -t $pts; done
+  echo -e "新的 Root 密码为：$new_password"
+  echo "$new_password" | passwd root --stdin > /dev/null 2>&1
+  # 检查是否成功更改密码
+  if [ $? -eq 0 ]; then
+    echo "Root 密码已成功更改为 $new_password"
+  else
+    echo "更改 Root 密码失败"
+  fi
 else
-  echo -e "root密码未变更\n"
+  echo -e "Root 密码未变更\n"
 fi
