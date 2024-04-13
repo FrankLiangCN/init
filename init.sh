@@ -76,7 +76,7 @@ Option() {
 Default='(y/n) [默认yes]:'
 
 Cancel() {
-  Cancel
+  echo -e "取消安装\n"
 }
 
 # apt 更新
