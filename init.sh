@@ -166,7 +166,7 @@ if ! type x-ui &>/dev/null; then
     echo -e "取消安装\n"
   fi
 else
-  echo -e "x-ui 已安装\n"
+  echo -e "x-ui 已安装"
   x-ui_db
 fi
 
