@@ -245,11 +245,8 @@ if ! type docker &>/dev/null; then
   else
     echo -e "${red}Docker 取消安装，退出 Portainer 容器安装!${plain}\n"
   fi
-#elif type docker &>/dev/null; then
 else
   install_portainer
-#else
-#  echo -e "${green}Portainer 已安装${plain}\n"
 fi
 
 # 安装Docker容器Watchtower
@@ -284,11 +281,8 @@ if ! type docker &>/dev/null; then
   else
     echo -e "${red}Docker 取消安装，退出 Watchtower 容器安装!${plain}\n"
   fi
-#elif type docker &>/dev/null; then
 else
   install_watchtower
-#else
-#  echo -e "Watchtower 已安装\n"
 fi
 
 # 安装Fail2ban
