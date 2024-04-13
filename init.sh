@@ -429,9 +429,9 @@ if Option; then
   echo "root:$new_password" | chpasswd
   # 检查是否成功更改密码
   if [ $? -eq 0 ]; then
-    echo "Root 密码已成功更改为：$new_password"
+    echo -e "Root 密码已成功更改为：$new_password\n"
   else
-    echo "更改 Root 密码失败"
+    echo -e "更改 Root 密码失败\n"
   fi
 else
   echo -e "Root 密码未变更\n"
