@@ -353,11 +353,9 @@ if ! type fail2ban-client &>/dev/null; then
   else
     Cancel_info
   fi
-elif type fail2ban-client &>/dev/null; then
+else
   echo -e "${green}Fail2ban 已安装${plain}"
   config_fail2ban
-else
-  echo -e "${green}Fail2ban 已安装并已配置${plain}\n"
 fi
 
 # 安装 Rust 版 ServerStatus 云探针
@@ -403,6 +401,35 @@ else
   install_ServerStatus
 fi
 
+# 安装Rclone
+config_rclone() {
+  if type rclone &>/dev/null; then
+    read -p "是否配置 Rclone？${Default}" answer
+    if Option; then
+      rclone config
+    else
+      echo -e "${red}取消配置${plain}，后续输入${yellow} rclone config ${plain}进行配置\n"
+    fi
+  else
+    echo ""
+  fi
+}
+
+if ! type rclone &>/dev/null; then
+  read -p "是否安装 Rclone？${Default}" answer
+  if Option; then
+    echo "开始安装 Rclone ..."
+    curl https://rclone.org/install.sh | bash
+    Install_succ
+    config_rclone
+  else
+    Cancel_info
+  fi
+else
+  echo -e "${green}Rclone 已安装${plain}"
+  config_rclone
+fi
+
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？${Default}" answer
@@ -427,7 +454,7 @@ echo -e "${yellow}=========================================================${pla
 echo -e ""
 
 # 修改Root密码
-echo -e "修改 Root 密码后，${red}断开所有连接重新登录后生效！！${plain}"
+echo -e "修改 Root 密码后，${red}需断开所有连接重新登录后生效！！${plain}"
 read -p "是否修改 Root 密码？${Default}" answer
 if Option; then
   read -p "请输入新密码：" new_password
