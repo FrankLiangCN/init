@@ -266,7 +266,7 @@ install_watchtower() {
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装 Watchtower 容器前，需先安装 Docker!"
+  echo -e "安装 Watchtower 容器前，${yellow}需先安装 Docker!${plain}"
   read -p "是否安装 Docker？${Default}" answer
   if Option; then
     echo -e "开始安装 Docker ...\n"
@@ -442,13 +442,18 @@ if Option; then
   # 检查是否成功更改密码
   if [ $? -eq 0 ]; then
     echo -e "Root 密码已成功更改为：$new_password\n"
-    echo -e "${red}自动断开所有连接，使用新 Root 密码重新登录${plain}"
-    current_tty=$(tty)
-    pts_list=$(who | awk '{print $2}')
-    for pts in $pts_list; do
-      [ "$current_tty" != "/dev/$pts" ]
-      pkill -9 -t $pts
-    done
+    read -p "是否立即断开所有连接？${Default}" answer
+    if Option; then
+      echo -e "${red}自动断开所有连接，使用新 Root 密码重新登录${plain}"
+      current_tty=$(tty)
+      pts_list=$(who | awk '{print $2}')
+      for pts in $pts_list; do
+        [ "$current_tty" != "/dev/$pts" ]
+        pkill -9 -t $pts
+      done
+    else
+      echo -e "${red}需手动断开所有连接，重新登录，新 Root 密码生效${plain}" 
+    fi
   else
     echo -e "${red}更改 Root 密码失败${plain}\n"
   fi
