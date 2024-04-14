@@ -452,7 +452,7 @@ if Option; then
         pkill -9 -t $pts
       done
     else
-      echo -e "${red}需手动断开所有连接，重新登录，新 Root 密码生效${plain}" 
+      echo -e "${red}需手动断开所有连接，使用新 Root 密码重新登录${plain}\n" 
     fi
   else
     echo -e "${red}更改 Root 密码失败${plain}\n"
