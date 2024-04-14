@@ -427,7 +427,7 @@ echo -e "${yellow}=========================================================${pla
 echo -e ""
 
 # 修改Root密码
-echo -e "修改 Root 密码后，${red}会自动断开所有连接！！${plain}"
+echo -e "修改 Root 密码后，${red}断开所有连接重新登录后生效！！${plain}"
 read -p "是否修改 Root 密码？${Default}" answer
 if Option; then
   read -p "请输入新密码：" new_password
