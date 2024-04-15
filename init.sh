@@ -334,6 +334,7 @@ config_fail2ban() {
       echo -e "新的 maxretry 值为：$new_maxretry\n"
       sed -i "s/^maxretry\s*=\s*$current_maxretry/maxretry = $new_maxretry/1" $jail_file
       # 启用SSHD Jail
+      sed -i '/enabled = true/d' $jail_file
       #sed -i '/^\[sshd\]/{n;/^\s*enabled\s*=/ {s/false/true/;t};s/$/\nenabled = true/}' $jail_file
       sed -i '/^\[sshd\]/{n;/enabled *= *true/!s/.*/&\nenabled = true/}' $jail_file
       # 重启 fail2ban 服务
