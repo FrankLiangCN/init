@@ -337,10 +337,12 @@ config_fail2ban() {
       #sed -i '/^\[sshd\]/{n;/^\s*enabled\s*=/ {s/false/true/;t};s/$/\nenabled = true/}' $jail_file
       sed -i '/^\[sshd\]/{n;/enabled *= *true/!s/.*/&\nenabled = true/}' $jail_file
       # 重启 fail2ban 服务
-      sudo systemctl restart fail2ban
+      systemctl restart fail2ban
       echo -e "${red}Fail2ban 配置已更新并重启${plain}\n"
+      fail2ban-client status
     else
       echo -e "${yellow}保留默认配置${plain}\n"
+      fail2ban-client status
     fi
   else
     echo ""
