@@ -340,9 +340,11 @@ config_fail2ban() {
       systemctl restart fail2ban
       echo -e "${red}Fail2ban 配置已更新并重启${plain}\n"
       fail2ban-client status
+      echo ""
     else
       echo -e "${yellow}保留默认配置${plain}\n"
       fail2ban-client status
+      echo ""
     fi
   else
     echo ""
