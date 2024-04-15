@@ -79,7 +79,11 @@ current_timezone=$(date +%Z)
 if [ "$current_timezone" != "HKT" ]; then
   # 设置时区为Asia/Hong_Kong
   timedatectl set-timezone "Asia/Hong_Kong"
-  echo -e "${green}设置系统时区为 Asia/Hong_Kong 成功！${plain}\n"
+  if [ $? -eq 0 ]; then
+    echo -e "${green}设置系统时区为 Asia/Hong_Kong 成功！${plain}\n"
+  else
+    echo -e "${red}设置系统时区失败，请重新设置！${plain}\n"
+  fi
 else
   echo -e "当前时区已设置为${green} Asia/Hong_Kong${plain}，无需修改\n"
 fi
