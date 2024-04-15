@@ -339,6 +339,7 @@ config_fail2ban() {
       # 重启 fail2ban 服务
       systemctl restart fail2ban
       echo -e "${red}Fail2ban 配置已更新并重启${plain}\n"
+      sleep 3
       fail2ban-client status
       echo ""
     else
