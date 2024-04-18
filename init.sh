@@ -107,6 +107,7 @@ cmdline=(
     "vim"
     "nano"
     "vnstat"
+    "dos2unix"
 )
 
 for soft in "${cmdline[@]}"; do
