@@ -1,9 +1,11 @@
 #!/bin/bash
 
-red='\033[0;31m'
-green='\033[0;32m'
-yellow='\033[0;33m'
-plain='\033[0m'
+Red='\033[0;31m'
+Green='\033[0;32m'
+Yellow='\033[0;33m'
+Blue='\033[0;34m'
+UBlue='\033[4;34m'
+Plain='\033[0m'
 
 # 定义项
 Option() {
@@ -13,17 +15,17 @@ Option() {
 Default='(y/n) [默认yes]:'
 
 Cancel_info() {
-  echo -e "${red}取消安装${plain}\n"
+  echo -e "${Red}取消安装${Plain}\n"
 }
 
 Install_succ() {
-  echo -e "${green}安装成功${plain}\n"
+  echo -e "${Green}安装成功${Plain}\n"
 }
 
 echo -e ""
-echo -e "${green}=========================================================${plain}"
-echo -e "${green}+              Linux 环境初始化自动部署脚本             +${plain}"
-echo -e "${green}=========================================================${plain}"
+echo -e "${Green}=========================================================${Plain}"
+echo -e "${Green}+              Linux 环境初始化自动部署脚本             +${Plain}"
+echo -e "${Green}=========================================================${Plain}"
 echo -e ""
 
 
@@ -38,37 +40,37 @@ pubkey_authentication=$(grep -E "^\s*PubkeyAuthentication\s+" $ssh_config_file |
 rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
 
 ssh_key_enable() {
-  echo -e "SSH Key 登录选项${green}已开启${plain}"
+  echo -e "SSH Key 登录选项${Green}已开启${Plain}"
   service ssh restart
-  echo -e "${red}SSH服务已重启${plain}\n"
+  echo -e "${Red}SSH服务已重启${Plain}\n"
 }
 
 # 判断SSH参数并修改配置
 if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
-  echo -e "修改 PubkeyAuthentication 和 RSAAuthentication 参数为${green} yes${plain}..."
+  echo -e "修改 PubkeyAuthentication 和 RSAAuthentication 参数为${Green} yes${Plain}..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   ssh_key_enable
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
-  echo -e "修改 RSAAuthentication 参数为${green} yes${plain}..."
+  echo -e "修改 RSAAuthentication 参数为${Green} yes${Plain}..."
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   ssh_key_enable
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "增加 RSAAuthentication${green} yes${plain}..."
+  echo -e "增加 RSAAuthentication${Green} yes${Plain}..."
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
 elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "修改 PubkeyAuthentication 参数为${green} yes ${plain}和 增加 RSAAuthentication${green} yes${plain}..."
+  echo -e "修改 PubkeyAuthentication 参数为${Green} yes ${Plain}和 增加 RSAAuthentication${Green} yes${Plain}..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "增加 PubkeyAuthentication${green} yes ${plain}和 RSAAuthentication${green} yes${plain}..."
+  echo -e "增加 PubkeyAuthentication${Green} yes ${Plain}和 RSAAuthentication${Green} yes${Plain}..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
 else
-  echo -e "SSH Key 登录选项${green}已开启${plain}，无需修改配置...\n"
+  echo -e "SSH Key 登录选项${Green}已开启${Plain}，无需修改配置...\n"
 fi
 
 # 设置系统时区
@@ -80,12 +82,12 @@ if [ "$current_timezone" != "HKT" ]; then
   # 设置时区为Asia/Hong_Kong
   timedatectl set-timezone "Asia/Hong_Kong"
   if [ $? -eq 0 ]; then
-    echo -e "${green}设置系统时区为 Asia/Hong_Kong 成功！${plain}\n"
+    echo -e "${Green}设置系统时区为 Asia/Hong_Kong 成功！${Plain}\n"
   else
-    echo -e "${red}设置系统时区失败，请重新设置！${plain}\n"
+    echo -e "${Red}设置系统时区失败，请重新设置！${Plain}\n"
   fi
 else
-  echo -e "当前时区已设置为${green} Asia/Hong_Kong${plain}，无需修改\n"
+  echo -e "当前时区已设置为${Green} Asia/Hong_Kong${Plain}，无需修改\n"
 fi
 
 # apt 更新
@@ -93,9 +95,9 @@ read -p "是否进行apt更新？${Default}" answer
 if Option; then
   echo "apt updating ..."
   apt update >/dev/null 2>&1
-  echo -e "${green}apt 已更新${plain}\n"
+  echo -e "${Green}apt 已更新${Plain}\n"
 else
-  echo -e "${red}取消 apt 更新${plain}\n"
+  echo -e "${Red}取消 apt 更新${Plain}\n"
 fi
 
 # 安装常用软件
@@ -112,15 +114,15 @@ cmdline=(
 
 for soft in "${cmdline[@]}"; do
     if command -v "$soft" >/dev/null; then
-      echo -e "${green}$soft 已安装${plain}\n"
+      echo -e "${Green}$soft 已安装${Plain}\n"
     else
       name=${soft##*which }
       echo -e "${name} 安装中 ..."
       apt install -y ${name} >/dev/null 2>&1
       if [[ $? -eq 0 ]]; then
-        echo -e "${green}${name} 安装成功${plain}\n"
+        echo -e "${Green}${name} 安装成功${Plain}\n"
       else
-        echo -e "${red}${name} 安装失败${plain}\n"
+        echo -e "${Red}${name} 安装失败${Plain}\n"
       fi
     fi
 done
@@ -131,12 +133,12 @@ if ! type ddns-go &>/dev/null; then
   if Option; then
     echo "开始安装 ddns-go ..."
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-    echo -e "${green}ddns-go 安装成功，请访问 http://IP:9876 进行初始化配置${plain}\n"
+    echo -e "${Green}ddns-go 安装成功，请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
   else
     Cancel_info
   fi
 else
-  echo -e "${green}ddns-go 已安装，请访问 http://IP:9876 进行配置${plain}\n"
+  echo -e "${Green}ddns-go 已安装，请访问 ${UBlue}http://IP:9876${Green} 进行配置${Plain}\n"
 fi
 
 # 安装/配置x-ui
@@ -163,9 +165,9 @@ x-ui_db() {
       	rm -f /etc/x-ui/x-ui.db.bak
       fi
       x-ui restart
-      echo -e "${green}x-ui 配置已恢复${plain}\n"
+      echo -e "${Green}x-ui 配置已恢复${Plain}\n"
     else
-      echo -e "${yellow}保留 x-ui 当前配置${plain}\n"
+      echo -e "${Yellow}保留 x-ui 当前配置${Plain}\n"
     fi
   fi
 }
@@ -180,7 +182,7 @@ if ! type x-ui &>/dev/null; then
     Cancel_info
   fi
 else
-  echo -e "${green}x-ui 已安装${plain}"
+  echo -e "${Green}x-ui 已安装${Plain}"
   x-ui_db
 fi
 
@@ -194,12 +196,12 @@ if ! type caddy &>/dev/null; then
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
     apt update && apt install caddy
-    echo -e "${green}Caddy 安装成功${plain}\n"
+    echo -e "${Green}Caddy 安装成功${Plain}\n"
   else
     Cancel_info
   fi
 else
-  echo -e "${green}Caddy 已安装${plain}\n"
+  echo -e "${Green}Caddy 已安装${Plain}\n"
 fi
 
 # 安装Docker
@@ -214,7 +216,7 @@ if ! type docker &>/dev/null; then
     Cancel_info
   fi
 else
-  echo -e "${green}Docker 已安装${plain}\n"
+  echo -e "${Green}Docker 已安装${Plain}\n"
 fi
 
 # 安装Docker容器Portainer
@@ -225,17 +227,17 @@ Install_portainer () {
       echo -e "开始安装 Portainer ...\n"
       docker volume create portainer_data
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-      echo -e "${green}Portainer 安装成功，${red}5分钟内${green}访问 http://IP:9000 进行初始化配置${plain}\n"
+      echo -e "${Green}Portainer 安装成功，${Red}5分钟内${Green}访问 http://IP:9000 进行初始化配置${Plain}\n"
     else
       Cancel_info
     fi
   else
-    echo -e "${green}Portainer 已安装${plain}\n"
+    echo -e "${Green}Portainer 已安装${Plain}\n"
   fi
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装 Portainer 容器前，${yellow}需先安装 Docker!${plain}"
+  echo -e "安装 Portainer 容器前，${Yellow}需先安装 Docker!${Plain}"
   read -p "是否安装 Docker？${Default}" answer
   if Option; then
     echo -e "正在安装 Docker ...\n"
@@ -245,10 +247,10 @@ if ! type docker &>/dev/null; then
       echo -e "进入 Portainer 安装脚本...\n"
       Install_portainer
     else
-      echo -e "${red}Docker 安装失败，退出 Portainer 容器安装!${plain}\n"
+      echo -e "${Red}Docker 安装失败，退出 Portainer 容器安装!${Plain}\n"
     fi
   else
-    echo -e "${red}Docker 取消安装，退出 Portainer 容器安装!${plain}\n"
+    echo -e "${Red}Docker 取消安装，退出 Portainer 容器安装!${Plain}\n"
   fi
 else
   Install_portainer
@@ -266,12 +268,12 @@ Install_watchtower() {
       Cancel_info
     fi
   else
-    echo -e "${green}Watchtower 已安装${plain}\n"
+    echo -e "${Green}Watchtower 已安装${Plain}\n"
   fi
 }
 
 if ! type docker &>/dev/null; then
-  echo -e "安装 Watchtower 容器前，${yellow}需先安装 Docker!${plain}"
+  echo -e "安装 Watchtower 容器前，${Yellow}需先安装 Docker!${Plain}"
   read -p "是否安装 Docker？${Default}" answer
   if Option; then
     echo -e "开始安装 Docker ...\n"
@@ -281,10 +283,10 @@ if ! type docker &>/dev/null; then
       echo -e "进入 Watchtower 安装脚本...\n"
       Install_watchtower
     else
-      echo -e "${red}Docker 安装失败，退出 Watchtower 容器安装!${plain}\n"
+      echo -e "${Red}Docker 安装失败，退出 Watchtower 容器安装!${Plain}\n"
     fi
   else
-    echo -e "${red}Docker 取消安装，退出 Watchtower 容器安装!${plain}\n"
+    echo -e "${Red}Docker 取消安装，退出 Watchtower 容器安装!${Plain}\n"
   fi
 else
   Install_watchtower
@@ -298,11 +300,11 @@ Config_fail2ban() {
     if Option; then
       echo -e "开始配置 Fail2ban ...\n"
       if [ -f /etc/fail2ban/jail.local ]; then
-        echo -e "${yellow}jail.local 文件已存在${plain}\n"
+        echo -e "${Yellow}jail.local 文件已存在${Plain}\n"
       else
         # 复制默认的 jail.conf 文件
         cp /etc/fail2ban/jail.{conf,local}
-        echo -e "${yellow}jail.local 文件已复制${plain}\n"
+        echo -e "${Yellow}jail.local 文件已复制${Plain}\n"
       fi
       # 设置要修改的文件
       jail_file="/etc/fail2ban/jail.local"
@@ -340,12 +342,12 @@ Config_fail2ban() {
       sed -i '/^\[sshd\]/{n;/enabled *= *true/!s/.*/&\nenabled = true/}' $jail_file
       # 重启 fail2ban 服务
       systemctl restart fail2ban
-      echo -e "${red}Fail2ban 配置已更新并重启${plain}\n"
+      echo -e "${Red}Fail2ban 配置已更新并重启${Plain}\n"
       sleep 3
       fail2ban-client status
       echo ""
     else
-      echo -e "${yellow}保留默认配置${plain}\n"
+      echo -e "${Yellow}保留默认配置${Plain}\n"
       fail2ban-client status
       echo ""
     fi
@@ -365,7 +367,7 @@ if ! type fail2ban-client &>/dev/null; then
     Cancel_info
   fi
 else
-  echo -e "${green}Fail2ban 已安装${plain}"
+  echo -e "${Green}Fail2ban 已安装${Plain}"
   Config_fail2ban
 fi
 
@@ -393,22 +395,22 @@ Install_ServerStatus() {
       vnstat=1
     fi
     if [ "$vnstat" = "1" ]; then
-      echo -e "${green}vnstat已启用${plain}\n"
+      echo -e "${Green}vnstat已启用${Plain}\n"
     else
-      echo -e "${red}vnstat不启用${plain}\n"
+      echo -e "${Red}vnstat不启用${Plain}\n"
     fi
     curl -sSLf "${url}/i?pass=${password}&uid=${username}&vnstat=${vnstat}" | bash
-    echo -e "${green}ServerStatus 云探针客户端已安装/更新${plain}\n"
+    echo -e "${Green}ServerStatus 云探针客户端已安装/更新${Plain}\n"
   else
-    echo -e "${red}取消 安装/更新 ServerStatus 云探针客户端${plain}\n"
+    echo -e "${Red}取消 安装/更新 ServerStatus 云探针客户端${Plain}\n"
   fi
 }
 
 if ! find /opt/ServerStatus/stat_client &>/dev/null; then
-  echo -e "Rust 版 ServerStatus 云探针客户端${red}未安装${plain}"
+  echo -e "Rust 版 ServerStatus 云探针客户端${Red}未安装${Plain}"
   Install_ServerStatus
 else
-  echo -e "Rust 版 ServerStatus 云探针客户端${green}已安装${plain}"
+  echo -e "Rust 版 ServerStatus 云探针客户端${Green}已安装${Plain}"
   Install_ServerStatus
 fi
 
@@ -419,7 +421,7 @@ Config_rclone() {
     if Option; then
       rclone config
     else
-      echo -e "${red}取消配置${plain}，后续输入${yellow} rclone config ${plain}进行配置\n"
+      echo -e "${Red}取消配置${Plain}，后续输入${Yellow} rclone config ${Plain}进行配置\n"
     fi
   else
     echo ""
@@ -437,7 +439,7 @@ if ! type rclone &>/dev/null; then
     Cancel_info
   fi
 else
-  echo -e "${green}Rclone 已安装${plain}"
+  echo -e "${Green}Rclone 已安装${Plain}"
   Config_rclone
 fi
 
@@ -448,27 +450,27 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     echo "正在设置定时清理磁盘空间任务..."
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
     chmod +x /opt/cleandata.sh
-    echo -e "${yellow}正在清理磁盘空间${plain}\n"
+    echo -e "${Yellow}正在清理磁盘空间${Plain}\n"
     bash /opt/cleandata.sh
-    echo -e "${yellow}磁盘空间已清理${plain}"
+    echo -e "${Yellow}磁盘空间已清理${Plain}"
     echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
     #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
-    echo -e "${green}定时清理磁盘空间任务已设置${plain}\n"
+    echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
   else
-    echo -e "${red}取消设置${plain}\n"
+    echo -e "${Red}取消设置${Plain}\n"
   fi
 else
-  echo -e "${green}定时清理磁盘空间任务已设置${plain}\n"
+  echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
 fi
 
 echo -e ""
-echo -e "${yellow}=========================================================${plain}"
-echo -e "${yellow}             Linux 环境初始化自动部署成功！              ${plain}"
-echo -e "${yellow}=========================================================${plain}"
+echo -e "${Yellow}=========================================================${Plain}"
+echo -e "${Yellow}             Linux 环境初始化自动部署成功！              ${Plain}"
+echo -e "${Yellow}=========================================================${Plain}"
 echo -e ""
 
 # 修改Root密码
-echo -e "修改 Root 密码后，${red}需断开所有连接重新登录后生效！！${plain}"
+echo -e "修改 Root 密码后，${Red}需断开所有连接重新登录后生效！！${Plain}"
 read -p "是否修改 Root 密码？${Default}" answer
 if Option; then
   read -p "请输入新密码：" new_password
@@ -485,7 +487,7 @@ if Option; then
     echo -e "Root 密码已成功更改为：$new_password\n"
     read -p "是否立即断开所有连接？${Default}" answer
     if Option; then
-      echo -e "${red}自动断开所有连接，使用新 Root 密码重新登录${plain}"
+      echo -e "${Red}自动断开所有连接，使用新 Root 密码重新登录${Plain}"
       current_tty=$(tty)
       pts_list=$(who | awk '{print $2}')
       for pts in $pts_list; do
@@ -493,11 +495,11 @@ if Option; then
         pkill -9 -t $pts
       done
     else
-      echo -e "${red}需手动断开所有连接，使用新 Root 密码重新登录${plain}\n" 
+      echo -e "${Red}需手动断开所有连接，使用新 Root 密码重新登录${Plain}\n" 
     fi
   else
-    echo -e "${red}更改 Root 密码失败${plain}\n"
+    echo -e "${Red}更改 Root 密码失败${Plain}\n"
   fi
 else
-  echo -e "${yellow}Root 密码未变更${plain}\n"
+  echo -e "${Yellow}Root 密码未变更${Plain}\n"
 fi
