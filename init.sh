@@ -292,7 +292,7 @@ fi
 
 # 安装Fail2ban
 # 修改Fail2ban默认配置
-config_fail2ban() {
+Config_fail2ban() {
   if type fail2ban-client &>/dev/null; then
     read -p "是否修改 Fail2ban 默认配置？${Default}" answer
     if Option; then
@@ -360,13 +360,13 @@ if ! type fail2ban-client &>/dev/null; then
     echo "开始安装 Fail2ban ..."
     apt-get -y install fail2ban
     Install_succ
-    config_fail2ban
+    Config_fail2ban
   else
     Cancel_info
   fi
 else
   echo -e "${green}Fail2ban 已安装${plain}"
-  config_fail2ban
+  Config_fail2ban
 fi
 
 # 安装 Rust 版 ServerStatus 云探针
