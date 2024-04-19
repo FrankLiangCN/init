@@ -218,7 +218,7 @@ else
 fi
 
 # 安装Docker容器Portainer
-install_portainer () {
+Install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
     read -p "是否安装 Portainer？${Default}" answer
     if Option; then
@@ -243,7 +243,7 @@ if ! type docker &>/dev/null; then
     echo ""
     if type docker &>/dev/null; then
       echo -e "进入 Portainer 安装脚本...\n"
-      install_portainer
+      Install_portainer
     else
       echo -e "${red}Docker 安装失败，退出 Portainer 容器安装!${plain}\n"
     fi
@@ -251,11 +251,11 @@ if ! type docker &>/dev/null; then
     echo -e "${red}Docker 取消安装，退出 Portainer 容器安装!${plain}\n"
   fi
 else
-  install_portainer
+  Install_portainer
 fi
 
 # 安装Docker容器Watchtower
-install_watchtower() {
+Install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
     read -p "是否安装 Watchtower？${Default}" answer
     if Option; then
@@ -279,7 +279,7 @@ if ! type docker &>/dev/null; then
     echo ""
     if type docker &>/dev/null; then
       echo -e "进入 Watchtower 安装脚本...\n"
-      install_watchtower
+      Install_watchtower
     else
       echo -e "${red}Docker 安装失败，退出 Watchtower 容器安装!${plain}\n"
     fi
@@ -287,7 +287,7 @@ if ! type docker &>/dev/null; then
     echo -e "${red}Docker 取消安装，退出 Watchtower 容器安装!${plain}\n"
   fi
 else
-  install_watchtower
+  Install_watchtower
 fi
 
 # 安装Fail2ban
@@ -335,13 +335,13 @@ config_fail2ban() {
       echo -e "新的 maxretry 值为：$new_maxretry\n"
       sed -i "s/^maxretry\s*=\s*$current_maxretry/maxretry = $new_maxretry/1" $jail_file
       # 启用SSHD Jail
-      sed -i '/enabled = true/d' $jail_file
       #sed -i '/^\[sshd\]/{n;/^\s*enabled\s*=/ {s/false/true/;t};s/$/\nenabled = true/}' $jail_file
+      sed -i '/enabled = true/d' $jail_file
       sed -i '/^\[sshd\]/{n;/enabled *= *true/!s/.*/&\nenabled = true/}' $jail_file
       # 重启 fail2ban 服务
       systemctl restart fail2ban
       echo -e "${red}Fail2ban 配置已更新并重启${plain}\n"
-      sleep 2
+      sleep 3
       fail2ban-client status
       echo ""
     else
@@ -370,7 +370,7 @@ else
 fi
 
 # 安装 Rust 版 ServerStatus 云探针
-install_ServerStatus() {
+Install_ServerStatus() {
   read -p "是否 安装/更新 客户端？${Default}" answer
   if Option; then
     read -p "请输入服务端域名/IP:端口：" url
@@ -406,14 +406,14 @@ install_ServerStatus() {
 
 if ! find /opt/ServerStatus/stat_client &>/dev/null; then
   echo -e "Rust 版 ServerStatus 云探针客户端${red}未安装${plain}"
-  install_ServerStatus
+  Install_ServerStatus
 else
   echo -e "Rust 版 ServerStatus 云探针客户端${green}已安装${plain}"
-  install_ServerStatus
+  Install_ServerStatus
 fi
 
 # 安装Rclone
-config_rclone() {
+Config_rclone() {
   if type rclone &>/dev/null; then
     read -p "是否配置 Rclone？${Default}" answer
     if Option; then
@@ -432,13 +432,13 @@ if ! type rclone &>/dev/null; then
     echo "开始安装 Rclone ..."
     curl https://rclone.org/install.sh | bash
     Install_succ
-    config_rclone
+    Config_rclone
   else
     Cancel_info
   fi
 else
   echo -e "${green}Rclone 已安装${plain}"
-  config_rclone
+  Config_rclone
 fi
 
 # 检测定时清理磁盘空间任务是否已设置
