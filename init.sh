@@ -29,6 +29,23 @@ echo -e "${Green}=========================================================${Plai
 echo -e ""
 
 
+# 设置系统时区
+# 获取当前时区
+current_timezone=$(date +%Z)
+
+# 判断当前时区是否为Asia/Hong_Kong
+if [ "$current_timezone" != "HKT" ]; then
+  # 设置时区为Asia/Hong_Kong
+  timedatectl set-timezone "Asia/Hong_Kong"
+  if [ $? -eq 0 ]; then
+    echo -e "${Green}设置系统时区为 Asia/Hong_Kong 成功！${Plain}\n"
+  else
+    echo -e "${Red}设置系统时区失败，请重新设置！${Plain}\n"
+  fi
+else
+  echo -e "当前时区已设置为${Green} Asia/Hong_Kong${Plain}，无需修改\n"
+fi
+
 # 开启SSH Key登录选项
 # 定义SSH配置文件路径
 ssh_config_file="/etc/ssh/sshd_config"
@@ -73,23 +90,6 @@ else
   echo -e "SSH Key 登录选项${Green}已开启${Plain}，无需修改配置...\n"
 fi
 
-# 设置系统时区
-# 获取当前时区
-current_timezone=$(date +%Z)
-
-# 判断当前时区是否为Asia/Hong_Kong
-if [ "$current_timezone" != "HKT" ]; then
-  # 设置时区为Asia/Hong_Kong
-  timedatectl set-timezone "Asia/Hong_Kong"
-  if [ $? -eq 0 ]; then
-    echo -e "${Green}设置系统时区为 Asia/Hong_Kong 成功！${Plain}\n"
-  else
-    echo -e "${Red}设置系统时区失败，请重新设置！${Plain}\n"
-  fi
-else
-  echo -e "当前时区已设置为${Green} Asia/Hong_Kong${Plain}，无需修改\n"
-fi
-
 # apt 更新
 read -p "是否进行apt更新？${Default}" answer
 if Option; then
@@ -108,6 +108,7 @@ cmdline=(
     "unzip"
     "vim"
     "nano"
+    "htop"
     "vnstat"
     "dos2unix"
 )
