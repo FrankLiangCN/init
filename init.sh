@@ -93,7 +93,7 @@ fi
 # apt 更新
 read -p "是否进行apt更新？${Default}" answer
 if Option; then
-  echo "apt updating ..."
+  echo -e "${Yellow}apt updating ...${Plain}"
   apt update >/dev/null 2>&1
   echo -e "${Green}apt 已更新${Plain}\n"
 else
@@ -132,15 +132,20 @@ done
 if ! type ddns-go &>/dev/null; then
   read -p "是否安装 ddns-go？${Default}" answer
   if Option; then
-    echo "开始安装 ddns-go ..."
+    echo -e "${Yellow}开始安装 ddns-go ...${Plain}"
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-    echo -e "${Green}ddns-go 安装成功，请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
+    if [ $? -eq 0 ]; then
+        echo -e "${Green}ddns-go 安装成功，请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
+    else
+        echo -e "${Red}ddns-go 安装失败，请参考文档或手动安装: ${UBlue}https://github.com/FrankLiangCN/DDNS${Plain}\n"
+    fi
   else
-    Cancel_info
+      Cancel_info
   fi
 else
-  echo -e "${Green}ddns-go 已安装，请访问 ${UBlue}http://IP:9876${Green} 进行配置${Plain}\n"
+    echo -e "${Green}ddns-go 已安装，请访问 ${UBlue}http://IP:9876${Green} 进行配置${Plain}\n"
 fi
+
 
 # 安装/配置x-ui
 x-ui_db() {
@@ -151,12 +156,12 @@ x-ui_db() {
       if [ -z "$source_url" ]; then
         source_url=https://sub.vsky.uk/x-ui
       fi
-      echo -e "配置来源URL为：$source_url\n"
+      echo -e "配置来源URL为：${Yellow}$source_url${Plain}\n"
       read -p "输入配置来源路径：" path
       if [ -z "$path" ]; then
         path=default
       fi
-      echo -e "配置来源路径为：$path\n"
+      echo -e "配置来源路径为：${Yellow}$path${Plain}\n"
       echo -e "${Yellow}开始恢复 x-ui 配置 ...${Plain}\n"
       mv /etc/x-ui/x-ui.db /etc/x-ui/x-ui.db.bak
       curl -s -o /etc/x-ui/x-ui.db ${source_url}/${path}/x-ui.db
@@ -176,7 +181,7 @@ x-ui_db() {
 if ! type x-ui &>/dev/null; then
   read -p "是否安装 x-ui？${Default}" answer
   if Option; then
-    echo -e "开始安装 x-ui ...\n"
+    echo -e "${Yellow}开始安装 x-ui ...${Plain}\n"
     bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
     x-ui_db
   else
@@ -191,7 +196,7 @@ fi
 if ! type caddy &>/dev/null; then
   read -p "是否安装 Caddy？${Default}" answer
   if Option; then
-    echo "正在安装 Caddy ..."
+    echo -e "${Yellow}正在安装 Caddy ...${Plain}"
     # Caddy安装指令
     apt install -y debian-keyring debian-archive-keyring apt-transport-https
     curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
@@ -209,7 +214,7 @@ fi
 if ! type docker &>/dev/null; then
   read -p "是否安装 Docker？${Default}" answer
   if Option; then
-    echo "正在安装 Docker ..."
+    echo -e "${Yellow}正在安装 Docker ...${Plain}"
     # Docker安装指令
     curl -fsSL https://get.docker.com | bash
     Install_succ
@@ -225,7 +230,7 @@ Install_portainer () {
   if ! docker ps | grep portainer &>/dev/null; then
     read -p "是否安装 Portainer？${Default}" answer
     if Option; then
-      echo -e "开始安装 Portainer ...\n"
+      echo -e "${Yellow}开始安装 Portainer ...${Plain}\n"
       docker volume create portainer_data
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
       echo -e "${Green}Portainer 安装成功，${Red}5分钟内${Green}访问 http://IP:9000 进行初始化配置${Plain}\n"
@@ -241,11 +246,11 @@ if ! type docker &>/dev/null; then
   echo -e "安装 Portainer 容器前，${Yellow}需先安装 Docker!${Plain}"
   read -p "是否安装 Docker？${Default}" answer
   if Option; then
-    echo -e "正在安装 Docker ...\n"
+    echo -e "${Yellow}正在安装 Docker ...${Plain}\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
     if type docker &>/dev/null; then
-      echo -e "进入 Portainer 安装脚本...\n"
+      echo -e "${Yellow}进入 Portainer 安装脚本...${Plain}\n"
       Install_portainer
     else
       echo -e "${Red}Docker 安装失败，退出 Portainer 容器安装!${Plain}\n"
@@ -262,7 +267,7 @@ Install_watchtower() {
   if ! docker ps | grep watchtower &>/dev/null; then
     read -p "是否安装 Watchtower？${Default}" answer
     if Option; then
-      echo -e "开始安装 Watchtower ...\n"
+      echo -e "${Yellow}开始安装 Watchtower ...${Plain}\n"
       docker run -d --name watchtower --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower
       Install_succ
     else
@@ -277,7 +282,7 @@ if ! type docker &>/dev/null; then
   echo -e "安装 Watchtower 容器前，${Yellow}需先安装 Docker!${Plain}"
   read -p "是否安装 Docker？${Default}" answer
   if Option; then
-    echo -e "开始安装 Docker ...\n"
+    echo -e "${Yellow}开始安装 Docker ...${Plain}\n"
     curl -fsSL https://get.docker.com | bash
     echo ""
     if type docker &>/dev/null; then
@@ -299,7 +304,7 @@ Config_fail2ban() {
   if type fail2ban-client &>/dev/null; then
     read -p "是否修改 Fail2ban 默认配置？${Default}" answer
     if Option; then
-      echo -e "开始配置 Fail2ban ...\n"
+      echo -e "${Yellow}开始配置 Fail2ban ...${Plain}\n"
       if [ -f /etc/fail2ban/jail.local ]; then
         echo -e "${Yellow}jail.local 文件已存在${Plain}\n"
       else
@@ -321,21 +326,21 @@ Config_fail2ban() {
       if [ -z "$new_bantime" ]; then
         new_bantime=$current_bantime
       fi
-      echo -e "新的 bantime 值为：$new_bantime\n"
+      echo -e "新的 bantime 值为：${Yellow}$new_bantime${Plain}\n"
       sed -i "s/^bantime\s*=\s*$current_bantime/bantime = $new_bantime/1" $jail_file
-  	echo "当前 findtime 值为：$current_findtime"
+  	  echo "当前 findtime 值为：$current_findtime"
       read -p "请输入新的 findtime 值（回车保留默认值）：" new_findtime
       if [ -z "$new_findtime" ]; then
         new_findtime=$current_findtime
       fi
-      echo -e "新的 findtime 值为：$new_findtime\n"
+      echo -e "新的 findtime 值为：${Yellow}$new_findtime${Plain}\n"
       sed -i "s/^findtime\s*=\s*$current_findtime/findtime = $new_findtime/1" $jail_file
-  	echo "当前 maxretry 值为：$current_maxretry"
+  	  echo "当前 maxretry 值为：$current_maxretry"
       read -p "请输入新的 maxretry 值（回车保留默认值）：" new_maxretry
       if [ -z "$new_maxretry" ]; then
         new_maxretry=$current_maxretry
       fi
-      echo -e "新的 maxretry 值为：$new_maxretry\n"
+      echo -e "新的 maxretry 值为：${Yellow}$new_maxretry${Plain}\n"
       sed -i "s/^maxretry\s*=\s*$current_maxretry/maxretry = $new_maxretry/1" $jail_file
       # 启用SSHD Jail
       #sed -i '/^\[sshd\]/{n;/^\s*enabled\s*=/ {s/false/true/;t};s/$/\nenabled = true/}' $jail_file
@@ -360,7 +365,7 @@ Config_fail2ban() {
 if ! type fail2ban-client &>/dev/null; then
   read -p "是否安装 Fail2ban？${Default}" answer
   if Option; then
-    echo "开始安装 Fail2ban ..."
+    echo -e "${Yellow}开始安装 Fail2ban ...${Plain}"
     apt-get -y install fail2ban
     Install_succ
     Config_fail2ban
@@ -380,17 +385,17 @@ Install_ServerStatus() {
     if [ -z "$url" ]; then
       url=https://vps.simpletechcn.com
     fi
-    echo -e "新的服务端域名/IP:端口为：$url\n"
+    echo -e "新的服务端域名/IP:端口为：${Yellow}$url${Plain}\n"
     read -p "请输入用户名：" username
     if [ -z "$username" ]; then
       username=uid
     fi
-    echo -e "新的用户名为：$username\n"
+    echo -e "新的用户名为：${Yellow}$username${Plain}\n"
     read -p "请输入密码：" password
     if [ -z "$password" ]; then
       password=pp
     fi
-    echo -e "新的密码为：$password\n"
+    echo -e "新的密码为：${Yellow}$password${Plain}\n"
     read -p "是否启用 vnstat (0:不启用 / 默认1:启用)：" vnstat
     if [ -z "$vnstat" ]; then
       vnstat=1
@@ -432,7 +437,7 @@ Config_rclone() {
 if ! type rclone &>/dev/null; then
   read -p "是否安装 Rclone？${Default}" answer
   if Option; then
-    echo "开始安装 Rclone ..."
+    echo -e "${Yellow}开始安装 Rclone ...${Plain}"
     curl https://rclone.org/install.sh | bash
     Install_succ
     Config_rclone
@@ -448,7 +453,7 @@ fi
 if ! type /opt/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？${Default}" answer
   if Option; then
-    echo "正在设置定时清理磁盘空间任务..."
+    echo -e "${Yellow}正在设置定时清理磁盘空间任务...${Plain}"
     wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
     chmod +x /opt/cleandata.sh
     echo -e "${Yellow}正在清理磁盘空间${Plain}\n"
@@ -478,14 +483,14 @@ if Option; then
   if [ -z "$new_password" ]; then
     new_password=@Sz123456
   fi
-  echo -e "新的 Root 密码为：$new_password"
+  echo -e "新的 Root 密码为：${Yellow}$new_password${Plain}"
   # 更改 root 密码
   echo "root:$new_password" | chpasswd
   sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
   service ssh restart
   # 检查是否成功更改密码
   if [ $? -eq 0 ]; then
-    echo -e "Root 密码已成功更改为：$new_password\n"
+    echo -e "Root 密码已成功更改为：${Yellow}$new_password${Plain}\n"
     read -p "是否立即断开所有连接？${Default}" answer
     if Option; then
       echo -e "${Red}自动断开所有连接，使用新 Root 密码重新登录${Plain}"
