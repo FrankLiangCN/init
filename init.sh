@@ -243,7 +243,7 @@ Install_portainer () {
       echo -e "${Yellow}开始安装 Portainer ...${Plain}\n"
       docker volume create portainer_data
       docker run -d --network host --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
-      echo -e "${Green}Portainer 安装成功，${Red}5分钟内${Green}访问 http://IP:9000 进行初始化配置${Plain}\n"
+      echo -e "${Green}Portainer 安装成功，${Red}5分钟内${Green}访问 ${UBlue}http://IP:9000${Green} 进行初始化配置${Plain}\n"
     else
       Cancel_info
     fi
