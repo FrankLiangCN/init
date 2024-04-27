@@ -128,6 +128,16 @@ for soft in "${cmdline[@]}"; do
     fi
 done
 
+# 配置NAT64
+read -p "是否配置NAT64？${Default}" answer
+if Option; then
+  mv /etc/resolv.conf /etc/resolv.conf.bak
+  echo -e "nameserver 2a01:4f8:c2c:123f::1\nnameserver 2001:67c:2b0::4\nnameserver 2001:67c:2b0::6\nnameserver 2606:4700:4700::64\nnameserver 2606:4700:4700::6400" > /etc/resolv.conf
+  echo -e "${Green}NAT64已配置${Plain}\n"
+else
+  echo -e "${Red}取消NAT64已配置${Plain}\n"
+fi
+
 # 安装ddns-go
 if ! type ddns-go &>/dev/null; then
   read -p "是否安装 ddns-go？${Default}" answer
