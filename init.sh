@@ -476,7 +476,7 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     echo -e "${Red}取消设置${Plain}\n"
   fi
 else
-  echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
+  echo -e "\n${Green}定时清理磁盘空间任务已设置${Plain}\n"
 fi
 
 echo -e ""
