@@ -157,7 +157,7 @@ x-ui_db() {
         path=default
       fi
       echo -e "配置来源路径为：$path\n"
-      echo -e "开始恢复 x-ui 配置 ...\n"
+      echo -e "${Yellow}开始恢复 x-ui 配置 ...${Plain}\n"
       mv /etc/x-ui/x-ui.db /etc/x-ui/x-ui.db.bak
       curl -s -o /etc/x-ui/x-ui.db ${source_url}/${path}/x-ui.db
       if [[ $? -ne 0 ]]; then
