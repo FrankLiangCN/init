@@ -27,7 +27,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
             curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
             if [ $? -eq 0 ]; then
                 source "$HOME/.zshrc"
-                rm -f ~/.zshrc.bak
+                rm -f "$HOME/.zshrc.bak"
                 Update_succ
             else
                 echo -e "${Red}更新 .zshrc 文件失败，将恢复备份文件${Plain}"
