@@ -118,7 +118,7 @@ for soft in "${cmdline[@]}"; do
       echo -e "${Green}$soft 已安装${Plain}\n"
     else
       name=${soft##*which }
-      echo -e "${name} 安装中 ..."
+      echo -e "${Yellow}${name} 安装中 ...${Plain}"
       apt install -y ${name} >/dev/null 2>&1
       if [[ $? -eq 0 ]]; then
         echo -e "${Green}${name} 安装成功${Plain}\n"
