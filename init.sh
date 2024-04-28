@@ -139,23 +139,29 @@ else
 fi
 
 # 安装ddns-go
-if ! type ddns-go &>/dev/null; then
-  read -p "是否安装 ddns-go？${Default}" answer
+Install_ddns-go () {
   if Option; then
     echo -e "${Yellow}开始安装 ddns-go ...${Plain}"
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     if [ $? -eq 0 ]; then
-        echo -e "${Green}ddns-go 安装成功，请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
+      echo -e "${Green}ddns-go 安装/更新 成功${Plain}"
     else
-        echo -e "${Red}ddns-go 安装失败，请参考文档或手动安装: ${UBlue}https://github.com/FrankLiangCN/DDNS${Plain}\n"
+      echo -e "${Red}ddns-go 安装失败，请参考文档或手动安装: ${UBlue}https://github.com/FrankLiangCN/DDNS${Plain}\n"
     fi
   else
-      Cancel_info
+    Cancel_info
   fi
-else
-    echo -e "${Green}ddns-go 已安装，请访问 ${UBlue}http://IP:9876${Green} 进行配置${Plain}\n"
-fi
+}
 
+if ! type ddns-go &>/dev/null; then
+  read -p "是否安装 ddns-go？${Default}" answer
+  Install_ddns-go
+  echo -e "${Green}请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
+else
+  read -p "是否更新 ddns-go？${Default}" answer
+  Install_ddns-go
+  echo -e "${Green}请访问 ${UBlue}http://IP:9876${Green} 配置 ddns-go${Plain}\n"
+fi
 
 # 安装/配置x-ui
 x-ui_db() {
