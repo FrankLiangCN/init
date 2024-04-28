@@ -111,6 +111,7 @@ cmdline=(
     "htop"
     "vnstat"
     "dos2unix"
+    "zsh"
 )
 
 for soft in "${cmdline[@]}"; do
@@ -136,6 +137,27 @@ if Option; then
   echo -e "${Green}NAT64已配置${Plain}\n"
 else
   echo -e "${Red}取消NAT64配置${Plain}\n"
+fi
+
+# 安装oh-my-zsh
+if ! find /root/.zshrc &>/dev/null; then
+  echo -e "oh-my-zsh ${Red}未安装${Plain}"
+  read -p "是否安装oh-my-zsh？${Default}" answer
+  if Option; then
+    mv /root/.zshrc /root/.zshrc.bak
+    curl -s -o /root/.zshrc https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc
+    if [[ $? -ne 0 ]]; then
+    	mv /root/.zshrc.bak /root/.zshrc
+    else
+    	rm -f /root/.zshrc.bak
+    fi
+    source ~/.zshrc
+    echo -e "${Green}oh-my-zsh 安装成功${Plain}\n"
+  else
+    Cancel_info
+  fi
+else
+  echo -e "${Green}oh-my-zsh 已安装${Plain}\n"
 fi
 
 # 安装ddns-go
