@@ -144,9 +144,9 @@ if find "$HOME/.oh-my-zsh" &>/dev/null; then
   echo -e "${Green}oh-my-zsh 已安装${Plain}"
   read -p "是否更新 oh-my-zsh 配置？${Default}" answer
   if Option; then
-    wget --no-check-certificate -O $HOME/check_oh_my_zsh.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/check_oh_my_zsh.sh
-    chmod +x $HOME/check_oh_my_zsh.sh
-    bash $HOME/check_oh_my_zsh.sh
+    wget --no-check-certificate -O $HOME/check_oh_my_zsh.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/check_oh_my_zsh.zsh
+    chmod +x $HOME/check_oh_my_zsh.zsh
+    zsh $HOME/check_oh_my_zsh.zsh
   else
     echo -e "${Yellow}保留当前配置${Plain}\n"
   fi
