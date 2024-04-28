@@ -506,7 +506,7 @@ if find /root/.zshrc &>/dev/null; then
   fi
 else
   echo -e "oh-my-zsh ${Red}未安装${Plain}"
-  echo -e "${Yellow}手动运行 ${UBlue}sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"${Yellow}安装${Plain}\n"
+  echo -e "${Yellow}请参考文档或手动安装: ${UBlue}https://github.com/ohmyzsh/ohmyzsh${Plain}\n"
 fi
 
 echo -e ""
