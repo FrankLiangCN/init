@@ -146,7 +146,7 @@ if find "$HOME/.oh-my-zsh" &>/dev/null; then
   if Option; then
     wget --no-check-certificate -O $HOME/check_oh_my_zsh.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/check_oh_my_zsh.zsh
     chmod +x $HOME/check_oh_my_zsh.zsh
-    sh $HOME/check_oh_my_zsh.zsh
+    zsh $HOME/check_oh_my_zsh.zsh
   else
     echo -e "${Yellow}保留当前配置${Plain}\n"
   fi
