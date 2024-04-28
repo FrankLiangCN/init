@@ -139,6 +139,22 @@ else
   echo -e "${Red}取消NAT64配置${Plain}\n"
 fi
 
+# 安装oh-my-zsh
+if find "$HOME/.oh-my-zsh" &>/dev/null; then
+  echo -e "${Green}oh-my-zsh 已安装${Plain}"
+  read -p "是否更新 oh-my-zsh 配置？${Default}" answer
+  if Option; then
+    wget --no-check-certificate -O $HOME/check_oh_my_zsh.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/check_oh_my_zsh.zsh
+    chmod +x $HOME/check_oh_my_zsh.zsh
+    sh $HOME/check_oh_my_zsh.zsh
+  else
+    echo -e "${Yellow}保留当前配置${Plain}\n"
+  fi
+else
+  echo -e "oh-my-zsh ${Red}未安装${Plain}"
+  echo -e "${Yellow}请参考文档或手动安装: ${UBlue}https://github.com/ohmyzsh/ohmyzsh${Plain}\n"
+fi
+
 # 安装ddns-go
 Install_ddns-go () {
   if Option; then
@@ -485,28 +501,6 @@ if ! type /opt/cleandata.sh &>/dev/null; then
   fi
 else
   echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
-fi
-
-# 安装oh-my-zsh
-if find /root/.zshrc &>/dev/null; then
-  echo -e "${Green}oh-my-zsh 已安装${Plain}"
-  read -p "是否更新 oh-my-zsh 配置？${Default}" answer
-  if Option; then
-    mv /root/.zshrc /root/.zshrc.bak
-    curl -s -o /root/.zshrc https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc
-    if [[ $? -ne 0 ]]; then
-    	mv /root/.zshrc.bak /root/.zshrc
-    else
-    	rm -f /root/.zshrc.bak
-    fi
-    source ~/.zshrc
-    echo -e "${Green}oh-my-zsh 配置更新成功${Plain}\n"
-  else
-    echo -e "${Yellow}保留当前配置${Plain}\n"
-  fi
-else
-  echo -e "oh-my-zsh ${Red}未安装${Plain}"
-  echo -e "${Yellow}请参考文档或手动安装: ${UBlue}https://github.com/ohmyzsh/ohmyzsh${Plain}\n"
 fi
 
 echo -e ""
