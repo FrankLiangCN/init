@@ -21,7 +21,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     # 检查是否存在 .zshrc 文件
     if [ -f "$HOME/.zshrc" ]; then
         echo -e "${Green}.zshrc 文件已经存在${Plain}"
-        read -r -p "是否更新 .zshrc 文件？${Default} " answer
+        read -p "是否更新 .zshrc 文件？${Default} " answer
         if [[ $answer =~ ^([Yy]|)$ ]]; then
             mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
             curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
