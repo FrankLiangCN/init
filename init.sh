@@ -158,6 +158,7 @@ if ! type ddns-go &>/dev/null; then
   Install_ddns-go
   echo -e "${Green}请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
 else
+  echo -e "${Green}ddns-go 已安装${Plain}"
   read -p "是否更新 ddns-go？${Default}" answer
   Install_ddns-go
   echo -e "${Green}请访问 ${UBlue}http://IP:9876${Green} 配置 ddns-go${Plain}\n"
