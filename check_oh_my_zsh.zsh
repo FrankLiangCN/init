@@ -17,7 +17,6 @@ Update_succ() {
 # 安装oh-my-zsh
 if [ -d "$HOME/.oh-my-zsh" ]; then
     echo -e "${Green}oh-my-zsh 已安装${Plain}"
-
     # 检查是否存在 .zshrc 文件
     if [ -f "$HOME/.zshrc" ]; then
         echo -e "${Green}.zshrc 文件已经存在${Plain}"
@@ -28,23 +27,23 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
             curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
             if [ $? -eq 0 ]; then
                 source "$HOME/.zshrc"
-				rm -f ~/.zshrc.bak
-				Update_succ
+                rm -f ~/.zshrc.bak
+                Update_succ
             else
                 echo -e "${Red}更新 .zshrc 文件失败，将恢复备份文件${Plain}"
                 mv "$HOME/.zshrc.bak" "$HOME/.zshrc"
                 source "$HOME/.zshrc"
-				Update_succ
+                Update_succ
             fi
         else
             echo -e "${Yellow}保留当前配置${Plain}\n"
         fi
     else
         echo -e ".zshrc 文件不存在"
-		echo -e "正在下载 .zshrc 文件"
-		curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
-		source "$HOME/.zshrc"
-		Update_succ
+	    echo -e "正在下载 .zshrc 文件"
+	    curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
+	    source "$HOME/.zshrc"
+	    Update_succ
     fi
 else
     echo -e "oh-my-zsh ${Red}未安装${Plain}"
