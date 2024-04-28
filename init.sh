@@ -158,7 +158,7 @@ if find /root/.zshrc &>/dev/null; then
   fi
 else
   echo -e "oh-my-zsh ${Red}未安装${Plain}"
-  echo -e "${Yellow}手动运行 ${UBlue}sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)${Yellow}安装${Plain}\n"
+  echo -e "${Yellow}手动运行 ${UBlue}sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"${Yellow}安装${Plain}\n"
 fi
 
 # 安装ddns-go
