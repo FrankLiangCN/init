@@ -140,11 +140,10 @@ else
 fi
 
 # 安装oh-my-zsh
-if ! find /root/.zshrc &>/dev/null; then
-  echo -e "oh-my-zsh ${Red}未安装${Plain}"
-  read -p "是否安装oh-my-zsh？${Default}" answer
+if find /root/.zshrc &>/dev/null; then
+  echo -e "${Green}oh-my-zsh 已安装${Plain}\n"
+  read -p "是否更新 oh-my-zsh 配置？${Default}" answer
   if Option; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     mv /root/.zshrc /root/.zshrc.bak
     curl -s -o /root/.zshrc https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc
     if [[ $? -ne 0 ]]; then
@@ -153,12 +152,13 @@ if ! find /root/.zshrc &>/dev/null; then
     	rm -f /root/.zshrc.bak
     fi
     source ~/.zshrc
-    echo -e "${Green}oh-my-zsh 安装成功${Plain}\n"
+    echo -e "${Green}oh-my-zsh 配置更新成功${Plain}\n"
   else
-    Cancel_info
+    echo -e "${Yellow}保留当前配置${Plain}\n"
   fi
 else
-  echo -e "${Green}oh-my-zsh 已安装${Plain}\n"
+  echo -e "oh-my-zsh ${Red}未安装${Plain}"
+  echo -e "${Yellow}手动运行 ${UBlue}sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)${Yellow}安装${Plain}\n"
 fi
 
 # 安装ddns-go
