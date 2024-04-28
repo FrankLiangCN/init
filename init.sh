@@ -144,6 +144,7 @@ if ! find /root/.zshrc &>/dev/null; then
   echo -e "oh-my-zsh ${Red}未安装${Plain}"
   read -p "是否安装oh-my-zsh？${Default}" answer
   if Option; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     mv /root/.zshrc /root/.zshrc.bak
     curl -s -o /root/.zshrc https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc
     if [[ $? -ne 0 ]]; then
