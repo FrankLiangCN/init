@@ -8,6 +8,10 @@ UBlue='\033[4;34m'
 Plain='\033[0m'
 
 # 定义项
+Option() {
+  [[ x"$answer" == x"yes" || x"$answer" == x"YES" || x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]
+}
+
 Default='(y/n) [默认yes]:'
 
 Update_succ() {
@@ -20,7 +24,7 @@ if [ -f "$HOME/.zshrc" ]; then
   echo -e "${Green}.zshrc 文件已经存在${Plain}"
   echo -e "是否更新 .zshrc 文件？${Default} "
   read answer
-  if [[ $answer =~ ^([Yy]|)$ ]]; then
+  if Option; then
     mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
     curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
     sleep 2
