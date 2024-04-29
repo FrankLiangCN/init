@@ -16,6 +16,7 @@ Default='(y/n) [默认yes]:'
 
 Update_succ() {
   echo -e "${Green}oh-my-zsh 配置更新成功${Plain}\n"
+  echo -e "${Yellow}稍后需手动运行 ${UBlue}source "$HOME/.zshrc"${Yellow}使新配置生效${Plain}"
 }
 
 # oh-my-zsh配置
