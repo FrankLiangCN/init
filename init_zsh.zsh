@@ -31,7 +31,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
   if Option; then
     # zsh-autosuggestions
     if [[ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]]; then
-      echo -e "${Green}zsh-autosuggestions 插件已安装${Plain}"
+      echo -e "${Green}zsh-autosuggestions 插件已安装${Plain}\n"
     else
       echo -e "${Yellow}正在安装 oh-my-zsh plugins ...${Plain}"
       git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -44,7 +44,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     
     # zsh-syntax-highlighting
     if [[ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
-      echo -e "${Green}zsh-syntax-highlighting 插件已安装${Plain}"
+      echo -e "${Green}zsh-syntax-highlighting 插件已安装${Plain}\n"
     else
       echo -e "${Yellow}正在安装 oh-my-zsh plugins ...${Plain}"
       git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -66,7 +66,6 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     if Option; then
       mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
       curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
-  #    sleep 2
       if [ $? -eq 0 ]; then
         rm -f "$HOME/.zshrc.bak"
         Update_succ
@@ -82,7 +81,6 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     echo -e "${Red}.zshrc 配置文件不存在${Plain}"
     echo -e "${Yellow}正在下载 .zshrc 配置文件...${Plain}"
     curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
-  #  sleep 2
     Update_succ
   fi
   source ~/.zshrc
