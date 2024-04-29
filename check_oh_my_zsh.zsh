@@ -18,7 +18,7 @@ Update_succ() {
   echo -e "${Green}oh-my-zsh 配置更新成功${Plain}\n"
 }
 
-# 安装oh-my-zsh
+# oh-my-zsh配置
 # 检查是否存在 .zshrc 文件
 if [ -f "$HOME/.zshrc" ]; then
   echo -e "${Green}.zshrc 文件已经存在${Plain}"
