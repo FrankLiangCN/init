@@ -28,7 +28,7 @@ if [ -f "$HOME/.zshrc" ]; then
   if Option; then
     mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
     curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
-    sleep 2
+#    sleep 2
     if [ $? -eq 0 ]; then
       source "$HOME/.zshrc"
       rm -f "$HOME/.zshrc.bak"
@@ -46,7 +46,7 @@ else
   echo -e "${Red}.zshrc 文件不存在${Plain}"
   echo -e "${Yellow}正在下载 .zshrc 文件...${Plain}"
   curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
-  sleep 2
+#  sleep 2
   source "$HOME/.zshrc"
   Update_succ
 fi
