@@ -490,6 +490,15 @@ fi
 # 安装oh-my-zsh
 if find "$HOME/.oh-my-zsh" &>/dev/null; then
   echo -e "${Green}oh-my-zsh 已安装${Plain}"
+  read -p "是否 安装/更新 oh-my-zsh 插件？${Default}" answer
+  if Option; then
+    wget --no-check-certificate -O $HOME/zsh_plugins.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/zsh_plugins.zsh
+    chmod +x $HOME/zsh_plugins.zsh
+    zsh $HOME/zsh_plugins.zsh
+    rm -f "$HOME/zsh_plugins.zsh"
+  else
+    Cancel_info
+  fi
   read -p "是否更新 oh-my-zsh 配置？${Default}" answer
   if Option; then
     wget --no-check-certificate -O $HOME/check_oh_my_zsh.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/check_oh_my_zsh.zsh
