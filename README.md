@@ -2,15 +2,19 @@
 
 ## 一键初始化
 
-### 一键脚本命令：
+### A. 一键脚本命令：
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init.sh)
 ```
 
-### Oh My Zsh：
+### B. Oh My Zsh：
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 ```
 sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
+```
+#### Oh My Zsh 配置：
+```
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init_zsh.zsh)"
 ```
