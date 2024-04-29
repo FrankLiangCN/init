@@ -487,33 +487,6 @@ else
   echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
 fi
 
-# 安装oh-my-zsh
-if find "$HOME/.oh-my-zsh" &>/dev/null; then
-  echo -e "${Green}oh-my-zsh 已安装${Plain}"
-  read -p "是否 安装/更新 oh-my-zsh 插件？${Default}" answer
-  if Option; then
-    wget --no-check-certificate -O $HOME/zsh_plugins.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/zsh_plugins.zsh
-    chmod +x $HOME/zsh_plugins.zsh
-    zsh $HOME/zsh_plugins.zsh
-    rm -f "$HOME/zsh_plugins.zsh"
-  else
-    Cancel_info
-  fi
-  read -p "是否更新 oh-my-zsh 配置？${Default}" answer
-  if Option; then
-    wget --no-check-certificate -O $HOME/check_oh_my_zsh.zsh https://raw.githubusercontent.com/FrankLiangCN/init/main/check_oh_my_zsh.zsh
-    chmod +x $HOME/check_oh_my_zsh.zsh
-    zsh $HOME/check_oh_my_zsh.zsh
-#    source "$HOME/.zshrc"
-    rm -f "$HOME/check_oh_my_zsh.zsh"
-  else
-    echo -e "${Yellow}保留当前配置${Plain}\n"
-  fi
-else
-  echo -e "oh-my-zsh ${Red}未安装${Plain}"
-  echo -e "${Yellow}请参考文档或手动安装: ${UBlue}https://github.com/ohmyzsh/ohmyzsh${Plain}\n"
-fi
-
 echo -e ""
 echo -e "${Yellow}=========================================================${Plain}"
 echo -e "${Yellow}             Linux 环境初始化自动部署成功！              ${Plain}"
