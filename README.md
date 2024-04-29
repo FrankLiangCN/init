@@ -16,5 +16,5 @@ sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
 ```
 #### Oh My Zsh 配置：
 ```
-zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init_zsh.zsh)"
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init_omz.zsh)"
 ```
