@@ -32,9 +32,9 @@ if [[ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]]; then
     echo -e "${Yellow}正在安装 oh-my-zsh plugins ...${Plain}"
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     if [[ $? -eq 0 ]]; then
-      echo -e "${Green}zsh-autosuggestions 安装成功${Plain}"
+      echo -e "${Green}zsh-autosuggestions 安装成功${Plain}\n"
     else
-      echo -e "${Red}zsh-autosuggestions 安装失败${Plain}"
+      echo -e "${Red}zsh-autosuggestions 安装失败${Plain}\n"
     fi
   else
     Cancel_info
@@ -43,9 +43,9 @@ else
     echo -e "${Yellow}正在安装 oh-my-zsh plugins ...${Plain}"
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     if [[ $? -eq 0 ]]; then
-      echo -e "${Green}zsh-autosuggestions 安装成功${Plain}"
+      echo -e "${Green}zsh-autosuggestions 安装成功${Plain}\n"
     else
-      echo -e "${Red}zsh-autosuggestions 安装失败${Plain}"
+      echo -e "${Red}zsh-autosuggestions 安装失败${Plain}\n"
     fi
 fi
 
@@ -59,9 +59,9 @@ if [[ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]]; then
     echo -e "${Yellow}正在安装 oh-my-zsh plugins ...${Plain}"
     git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     if [[ $? -eq 0 ]]; then
-      echo -e "${Green}zsh-syntax-highlighting 安装成功${Plain}"
+      echo -e "${Green}zsh-syntax-highlighting 安装成功${Plain}\n"
     else
-      echo -e "${Red}zsh-syntax-highlighting 安装失败${Plain}"
+      echo -e "${Red}zsh-syntax-highlighting 安装失败${Plain}\n"
     fi
   else
     Cancel_info
@@ -70,9 +70,9 @@ else
     echo -e "${Yellow}正在安装 oh-my-zsh plugins ...${Plain}"
     git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     if [[ $? -eq 0 ]]; then
-      echo -e "${Green}zsh-syntax-highlighting 安装成功${Plain}"
+      echo -e "${Green}zsh-syntax-highlighting 安装成功${Plain}\n"
     else
-      echo -e "${Red}zsh-syntax-highlighting 安装失败${Plain}"
+      echo -e "${Red}zsh-syntax-highlighting 安装失败${Plain}\n"
     fi
 fi
 
