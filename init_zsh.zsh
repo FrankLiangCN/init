@@ -83,10 +83,11 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
     Update_succ
   fi
+
   source ~/.zshrc
-  echo -e "${Green}.zshrc 配置文件已生效${Plain}"
+#  echo -e "${Green}.zshrc 配置文件已生效${Plain}"
+  echo -e "${Yellow}稍后需手动运行 ${UBlue}source ~/.zshrc${Yellow} 使新配置生效${Plain}"
 else
   echo -e "oh-my-zsh ${Red}未安装${Plain}"
   echo -e "${Yellow}请参考文档或手动安装: ${UBlue}https://github.com/ohmyzsh/ohmyzsh${Plain}\n"
 fi
-
