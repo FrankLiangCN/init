@@ -15,16 +15,16 @@ Option() {
 Default='(y/n) [默认yes]:'
 
 Update_succ() {
-  echo -e "${Green}oh-my-zsh 配置更新成功${Plain}\n"
-  echo -e "${Yellow}稍后需手动运行 ${UBlue}source "$HOME/.zshrc"${Yellow}使新配置生效${Plain}"
+  echo -e "${Green}oh-my-zsh 配置更新成功${Plain}"
+  echo -e "${Yellow}稍后需手动运行 ${UBlue}source "$HOME/.zshrc"${Yellow} 使新配置生效${Plain}\n"
 }
 
 # oh-my-zsh配置
 # 检查是否存在 .zshrc 文件
 if [ -f "$HOME/.zshrc" ]; then
   echo -e "${Green}.zshrc 文件已经存在${Plain}"
-#  echo -e "是否更新 .zshrc 文件？${Default} "
-  read -p "是否更新 .zshrc 文件？${Default} " answer
+  echo -e "是否更新 .zshrc 文件？${Default} "
+  read answer
   if Option; then
     mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
     curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
