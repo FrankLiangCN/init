@@ -18,7 +18,11 @@ sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
 ```
 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init_omz.zsh)"
 ```
-#### b) Change Your Default Shell:
+#### b) 使配置生效:
+```
+source ~/.zshrc
+```
+#### c) Change Your Default Shell:
 ```
 chsh -s $(which zsh)
 ```
