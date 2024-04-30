@@ -14,7 +14,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ```
 sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
 ```
-#### Oh My Zsh 配置：
+#### a) Oh My Zsh 配置：
 ```
 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init_omz.zsh)"
+```
+#### b) Change Your Default Shell:
+```
+chsh -s $(which zsh)
 ```
