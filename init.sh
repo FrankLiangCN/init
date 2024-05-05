@@ -64,25 +64,25 @@ ssh_key_enable() {
 
 # 判断SSH参数并修改配置
 if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
-  echo -e "修改 PubkeyAuthentication 和 RSAAuthentication 参数为${Green} yes${Plain}..."
+  echo -e "${Yellow}修改${Plain} PubkeyAuthentication 和 RSAAuthentication 参数为 ${Green}yes${Plain}..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   ssh_key_enable
 elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
-  echo -e "修改 RSAAuthentication 参数为${Green} yes${Plain}..."
+  echo -e "${Yellow}修改${Plain} RSAAuthentication 参数为 ${Green}yes${Plain}..."
   sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
   ssh_key_enable
 elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "增加 RSAAuthentication${Green} yes${Plain}..."
+  echo -e "${Yellow}增加${Plain} RSAAuthentication ${Green}yes${Plain}..."
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
 elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "修改 PubkeyAuthentication 参数为${Green} yes ${Plain}和 增加 RSAAuthentication${Green} yes${Plain}..."
+  echo -e "${Yellow}修改${Plain} PubkeyAuthentication 参数为 ${Green}yes${Plain} 和 ${Yellow}增加${Plain} RSAAuthentication ${Green}yes${Plain}..."
   sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
 elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "增加 PubkeyAuthentication${Green} yes ${Plain}和 RSAAuthentication${Green} yes${Plain}..."
+  echo -e "${Yellow}增加${Plain} PubkeyAuthentication ${Green}yes${Plain} 和 RSAAuthentication ${Green}yes${Plain}..."
   echo "PubkeyAuthentication yes" >> $ssh_config_file
   echo "RSAAuthentication yes" >> $ssh_config_file
   ssh_key_enable
