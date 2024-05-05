@@ -43,7 +43,7 @@ if [ "$current_timezone" != "HKT" ]; then
     echo -e "${Red}设置系统时区失败，请重新设置！${Plain}\n"
   fi
 else
-  echo -e "当前时区已设置为${Green} Asia/Hong_Kong${Plain}，无需修改\n"
+  echo -e "当前时区已设置为 ${Green}Asia/Hong_Kong${Plain}，无需修改\n"
 fi
 
 # 开启SSH Key登录选项
