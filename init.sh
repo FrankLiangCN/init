@@ -141,25 +141,15 @@ else
 fi
 
 # 安装ddns-go
-Install_ddns-go () {
-  if Option; then
-    echo -e "${Yellow}开始安装 ddns-go ...${Plain}"
-    bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
-    if [ $? -eq 0 ]; then
-      echo -e "${Green}ddns-go 安装/更新 成功${Plain}"
-    else
-      echo -e "${Red}ddns-go 安装失败，请参考文档或手动安装: ${UBlue}https://github.com/FrankLiangCN/DDNS${Plain}\n"
-    fi
-  else
-    Cancel_info
-  fi
-}
-
 # 定义ddns-go配置文件路径
 ddns_config_file="/etc/systemd/system/ddns-go.service"
 
-# 检测PubkeyAuthentication参数
+# 检测 ddns-go 端口
 ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
+
+ddns_login_info () {
+  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 进行初始化配置${Plain}\n"
+}
 
 Config_ddns_port () {
   echo -e "当前 ddns-go 端口为 ${Yellow}$ddns_port${Plain}"
@@ -175,22 +165,37 @@ Config_ddns_port () {
     fi
     echo -e "新 ddns-go 端口为 ${Yellow}$new_port${Plain}\n"
     sed -i "s/$ddns_port/$new_port/g" $ddns_config_file
+    systemctl restart ddns-go
     echo -e "${Green}ddns-go 端口已更新${Plain}\n"
+    ddns_login_info
   else
     echo -e "${Red}取消 更新 ddns-go 端口${Plain}\n"
+  fi
+}
+
+Install_ddns-go () {
+  if Option; then
+    echo -e "${Yellow}开始安装 ddns-go ...${Plain}"
+    bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
+    if [ $? -eq 0 ]; then
+      echo -e "${Green}ddns-go 安装/更新 成功${Plain}"
+      ddns_login_info
+    else
+      echo -e "${Red}ddns-go 安装失败，请参考文档或手动安装: ${UBlue}https://github.com/FrankLiangCN/DDNS${Plain}\n"
+    fi
+  else
+    Cancel_info
   fi
 }
 
 if ! type ddns-go &>/dev/null; then
   read -p "是否安装 ddns-go？${Default}" answer
   Install_ddns-go
-  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 进行初始化配置${Plain}\n"
   Config_ddns_port
 else
   echo -e "${Green}ddns-go 已安装${Plain}"
   read -p "是否更新 ddns-go？${Default}" answer
   Install_ddns-go
-  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 配置 ddns-go${Plain}\n"
   Config_ddns_port
 fi
 
