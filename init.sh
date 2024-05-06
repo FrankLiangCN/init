@@ -141,17 +141,6 @@ else
 fi
 
 # 安装 ddns-go
-# 定义ddns-go配置文件路径
-ddns_config_file="/etc/systemd/system/ddns-go.service"
-
-# 检测 ddns-go 端口
-ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
-
-ddns_login_info () {
-  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 进行初始化配置${Plain}\n"
-}
-
-# ddns-go 安装
 Install_ddns-go () {
   if Option; then
     echo -e "${Yellow}开始安装 ddns-go ...${Plain}"
@@ -164,6 +153,10 @@ Install_ddns-go () {
   else
     Cancel_info
   fi
+}
+
+ddns_login_info () {
+  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 进行初始化配置${Plain}\n"
 }
 
 # 恢复 ddns-go 配置
@@ -199,6 +192,8 @@ Config_ddns() {
 
 # 配置 ddns-go 端口
 Config_ddns_port () {
+  ddns_config_file="/etc/systemd/system/ddns-go.service"
+  ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
   echo -e "当前 ddns-go 端口为${Yellow}$ddns_port${Plain}"
   read -p "是否 更新 ddns-go 端口？${Default}" answer
   if Option; then
