@@ -178,8 +178,6 @@ Config_ddns() {
       curl -s -o /opt/ddns-go/.ddns_go_config.yaml ${source_url}/${path}/.ddns_go_config.yaml
       if [[ $? -ne 0 ]]; then
       	curl -s -o /opt/ddns-go/.ddns_go_config.yaml ${source_url}/${path}/.ddns_go_config.yaml
-      else
-      	echo -e "${Red}ddns-go 配置恢复失败${Plain}\n"
       fi
       systemctl daemon-reload
       systemctl restart ddns-go
