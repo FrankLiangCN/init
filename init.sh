@@ -59,7 +59,7 @@ rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '
 ssh_key_enable() {
   echo -e "SSH Key 登录选项${Green}已开启${Plain}"
   service ssh restart
-  echo -e "${Red}SSH服务已重启${Plain}\n"
+  echo -e "${Red}SSH 服务已重启${Plain}\n"
 }
 
 # 判断SSH参数并修改配置
@@ -132,6 +132,7 @@ done
 # 配置NAT64
 read -p "是否配置NAT64？${Default}" answer
 if Option; then
+  echo -e "${Yellow}备份 resolv.conf 文件...${Plain}"
   mv /etc/resolv.conf /etc/resolv.conf.bak
   echo -e "nameserver 2a01:4f8:c2c:123f::1\nnameserver 2001:67c:2b0::4\nnameserver 2001:67c:2b0::6\nnameserver 2606:4700:4700::64\nnameserver 2606:4700:4700::6400" > /etc/resolv.conf
   echo -e "${Green}NAT64已配置${Plain}\n"
@@ -154,15 +155,43 @@ Install_ddns-go () {
   fi
 }
 
+# 定义ddns-go配置文件路径
+ddns_config_file="/etc/systemd/system/ddns-go.service"
+
+# 检测PubkeyAuthentication参数
+ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
+
+Config_ddns_port () {
+  echo -e "当前 ddns-go 端口为 ${Yellow}$ddns_port${Plain}"
+  read -p "是否 更新 ddns-go 端口？${Default}" answer
+  if Option; then
+    read -p "请输入新 ddns-go 端口（回车保留默认值）：" new_port
+    if [ -z "$new_port" ]; then
+      new_port="$ddns_port"
+    else
+      if [[ ! "$new_port" =~ ^: ]]; then
+        new_port=":$new_port"
+      fi
+    fi
+    echo -e "新 ddns-go 端口为 ${Yellow}$new_port${Plain}\n"
+    sed -i "s/$ddns_port/$new_port/g" $ddns_config_file
+    echo -e "${Green}ddns-go 端口已更新${Plain}\n"
+  else
+    echo -e "${Red}取消 更新 ddns-go 端口${Plain}\n"
+  fi
+}
+
 if ! type ddns-go &>/dev/null; then
   read -p "是否安装 ddns-go？${Default}" answer
   Install_ddns-go
-  echo -e "${Green}请访问 ${UBlue}http://IP:9876${Green} 进行初始化配置${Plain}\n"
+  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 进行初始化配置${Plain}\n"
+  Config_ddns_port
 else
   echo -e "${Green}ddns-go 已安装${Plain}"
   read -p "是否更新 ddns-go？${Default}" answer
   Install_ddns-go
-  echo -e "${Green}请访问 ${UBlue}http://IP:9876${Green} 配置 ddns-go${Plain}\n"
+  echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 配置 ddns-go${Plain}\n"
+  Config_ddns_port
 fi
 
 # 安装/配置x-ui
@@ -180,7 +209,7 @@ x-ui_db() {
         path=default
       fi
       echo -e "配置来源路径为：${Yellow}$path${Plain}\n"
-      echo -e "${Yellow}开始恢复 x-ui 配置 ...${Plain}\n"
+      echo -e "${Yellow}开始恢复 x-ui 配置...${Plain}\n"
       mv /etc/x-ui/x-ui.db /etc/x-ui/x-ui.db.bak
       curl -s -o /etc/x-ui/x-ui.db ${source_url}/${path}/x-ui.db
       if [[ $? -ne 0 ]]; then
@@ -340,25 +369,25 @@ Config_fail2ban() {
       current_maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
       # 设置要修改的值
       echo "当前 bantime 值为：$current_bantime"
-      read -p "请输入新的 bantime 值（回车保留默认值）：" new_bantime
+      read -p "请输入新 bantime 值（回车保留默认值）：" new_bantime
       if [ -z "$new_bantime" ]; then
         new_bantime=$current_bantime
       fi
-      echo -e "新的 bantime 值为：${Yellow}$new_bantime${Plain}\n"
+      echo -e "新 bantime 值为：${Yellow}$new_bantime${Plain}\n"
       sed -i "s/^bantime\s*=\s*$current_bantime/bantime = $new_bantime/1" $jail_file
   	  echo "当前 findtime 值为：$current_findtime"
-      read -p "请输入新的 findtime 值（回车保留默认值）：" new_findtime
+      read -p "请输入新 findtime 值（回车保留默认值）：" new_findtime
       if [ -z "$new_findtime" ]; then
         new_findtime=$current_findtime
       fi
-      echo -e "新的 findtime 值为：${Yellow}$new_findtime${Plain}\n"
+      echo -e "新 findtime 值为：${Yellow}$new_findtime${Plain}\n"
       sed -i "s/^findtime\s*=\s*$current_findtime/findtime = $new_findtime/1" $jail_file
   	  echo "当前 maxretry 值为：$current_maxretry"
-      read -p "请输入新的 maxretry 值（回车保留默认值）：" new_maxretry
+      read -p "请输入新 maxretry 值（回车保留默认值）：" new_maxretry
       if [ -z "$new_maxretry" ]; then
         new_maxretry=$current_maxretry
       fi
-      echo -e "新的 maxretry 值为：${Yellow}$new_maxretry${Plain}\n"
+      echo -e "新 maxretry 值为：${Yellow}$new_maxretry${Plain}\n"
       sed -i "s/^maxretry\s*=\s*$current_maxretry/maxretry = $new_maxretry/1" $jail_file
       # 启用SSHD Jail
       #sed -i '/^\[sshd\]/{n;/^\s*enabled\s*=/ {s/false/true/;t};s/$/\nenabled = true/}' $jail_file
@@ -403,17 +432,17 @@ Install_ServerStatus() {
     if [ -z "$url" ]; then
       url=https://vps.simpletechcn.com
     fi
-    echo -e "新的服务端域名/IP:端口为：${Yellow}$url${Plain}\n"
+    echo -e "新服务端域名/IP:端口为：${Yellow}$url${Plain}\n"
     read -p "请输入用户名：" username
     if [ -z "$username" ]; then
       username=uid
     fi
-    echo -e "新的用户名为：${Yellow}$username${Plain}\n"
+    echo -e "新用户名为：${Yellow}$username${Plain}\n"
     read -p "请输入密码：" password
     if [ -z "$password" ]; then
       password=pp
     fi
-    echo -e "新的密码为：${Yellow}$password${Plain}\n"
+    echo -e "新密码为：${Yellow}$password${Plain}\n"
     read -p "是否启用 vnstat (0:不启用 / 默认1:启用)：" vnstat
     if [ -z "$vnstat" ]; then
       vnstat=1
@@ -477,8 +506,8 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     echo -e "${Yellow}正在清理磁盘空间${Plain}\n"
     bash /opt/cleandata.sh
     echo -e "${Yellow}磁盘空间已清理${Plain}\n"
-    echo "0 0 */7 * *  bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-    #echo "0 0 */7 * *  root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    echo "0 0 */7 * * bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
     echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
   else
     echo -e "${Red}取消设置${Plain}\n"
@@ -501,7 +530,7 @@ if Option; then
   if [ -z "$new_password" ]; then
     new_password=@Sz123456
   fi
-  echo -e "新的 Root 密码为：${Yellow}$new_password${Plain}"
+  echo -e "新 Root 密码为：${Yellow}$new_password${Plain}"
   # 更改 root 密码
   echo "root:$new_password" | chpasswd
   sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
