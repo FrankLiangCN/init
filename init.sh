@@ -155,7 +155,7 @@ Config_ddns_port () {
   echo -e "当前 ddns-go 端口为 ${Yellow}$ddns_port${Plain}"
   read -p "是否 更新 ddns-go 端口？${Default}" answer
   if Option; then
-    read -p "请输入新 ddns-go 端口（回车保留默认值）：" new_port
+    read -p "请输入新 ddns-go 端口 [回车保留默认值]：" new_port
     if [ -z "$new_port" ]; then
       new_port="$ddns_port"
     else
@@ -374,21 +374,21 @@ Config_fail2ban() {
       current_maxretry=$(grep -E "^\s*maxretry\s+" $jail_file | awk '{print $3}' | head -n 1)
       # 设置要修改的值
       echo "当前 bantime 值为：$current_bantime"
-      read -p "请输入新 bantime 值（回车保留默认值）：" new_bantime
+      read -p "请输入新 bantime 值 [回车保留默认值]：" new_bantime
       if [ -z "$new_bantime" ]; then
         new_bantime=$current_bantime
       fi
       echo -e "新 bantime 值为：${Yellow}$new_bantime${Plain}\n"
       sed -i "s/^bantime\s*=\s*$current_bantime/bantime = $new_bantime/1" $jail_file
   	  echo "当前 findtime 值为：$current_findtime"
-      read -p "请输入新 findtime 值（回车保留默认值）：" new_findtime
+      read -p "请输入新 findtime 值 [回车保留默认值]：" new_findtime
       if [ -z "$new_findtime" ]; then
         new_findtime=$current_findtime
       fi
       echo -e "新 findtime 值为：${Yellow}$new_findtime${Plain}\n"
       sed -i "s/^findtime\s*=\s*$current_findtime/findtime = $new_findtime/1" $jail_file
   	  echo "当前 maxretry 值为：$current_maxretry"
-      read -p "请输入新 maxretry 值（回车保留默认值）：" new_maxretry
+      read -p "请输入新 maxretry 值 [回车保留默认值]：" new_maxretry
       if [ -z "$new_maxretry" ]; then
         new_maxretry=$current_maxretry
       fi
