@@ -170,6 +170,7 @@ Config_ddns_port () {
     ddns_login_info
   else
     echo -e "${Red}取消 更新 ddns-go 端口${Plain}\n"
+    ddns_login_info
   fi
 }
 
@@ -179,7 +180,6 @@ Install_ddns-go () {
     bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     if [ $? -eq 0 ]; then
       echo -e "${Green}ddns-go 安装/更新 成功${Plain}"
-      ddns_login_info
     else
       echo -e "${Red}ddns-go 安装失败，请参考文档或手动安装: ${UBlue}https://github.com/FrankLiangCN/DDNS${Plain}\n"
     fi
