@@ -152,7 +152,7 @@ ddns_login_info () {
 }
 
 Config_ddns_port () {
-  echo -e "当前 ddns-go 端口为 ${Yellow}$ddns_port${Plain}"
+  echo -e "当前 ddns-go 端口为${Yellow}$ddns_port${Plain}"
   read -p "是否 更新 ddns-go 端口？${Default}" answer
   if Option; then
     read -p "请输入新 ddns-go 端口 [回车保留默认值]：" new_port
@@ -163,7 +163,7 @@ Config_ddns_port () {
         new_port=":$new_port"
       fi
     fi
-    echo -e "新 ddns-go 端口为 ${Yellow}$new_port${Plain}\n"
+    echo -e "新 ddns-go 端口为${Yellow}$new_port${Plain}\n"
     sed -i "s/$ddns_port/$new_port/g" $ddns_config_file
     systemctl restart ddns-go
     echo -e "${Green}ddns-go 端口已更新${Plain}\n"
