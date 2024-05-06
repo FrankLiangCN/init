@@ -165,6 +165,7 @@ Config_ddns_port () {
     fi
     echo -e "新 ddns-go 端口为${Yellow}$new_port${Plain}\n"
     sed -i "s/$ddns_port/$new_port/g" $ddns_config_file
+    systemctl daemon-reload
     systemctl restart ddns-go
     echo -e "${Green}ddns-go 端口已更新${Plain}\n"
     ddns_login_info
