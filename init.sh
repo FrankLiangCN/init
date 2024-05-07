@@ -550,7 +550,7 @@ if ! type tailscale &>/dev/null; then
     Cancel_info
   fi
 else
-  echo -e "${Green}Tailscale 已安装${Plain}"
+  echo -e "${Green}Tailscale 已安装${Plain}\n"
 fi
 
 # 检测定时清理磁盘空间任务是否已设置
