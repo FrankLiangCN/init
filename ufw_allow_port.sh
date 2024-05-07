@@ -7,6 +7,30 @@ Blue='\033[0;34m'
 UBlue='\033[4;34m'
 Plain='\033[0m'
 
+# 常用端口号
+common_port=(
+    "22"
+    "80"
+    "443"
+    "8080"
+    "8443"
+    "9000"
+    "9443"
+    "9876"
+)
+
+read -p "是否开放常用端口号？（22,80,443,8080 ……）${Default}" answer
+if [[ x"$answer" == x"yes" || x"$answer" == x"YES" || x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
+  for port in "${common_port[@]}"; do
+    port_number=${port##*which }
+    ufw allow ${port_number}
+    echo -e "${Green}ufw 已开放端口号:${Yellow} ${port_number} ${Plain}\n"
+  done
+  echo -e "${Yellow}继续输入其它端口号${Plain}\n"
+else
+  echo -e "${Yellow}继续输入其它端口号${Plain}\n"  
+fi
+
 # 定义允许端口的函数
 allow_port() {
   # 检查端口号是否为空
