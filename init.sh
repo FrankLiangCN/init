@@ -475,13 +475,13 @@ if ! type ufw &>/dev/null; then
     apt-get -y install ufw
     if type ufw &>/dev/null; then
       Install_succ
-      ufw enable
       read -p "是否配置开放端口号？${Default}" answer
       if Option; then
         bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
       else
         Cancel_info
       fi
+      ufw enable
     else
       echo -e "${Red}ufw 安装失败，需重新安装${Plain}\n"
     fi
