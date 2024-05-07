@@ -175,9 +175,12 @@ Config_ddns() {
       fi
       echo -e "配置来源路径为：${Yellow}$path${Plain}\n"
       echo -e "${Yellow}开始恢复 ddns-go 配置...${Plain}\n"
+      mv /opt/ddns-go/.ddns_go_config.yaml /opt/ddns-go/.ddns_go_config.yaml.bak
       curl -s -o /opt/ddns-go/.ddns_go_config.yaml ${source_url}/${path}/.ddns_go_config.yaml
       if [[ $? -ne 0 ]]; then
-      	curl -s -o /opt/ddns-go/.ddns_go_config.yaml ${source_url}/${path}/.ddns_go_config.yaml
+      	mv /opt/ddns-go/.ddns_go_config.yaml.bak /opt/ddns-go/.ddns_go_config.yaml
+      else
+      	rm -f /opt/ddns-go/.ddns_go_config.yaml.bak
       fi
       systemctl daemon-reload
       systemctl restart ddns-go
