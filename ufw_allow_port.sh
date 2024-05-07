@@ -27,9 +27,9 @@ if [[ x"$answer" == x"yes" || x"$answer" == x"YES" || x"$answer" == x"y" || x"$a
     ufw allow ${port_number}
     echo -e "${Green}ufw 已开放端口号:${Yellow} ${port_number} ${Plain}\n"
   done
-  echo -e "${Yellow}继续输入其它端口号${Plain}\n"
+  echo -e "${Yellow}继续输入要开放的其它端口号${Plain}\n"
 else
-  echo -e "${Yellow}继续输入其它端口号${Plain}\n"  
+  echo -e "${Yellow}继续输入要开放的其它端口号${Plain}\n"  
 fi
 
 # 定义允许端口的函数
@@ -53,7 +53,13 @@ allow_port() {
   echo -e "${Green}ufw 已开放端口号:${Yellow} $1 ${Plain}\n"
 }
 
-# 循环允许端口
+# 检查是否安装ddns-go
+if command -v ddns-go >/dev/null 2>&1; then
+  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow}9876${Green}端口${Plain}\n"
+  allow_port 9876
+fi
+
+# 循环开放端口
 while true; do
   read -p "请输入要开放的端口号 (回车退出):" port
 
