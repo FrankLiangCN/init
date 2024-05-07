@@ -55,8 +55,10 @@ allow_port() {
 
 # 检查是否安装ddns-go
 if command -v ddns-go >/dev/null 2>&1; then
-  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow}9876${Green}端口${Plain}\n"
-  allow_port 9876
+  ddns_config_file="/etc/systemd/system/ddns-go.service"
+  ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
+  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow} ${ddns_port} ${Green}端口${Plain}\n"
+  allow_port ${ddns_port}
 fi
 
 # 循环开放端口
