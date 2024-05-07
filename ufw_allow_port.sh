@@ -17,7 +17,7 @@ allow_port() {
 
   # 检查端口号是否为数字
   if [[ ! "$1" =~ ^[0-9]+$ ]]; then
-    echo -e "${Yellow}端口号必须是数字${Plain}"
+    echo -e "${Yellow}端口号必须是数字${Plain}\n"
     return 1
   fi
 
@@ -25,12 +25,12 @@ allow_port() {
   ufw allow $1  
 
   # 显示已允许的端口
-  echo -e "${Green}ufw 已开放端口:${Yellow} $1 ${Plain}\n"
+  echo -e "${Green}ufw 已开放端口号:${Yellow} $1 ${Plain}\n"
 }
 
 # 循环允许端口
 while true; do
-  read -p "请输入要开放的端口号 (空行退出):" port
+  read -p "请输入要开放的端口号 (回车退出):" port
 
   # 检查用户是否按回车键退出
   if [ -z "$port" ]; then
