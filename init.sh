@@ -453,14 +453,49 @@ if ! type fail2ban-client &>/dev/null; then
   if Option; then
     echo -e "${Yellow}开始安装 Fail2ban ...${Plain}"
     apt-get -y install fail2ban
-    Install_succ
-    Config_fail2ban
+    if type fail2ban-client &>/dev/null; then
+      Install_succ
+      Config_fail2ban
+    else
+      echo -e "${Red}Fail2ban 安装失败，需重新安装${Plain}\n"
+    fi
   else
     Cancel_info
   fi
 else
   echo -e "${Green}Fail2ban 已安装${Plain}"
   Config_fail2ban
+fi
+
+# 安装/配置 ufw
+if ! type ufw &>/dev/null; then
+  read -p "是否安装 ufw？${Default}" answer
+  if Option; then
+    echo -e "${Yellow}开始安装 ufw ...${Plain}"
+    apt-get -y install ufw
+    if type ufw &>/dev/null; then
+      Install_succ
+      ufw enable
+      read -p "是否配置开放端口号？${Default}" answer
+      if Option; then
+        bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
+      else
+        Cancel_info
+      fi
+    else
+      echo -e "${Red}ufw 安装失败，需重新安装${Plain}\n"
+    fi
+  else
+    Cancel_info
+  fi
+else
+  echo -e "${Green}ufw 已安装${Plain}"
+  read -p "是否配置开放端口号？${Default}" answer
+    if Option; then
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
+    else
+      Cancel_info
+    fi
 fi
 
 # 安装 Rust 版 ServerStatus 云探针
