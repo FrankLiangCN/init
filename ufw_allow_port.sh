@@ -57,8 +57,10 @@ allow_port() {
 if command -v ddns-go >/dev/null 2>&1; then
   ddns_config_file="/etc/systemd/system/ddns-go.service"
   ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
-  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow} ${ddns_port} ${Green}端口${Plain}\n"
-  allow_port ${ddns_port}
+  # 删除冒号
+  port_without_colon="${ddns_port//:/}"
+  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow} ${port_without_colon} ${Green}端口${Plain}\n"
+  allow_port ${port_without_colon}
 fi
 
 # 循环开放端口
