@@ -19,7 +19,7 @@ common_port=(
     "9876"
 )
 
-read -p "是否开放常用端口号？（22,80,443,8080 ……）${Default}" answer
+read -p "是否开放常用端口号？（22,80,443,8080 ……）(y/n) [默认yes]:" answer
 if [[ x"$answer" == x"yes" || x"$answer" == x"YES" || x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]; then
   for port in "${common_port[@]}"; do
     port_number=${port##*which }
