@@ -535,6 +535,24 @@ else
   Config_rclone
 fi
 
+# 安装 Tailscale
+if ! type tailscale &>/dev/null; then
+  read -p "是否安装 Tailscale？${Default}" answer
+  if Option; then
+    echo -e "${Yellow}开始安装 Tailscale ...${Plain}"
+    curl -fsSL https://tailscale.com/install.sh | sh
+    if type tailscale &>/dev/null; then
+      Install_succ
+    else
+      echo -e "${Red}Tailscale 安装失败，需重新安装${Plain}\n"
+    fi
+  else
+    Cancel_info
+  fi
+else
+  echo -e "${Green}Tailscale 已安装${Plain}"
+fi
+
 # 检测定时清理磁盘空间任务是否已设置
 if ! type /opt/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？${Default}" answer
