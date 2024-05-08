@@ -42,7 +42,12 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/serve
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
 ```
 
-### I. 安装 Oh My Zsh：
+### I. 修改Root密码：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/change_passwd.sh)
+```
+
+### J. 安装 Oh My Zsh：
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
