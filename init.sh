@@ -129,22 +129,22 @@ for soft in "${cmdline[@]}"; do
     fi
 done
 
-# 配置NAT64
+# 配置 NAT64
 read -p "是否配置NAT64？${Default}" answer
 if Option; then
   echo -e "${Yellow}备份 resolv.conf 文件...${Plain}"
   mv /etc/resolv.conf /etc/resolv.conf.bak
   echo -e "nameserver 2a01:4f8:c2c:123f::1\nnameserver 2001:67c:2b0::4\nnameserver 2001:67c:2b0::6\nnameserver 2606:4700:4700::64\nnameserver 2606:4700:4700::6400" > /etc/resolv.conf
-  echo -e "${Green}NAT64已配置${Plain}\n"
+  echo -e "${Green}NAT64 已配置${Plain}\n"
 else
-  echo -e "${Red}取消NAT64配置${Plain}\n"
+  echo -e "${Red}取消 NAT64 配置${Plain}\n"
 fi
 
 # 安装 ddns-go
-Install_ddns-go () {
+Install_ddns-go() {
   if Option; then
     echo -e "${Yellow}开始安装 ddns-go ...${Plain}"
-    bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
+    bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/DDNS/main/ddns.sh)
     if [ $? -eq 0 ]; then
       echo -e "${Green}ddns-go 安装/更新 成功${Plain}"
     else
@@ -155,7 +155,7 @@ Install_ddns-go () {
   fi
 }
 
-ddns_login_info () {
+ddns_login_info() {
   echo -e "${Green}请访问 ${UBlue}http://IP${ddns_port}${Green} 进行初始化配置${Plain}\n"
 }
 
@@ -165,15 +165,15 @@ Config_ddns() {
     read -p "是否恢复 ddns-go 配置？${Default}" answer
     if Option; then
       read -p "输入配置来源URL：" source_url
-      if [ -z "$source_url" ]; then
+      if [ -z "${source_url}" ]; then
         source_url=https://sub.vsky.uk/ddns
       fi
-      echo -e "配置来源URL为：${Yellow}$source_url${Plain}\n"
+      echo -e "配置来源URL为：${Yellow}${source_url}${Plain}\n"
       read -p "输入配置来源路径：" path
-      if [ -z "$path" ]; then
+      if [ -z "${path}" ]; then
         path=default
       fi
-      echo -e "配置来源路径为：${Yellow}$path${Plain}\n"
+      echo -e "配置来源路径为：${Yellow}${path}${Plain}\n"
       echo -e "${Yellow}开始恢复 ddns-go 配置...${Plain}\n"
       mv /opt/ddns-go/.ddns_go_config.yaml /opt/ddns-go/.ddns_go_config.yaml.bak
       curl -s -o /opt/ddns-go/.ddns_go_config.yaml ${source_url}/${path}/.ddns_go_config.yaml
@@ -192,23 +192,23 @@ Config_ddns() {
 }
 
 # 配置 ddns-go 端口
-Config_ddns_port () {
+Config_ddns_port() {
   if type ddns-go &>/dev/null; then
     ddns_config_file="/etc/systemd/system/ddns-go.service"
     ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
-    echo -e "当前 ddns-go 端口为${Yellow}$ddns_port${Plain}"
+    echo -e "当前 ddns-go 端口为${Yellow}${ddns_port}${Plain}"
     read -p "是否 更新 ddns-go 端口？${Default}" answer
     if Option; then
       read -p "请输入新 ddns-go 端口 [回车保留默认值]：" new_port
-      if [ -z "$new_port" ]; then
-        new_port="$ddns_port"
+      if [ -z "${new_port}" ]; then
+        new_port="${ddns_port}"
       else
-        if [[ ! "$new_port" =~ ^: ]]; then
-          new_port=":$new_port"
+        if [[ ! "${new_port}" =~ ^: ]]; then
+          new_port=":${new_port}"
         fi
       fi
-      echo -e "新 ddns-go 端口为${Yellow}$new_port${Plain}\n"
-      sed -i "s/$ddns_port/$new_port/g" $ddns_config_file
+      echo -e "新 ddns-go 端口为${Yellow}${new_port}${Plain}\n"
+      sed -i "s/${ddns_port}/${new_port}/g" $ddns_config_file
       systemctl daemon-reload
       systemctl restart ddns-go
       echo -e "${Green}ddns-go 端口已更新${Plain}\n"
@@ -236,18 +236,18 @@ fi
 # 安装/配置x-ui
 x-ui_db() {
   if type x-ui &>/dev/null; then
-    read -p "是否恢复x-ui配置？${Default}" answer
+    read -p "是否恢复 x-ui 配置？${Default}" answer
     if Option; then
       read -p "输入配置来源URL：" source_url
-      if [ -z "$source_url" ]; then
+      if [ -z "${source_url}" ]; then
         source_url=https://sub.vsky.uk/x-ui
       fi
-      echo -e "配置来源URL为：${Yellow}$source_url${Plain}\n"
+      echo -e "配置来源URL为：${Yellow}${source_url}${Plain}\n"
       read -p "输入配置来源路径：" path
-      if [ -z "$path" ]; then
+      if [ -z "${path}" ]; then
         path=default
       fi
-      echo -e "配置来源路径为：${Yellow}$path${Plain}\n"
+      echo -e "配置来源路径为：${Yellow}${path}${Plain}\n"
       echo -e "${Yellow}开始恢复 x-ui 配置...${Plain}\n"
       mv /etc/x-ui/x-ui.db /etc/x-ui/x-ui.db.bak
       curl -s -o /etc/x-ui/x-ui.db ${source_url}/${path}/x-ui.db
@@ -482,6 +482,7 @@ if ! type ufw &>/dev/null; then
         Cancel_info
       fi
       ufw enable
+      ufw status
     else
       echo -e "${Red}ufw 安装失败，需重新安装${Plain}\n"
     fi
