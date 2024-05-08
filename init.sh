@@ -47,48 +47,7 @@ else
 fi
 
 # 开启SSH Key登录选项
-# 定义SSH配置文件路径
-ssh_config_file="/etc/ssh/sshd_config"
-
-# 检测PubkeyAuthentication参数
-pubkey_authentication=$(grep -E "^\s*PubkeyAuthentication\s+" $ssh_config_file | awk '{print $2}')
-
-# 检测RSAAuthentication参数
-rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '{print $2}')
-
-ssh_key_enable() {
-  echo -e "SSH Key 登录选项${Green}已开启${Plain}"
-  service ssh restart
-  echo -e "${Red}SSH 服务已重启${Plain}\n"
-}
-
-# 判断SSH参数并修改配置
-if [ "$pubkey_authentication" = "no" ] && [ "$rsa_authentication" = "no" ]; then
-  echo -e "${Yellow}修改${Plain} PubkeyAuthentication 和 RSAAuthentication 参数为 ${Green}yes${Plain}..."
-  sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
-  sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
-  ssh_key_enable
-elif [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "no" ]; then
-  echo -e "${Yellow}修改${Plain} RSAAuthentication 参数为 ${Green}yes${Plain}..."
-  sed -i 's/^\s*RSAAuthentication\s*no/RSAAuthentication yes/g' $ssh_config_file
-  ssh_key_enable
-elif [ "$pubkey_authentication" = "yes" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "${Yellow}增加${Plain} RSAAuthentication ${Green}yes${Plain}..."
-  echo "RSAAuthentication yes" >> $ssh_config_file
-  ssh_key_enable
-elif [ "$pubkey_authentication" = "no" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "${Yellow}修改${Plain} PubkeyAuthentication 参数为 ${Green}yes${Plain} 和 ${Yellow}增加${Plain} RSAAuthentication ${Green}yes${Plain}..."
-  sed -i 's/^\s*PubkeyAuthentication\s*no/PubkeyAuthentication yes/g' $ssh_config_file
-  echo "RSAAuthentication yes" >> $ssh_config_file
-  ssh_key_enable
-elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
-  echo -e "${Yellow}增加${Plain} PubkeyAuthentication ${Green}yes${Plain} 和 RSAAuthentication ${Green}yes${Plain}..."
-  echo "PubkeyAuthentication yes" >> $ssh_config_file
-  echo "RSAAuthentication yes" >> $ssh_config_file
-  ssh_key_enable
-else
-  echo -e "SSH Key 登录选项${Green}已开启${Plain}，无需修改配置...\n"
-fi
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ssh_key.sh)
 
 # apt 更新
 read -p "是否进行apt更新？${Default}" answer
@@ -144,49 +103,7 @@ fi
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ddns.sh)
 
 # 安装/配置x-ui
-x-ui_db() {
-  if type x-ui &>/dev/null; then
-    read -p "是否恢复 x-ui 配置？${Default}" answer
-    if Option; then
-      read -p "输入配置来源URL：" source_url
-      if [ -z "${source_url}" ]; then
-        source_url=https://sub.vsky.uk/x-ui
-      fi
-      echo -e "配置来源URL为：${Yellow}${source_url}${Plain}\n"
-      read -p "输入配置来源路径：" path
-      if [ -z "${path}" ]; then
-        path=default
-      fi
-      echo -e "配置来源路径为：${Yellow}${path}${Plain}\n"
-      echo -e "${Yellow}开始恢复 x-ui 配置...${Plain}\n"
-      mv /etc/x-ui/x-ui.db /etc/x-ui/x-ui.db.bak
-      curl -s -o /etc/x-ui/x-ui.db ${source_url}/${path}/x-ui.db
-      if [[ $? -ne 0 ]]; then
-      	mv /etc/x-ui/x-ui.db.bak /etc/x-ui/x-ui.db
-      else
-      	rm -f /etc/x-ui/x-ui.db.bak
-      fi
-      x-ui restart
-      echo -e "${Green}x-ui 配置已恢复${Plain}\n"
-    else
-      echo -e "${Yellow}保留 x-ui 当前配置${Plain}\n"
-    fi
-  fi
-}
-
-if ! type x-ui &>/dev/null; then
-  read -p "是否安装 x-ui？${Default}" answer
-  if Option; then
-    echo -e "${Yellow}开始安装 x-ui ...${Plain}\n"
-    bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
-    x-ui_db
-  else
-    Cancel_info
-  fi
-else
-  echo -e "${Green}x-ui 已安装${Plain}"
-  x-ui_db
-fi
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/x-ui.sh)
 
 # 安装Caddy
 if ! type caddy &>/dev/null; then
