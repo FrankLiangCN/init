@@ -7,12 +7,22 @@
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init.sh)
 ```
 
-### B. ufw开放端口：
+### B. DDNS：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ddns.sh)
+```
+
+### C. Docker & Cotainer：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/docker_container.sh)
+```
+
+### D. ufw开放端口：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
 ```
 
-### C. 安装 Oh My Zsh：
+### E. 安装 Oh My Zsh：
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
