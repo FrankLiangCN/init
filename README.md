@@ -37,7 +37,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/fail2
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/server_status.sh)
 ```
 
-### H. ufw开放端口：
+### H. ufw 开放端口：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
 ```
