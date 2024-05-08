@@ -7,22 +7,42 @@
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init.sh)
 ```
 
-### B. DDNS：
+### B. 开启SSH Key登录：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ssh_key.sh)
+```
+
+### C. DDNS：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ddns.sh)
 ```
 
-### C. Docker & Cotainer：
+### D. X-UI：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/x-ui.sh)
+```
+
+### E. Docker & Cotainer：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/docker_container.sh)
 ```
 
-### D. ufw开放端口：
+### F. Fail2ban：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/fail2ban.sh)
+```
+
+### G. 安装 Rust 版 ServerStatus 云探针：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/server_status.sh)
+```
+
+### H. ufw开放端口：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
 ```
 
-### E. 安装 Oh My Zsh：
+### I. 安装 Oh My Zsh：
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
