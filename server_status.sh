@@ -58,9 +58,9 @@ Install_ServerStatus() {
 }
 
 if ! find /opt/ServerStatus/stat_client &>/dev/null; then
-  echo -e "Rust 版 ServerStatus 云探针客户端${Red}未安装${Plain}"
+  echo -e "${Red}Rust 版 ServerStatus 云探针客户端未安装${Plain}"
   Install_ServerStatus
 else
-  echo -e "Rust 版 ServerStatus 云探针客户端${Green}已安装${Plain}"
+  echo -e "${Green}Rust 版 ServerStatus 云探针客户端已安装${Plain}"
   Install_ServerStatus
 fi
