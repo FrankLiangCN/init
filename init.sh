@@ -24,7 +24,7 @@ Install_succ() {
 
 echo -e ""
 echo -e "${Green}=========================================================${Plain}"
-echo -e "${Green}+              Linux 环境初始化自动部署脚本             +${Plain}"
+echo -e "${Green}+                Linux 环境初始化部署脚本               +${Plain}"
 echo -e "${Green}=========================================================${Plain}"
 echo -e ""
 
@@ -83,7 +83,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/clean.
 
 echo -e ""
 echo -e "${Yellow}=========================================================${Plain}"
-echo -e "${Yellow}             Linux 环境初始化自动部署成功！              ${Plain}"
+echo -e "${Yellow}               Linux 环境初始化部署成功！                ${Plain}"
 echo -e "${Yellow}=========================================================${Plain}"
 echo -e ""
 
