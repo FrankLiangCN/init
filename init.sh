@@ -30,10 +30,10 @@ echo -e ""
 
 
 # 设置系统时区
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/timezone.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/timezone.sh)
 
 # 开启SSH Key登录选项
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ssh_key.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ssh_key.sh)
 
 # apt 更新
 read -p "是否进行apt更新？${Default}" answer
@@ -46,40 +46,40 @@ else
 fi
 
 # 安装常用软件
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/soft.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/soft.sh)
 
 # 配置 NAT64
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/nat64.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/nat64.sh)
 
 # 安装 ddns-go
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ddns.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ddns.sh)
 
 # 安装/配置x-ui
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/x-ui.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
 
 # 安装Caddy
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/caddy.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
 
 # 安装 Docker & Container
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/docker_container.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/docker_container.sh)
 
 # 安装Fail2ban
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/fail2ban.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/fail2ban.sh)
 
 # 安装/配置 ufw
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw.sh)
 
 # 安装 Rust 版 ServerStatus 云探针
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/server_status.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/server_status.sh)
 
 # 安装Rclone
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/rclone.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/rclone.sh)
 
 # 安装 Tailscale
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/tailscale.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/tailscale.sh)
 
 # 清理磁盘空间
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/clean.sh)
+bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean.sh)
 
 echo -e ""
 echo -e "${Yellow}=========================================================${Plain}"
@@ -88,4 +88,4 @@ echo -e "${Yellow}=========================================================${Pla
 echo -e ""
 
 # 修改Root密码
-bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/change_passwd.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
