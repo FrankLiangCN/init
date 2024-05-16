@@ -7,6 +7,13 @@ Blue='\033[0;34m'
 UBlue='\033[4;34m'
 Plain='\033[0m'
 
+# 定义项
+Option() {
+  [[ x"$answer" == x"yes" || x"$answer" == x"YES" || x"$answer" == x"y" || x"$answer" == x"Y" || x"$answer" == x"" ]]
+}
+
+Default='(y/n) [默认yes]:'
+
 # 开启SSH Key登录选项
 # 定义SSH配置文件路径
 ssh_config_file="/etc/ssh/sshd_config"
