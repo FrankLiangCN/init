@@ -12,7 +12,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init.
 bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/timezone.sh)
 ```
 
-#### C. 开启SSH Key登录：
+#### C. 开启 SSH Key 登录：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ssh_key.sh)
 ```
@@ -36,7 +36,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
 ```
-#### H. 安装Caddy
+#### H. 安装 Caddy
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
 ```
@@ -65,7 +65,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/server_status.sh)
 ```
 
-#### M. 安装Rclone
+#### M. 安装 Rclone
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/rclone.sh)
 ```
@@ -80,7 +80,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script
 bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean.sh)
 ```
 
-#### P. 修改Root密码：
+#### P. 修改 Root 密码：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
 ```
