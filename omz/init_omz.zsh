@@ -65,7 +65,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
     read answer
     if Option; then
       mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
-      curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
+      curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/omz/.zshrc" -o "$HOME/.zshrc"
       if [ $? -eq 0 ]; then
         rm -f "$HOME/.zshrc.bak"
         Update_succ
@@ -80,7 +80,7 @@ if [ -d "$HOME/.oh-my-zsh" ]; then
   else
     echo -e "${Red}.zshrc 配置文件不存在${Plain}"
     echo -e "${Yellow}正在下载 .zshrc 配置文件...${Plain}"
-    curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/.zshrc" -o "$HOME/.zshrc"
+    curl -fsSL "https://raw.githubusercontent.com/FrankLiangCN/init/main/omz/.zshrc" -o "$HOME/.zshrc"
     Update_succ
   fi
 
