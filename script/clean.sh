@@ -19,7 +19,7 @@ if ! type /opt/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？${Default}" answer
   if Option; then
     echo -e "${Yellow}正在设置定时清理磁盘空间任务...${Plain}"
-    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/cleandata.sh
     chmod +x /opt/cleandata.sh
     echo -e "${Yellow}正在清理磁盘空间${Plain}\n"
     bash /opt/cleandata.sh
