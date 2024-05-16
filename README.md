@@ -96,11 +96,15 @@ sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
 ```
 zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/omz/init_omz.zsh)"
 ```
-##### b) 使配置生效:
+##### b) 安装 Oh My Zsh 插件:
+```
+zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/omz/zsh_plugins.zsh)"
+```
+##### c) 使配置生效:
 ```
 source ~/.zshrc
 ```
-##### c) Change Your Default Shell:
+##### d) Change Your Default Shell:
 ```
 chsh -s $(which zsh)
 ```
