@@ -32,7 +32,7 @@ if ! type ufw &>/dev/null; then
       Install_succ
       read -p "是否配置开放端口号？${Default}" answer
       if Option; then
-        bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
+        bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw_allow_port.sh)
       else
         Cancel_info
       fi
@@ -48,7 +48,7 @@ else
   echo -e "${Green}ufw 已安装${Plain}"
   read -p "是否配置开放端口号？${Default}" answer
     if Option; then
-      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/ufw_allow_port.sh)
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw_allow_port.sh)
     else
       Cancel_info
     fi
