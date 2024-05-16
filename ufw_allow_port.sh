@@ -16,6 +16,7 @@ common_port=(
   "8443"
   # Node
   "2052"
+  "2095"
   # DNS
   "53"
   # Adg
