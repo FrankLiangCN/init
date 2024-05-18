@@ -29,16 +29,16 @@ echo -e ""
 	
 # 显示菜单
 function show_menu() {
-  echo -e "请选择要执行的操作："
-  echo -e "1. 执行所有脚本"
-  echo -e "2. 设置系统时区"
-  echo -e "3. 开启 SSH Key 登录"
-  echo -e "4. 进行apt更新"
-  echo -e "5. 安装常用软件"
-  echo -e "6. 配置 NAT64"
-  echo -e "7. 安装 ddns-go"
-  echo -e "8. 安装/配置 x-ui"
-  echo -e "9. 安装 Caddy"
+  echo -e "请选择要执行的选项："
+  echo -e " 1. 执行所有脚本"
+  echo -e " 2. 设置系统时区"
+  echo -e " 3. 开启 SSH Key 登录"
+  echo -e " 4. 进行apt更新"
+  echo -e " 5. 安装常用软件"
+  echo -e " 6. 配置 NAT64"
+  echo -e " 7. 安装 ddns-go"
+  echo -e " 8. 安装/配置 x-ui"
+  echo -e " 9. 安装 Caddy"
   echo -e "10. 安装 Docker & Container"
   echo -e "11. 安装 Fail2ban"
   echo -e "12. 安装/配置 ufw"
@@ -46,13 +46,13 @@ function show_menu() {
   echo -e "14. 安装 Rclone"
   echo -e "15. 安装 Tailscale"
   echo -e "16. 清理磁盘空间"
-  echo -e "17. 修改Root密码"
-  echo -e "0. 退出"
+  echo -e "17. 修改 Root 密码"
+  echo -e " 0. 退出"
 }
 
 # 获取用户选择
 function get_choice() {
-  read -p "您的选择: " choice
+  read -p "输入选项: " choice
 }
 
 # 处理用户选择
@@ -170,11 +170,11 @@ function process_choice() {
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
       ;;
     0)
-      echo "退出脚本."
+      echo -e "${Red}退出初始化部署脚本……${Plain}\n"
       exit 0
       ;;
     *)
-      echo "无效选择，请重新输入."
+      echo -e "${Yellow}无效选择，请重新输入${Plain}"
       ;;
   esac
 }
