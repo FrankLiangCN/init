@@ -6,10 +6,14 @@
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init.sh)
 ```
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/init_menu.sh)
+```
+
 
 #### B. 设置系统时区：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/timezone.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/timezone.sh)
 ```
 
 #### C. 开启 SSH Key 登录：
@@ -19,12 +23,12 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 
 #### D. 安装常用软件：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/soft.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/soft.sh)
 ```
 
 #### E. 配置 NAT64：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/nat64.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/nat64.sh)
 ```
 
 #### F. DDNS：
@@ -38,7 +42,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 ```
 #### H. 安装 Caddy：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
 ```
 
 #### I. Docker & Cotainer：
@@ -53,7 +57,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 
 #### K. 安装/配置 ufw：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw.sh)
 ```
 ##### a) ufw 开放端口：
 ```
@@ -67,17 +71,17 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 
 #### M. 安装 Rclone：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/rclone.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/rclone.sh)
 ```
 
 #### N. 安装 Tailscale：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/tailscale.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/tailscale.sh)
 ```
 
 #### O. 清理磁盘空间：
 ```
-bash <(curl -sSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean.sh)
 ```
 
 #### P. 修改 Root 密码：
