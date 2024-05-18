@@ -52,6 +52,7 @@ function show_menu() {
 
 # 获取用户选择
 function get_choice() {
+  echo -e ""
   read -p "输入选项: " choice
 }
 
@@ -174,7 +175,7 @@ function process_choice() {
       exit 0
       ;;
     *)
-      echo -e "${Yellow}无效选择，请重新输入${Plain}"
+      echo -e "${Yellow}无效选择，请重新输入选项序号${Plain}\n"
       ;;
   esac
 }
