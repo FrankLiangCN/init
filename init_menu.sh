@@ -170,7 +170,7 @@ function process_choice() {
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
       ;;
     0)
-      echo -e "${Red}退出初始化部署脚本……${Plain}\n"
+      echo -e "\n${Red}退出初始化部署脚本……${Plain}\n"
       exit 0
       ;;
     *)
