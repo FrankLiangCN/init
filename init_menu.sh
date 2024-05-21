@@ -20,15 +20,14 @@ Cancel_info() {
 Install_succ() {
   echo -e "${Green}安装成功${Plain}\n"
 }
-
-echo -e ""
-echo -e "${Green}=========================================================${Plain}"
-echo -e "${Green}+                Linux 环境初始化部署脚本               +${Plain}"
-echo -e "${Green}=========================================================${Plain}"
-echo -e ""
 	
 # 显示菜单
 function show_menu() {
+  echo -e ""
+  echo -e "${Green}=========================================================${Plain}"
+  echo -e "${Green}+                Linux 环境初始化部署脚本               +${Plain}"
+  echo -e "${Green}=========================================================${Plain}"
+  echo -e ""
   echo -e "请选择要执行的选项："
   echo -e " 1. 执行所有脚本"
   echo -e " 2. 设置系统时区"
