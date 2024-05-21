@@ -174,7 +174,7 @@ function process_choice() {
       exit 0
       ;;
     *)
-      echo -e "${Yellow}无效选择，请重新输入选项序号${Plain}\n"
+      echo -e "\n${Yellow}无效选项，请重新输入选项序号${Plain}"
       ;;
   esac
 }
