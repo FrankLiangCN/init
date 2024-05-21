@@ -36,14 +36,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ssh_key.sh)
 
 # apt 更新
-read -p "是否进行apt更新？${Default}" answer
-if Option; then
-  echo -e "${Yellow}apt updating ...${Plain}"
-  apt update >/dev/null 2>&1
-  echo -e "${Green}apt 已更新${Plain}\n"
-else
-  echo -e "${Red}取消 apt 更新${Plain}\n"
-fi
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/apt_update.sh)
 
 # 安装常用软件
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/soft.sh)
