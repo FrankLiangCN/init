@@ -96,7 +96,7 @@ Config_ddns_port() {
       echo -e "${Green}ddns-go 端口已更新${Plain}\n"
       ddns_login_info
     else
-      echo -e "${Red}取消 更新 ddns-go 端口${Plain}\n"
+      echo -e "${Yellow}保留当前 ddns-go 端口${Plain}\n"
       ddns_login_info
     fi
   fi
