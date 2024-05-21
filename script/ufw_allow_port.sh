@@ -66,7 +66,7 @@ if command -v ddns-go >/dev/null 2>&1; then
   ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
   # 删除冒号
   port_without_colon="${ddns_port//:/}"
-  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow} ${port_without_colon} ${Green}端口${Plain}\n"
+  echo -e "${Green}检测到已安装ddns-go，自动开放${Yellow} ${port_without_colon} ${Green}端口号${Plain}"
   allow_port ${port_without_colon}
 fi
 
