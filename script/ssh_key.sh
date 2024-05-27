@@ -55,7 +55,7 @@ Import_sshkey() {
 }
 
 ssh_key_enable() {
-  echo -e "SSH Key 登录选项${Green}已开启${Plain}"
+  echo -e "SSH Key 登录选项${Green}已开启${Plain}\n"
   Import_sshkey
   service ssh restart
   echo -e "${Red}SSH 服务已重启${Plain}\n"
