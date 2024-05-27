@@ -46,6 +46,9 @@ function show_menu() {
   echo -e "15. 安装 Tailscale"
   echo -e "16. 清理磁盘空间"
   echo -e "17. 修改 Root 密码"
+  echo -e "18. 安装 Oh My Zsh"
+  echo -e "19. 配置 Oh My Zsh"
+  echo -e "20. Oh My Zsh 配置生效"
   echo -e " 0. 退出"
 }
 
@@ -154,6 +157,15 @@ function process_choice() {
       ;;
     17) # 修改Root密码
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
+      ;;
+    18) # 安装 Oh My Zsh
+      sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
+      ;;
+    19) # 配置 Oh My Zsh
+      zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/omz/init_omz.zsh)"
+      ;;
+    20) # Oh My Zsh 配置生效
+      source ~/.zshrc
       ;;
     0)
       echo -e "\n${Red}退出初始化部署脚本……${Plain}\n"
