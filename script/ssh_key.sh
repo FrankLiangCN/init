@@ -26,7 +26,7 @@ rsa_authentication=$(grep -E "^\s*RSAAuthentication\s+" $ssh_config_file | awk '
 
 # 恢复 SSH Key
 Import_sshkey() {
-  if [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "yes" ]; then
+#  if [ "$pubkey_authentication" = "yes" ] && [ "$rsa_authentication" = "yes" ]; then
     read -p "是否导入 SSH Key？${Default}" answer
     if Option; then
       read -p "输入SSH Key来源URL：" source_url
@@ -51,7 +51,7 @@ Import_sshkey() {
     else
       echo -e "${Yellow}保留当前 SSH Key${Plain}\n"
     fi
-  fi
+#  fi
 }
 
 ssh_key_enable() {
