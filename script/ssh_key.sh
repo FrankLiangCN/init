@@ -56,6 +56,7 @@ Import_sshkey() {
 
 ssh_key_enable() {
   echo -e "SSH Key 登录选项${Green}已开启${Plain}"
+  Import_sshkey
   service ssh restart
   echo -e "${Red}SSH 服务已重启${Plain}\n"
 }
@@ -86,6 +87,5 @@ elif [ -z "$pubkey_authentication" ] && [ -z "$rsa_authentication" ]; then
   ssh_key_enable
 else
   echo -e "SSH Key 登录选项${Green}已开启${Plain}，无需修改配置...\n"
+  Import_sshkey
 fi
-
-Import_sshkey
