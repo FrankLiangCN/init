@@ -109,3 +109,22 @@ if ! type docker &>/dev/null; then
 else
   Install_watchtower
 fi
+
+# 检测定时清理 Docker 容器日志任务是否已设置
+if type docker &>/dev/null; then
+  read -p "是否设置定时清理 Docker 容器日志任务？${Default}" answer
+  if Option; then
+    echo -e "${Yellow}正在设置定时清理 Docker 容器日志任务...${Plain}"
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/clean_docker_log.sh
+    chmod +x /opt/clean_docker_log.sh
+    echo "0 0 */7 * * bash /opt/clean_docker_log.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    echo -e "${Green}定时清理 Docker 容器日志任务已设置${Plain}\n"
+  else
+    echo -e "${Red}取消设置${Plain}\n"
+  fi
+else
+  if type /opt/clean_docker_log.sh &>/dev/null; then
+    echo -e "${Green}定时清理 Docker 容器日志任务已设置${Plain}\n"
+  fi
+fi
