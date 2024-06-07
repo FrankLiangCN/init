@@ -11,7 +11,7 @@ echo -e "${Green}======== Start Cleaning Docker Containers Logs ========${Plain}
 logs=$(find /var/lib/docker/containers/ -name '*-json.log')
 for log in $logs
   do
-    echo -e "clean logs : $log\n"
+    echo -e "Log Cleaned: $log\n"
     cat /dev/null > $log
   done
 echo -e "${Yellow}=========== Docker Containers Logs Cleaned ===========${Plain}\n"
