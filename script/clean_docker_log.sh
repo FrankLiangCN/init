@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo -e "======== start clean docker containers logs ========"
 logs=$(find /var/lib/docker/containers/ -name '*-json.log')
 for log in $logs
