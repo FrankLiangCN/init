@@ -31,5 +31,12 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     echo -e "${Red}取消设置${Plain}\n"
   fi
 else
-  echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
+  read -p "是否更新清理磁盘空间任务脚本？${Default}" answer
+  if Option; then
+    echo -e "${Yellow}正在更新清理磁盘空间任务脚本...${Plain}"
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+    echo -e "${Green}清理磁盘空间任务脚本已更新${Plain}\n"
+  else
+    echo -e "${Yellow}保留当前清理磁盘空间任务脚本${Plain}\n"
+  fi
 fi
