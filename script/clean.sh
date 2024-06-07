@@ -34,7 +34,7 @@ else
   read -p "是否更新清理磁盘空间任务脚本？${Default}" answer
   if Option; then
     echo -e "${Yellow}正在更新清理磁盘空间任务脚本...${Plain}"
-    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/cleandata.sh
+    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/cleandata.sh
     echo -e "${Green}清理磁盘空间任务脚本已更新${Plain}\n"
   else
     echo -e "${Yellow}保留当前清理磁盘空间任务脚本${Plain}\n"
