@@ -23,10 +23,10 @@ echo -e "${yellow}apk 缓存已清理${plain}\n"
 #-exec rm -rf --查找完毕后执行删除操作；
 # {} \; --固定写法
 
-# 清理 7 天前的日志
-find /var/log -mtime +7 -type f -name "*" -exec rm -rf {} \;
-echo -e "${yellow}7天前日志已清理${plain}\n"
+# 清理 1 天前的日志
+find /var/log -mtime +1 -type f -name "*" -exec rm -rf {} \;
+echo -e "${yellow}1天前日志已清理${plain}\n"
 
-# 清理 7 天前的临时文件
-find /tmp -mtime +7 -type f -name "*" -exec rm -rf {} \;
-echo -e "${yellow}7天前临时文件已清理${plain}\n"
+# 清理 1 天前的临时文件
+find /tmp -mtime +1 -type f -name "*" -exec rm -rf {} \;
+echo -e "${yellow}1天前临时文件已清理${plain}\n"
