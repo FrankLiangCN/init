@@ -76,8 +76,8 @@ Config_ddns() {
 # 配置 ddns-go 端口
 Config_ddns_port() {
   if type ddns-go &>/dev/null; then
-    ddns_config_file="/etc/systemd/system/ddns-go.service"
-    ddns_port=$(grep -i "ExecStart" $ddns_config_file|awk -F '"' '{print $4}')
+    ddns_service_file="/etc/systemd/system/ddns-go.service"
+    ddns_port=$(grep -i "ExecStart" ${ddns_service_file}|awk -F '"' '{print $4}')
     echo -e "当前 ddns-go 端口为${Yellow}${ddns_port}${Plain}"
     read -p "是否 更新 ddns-go 端口？${Default}" answer
     if Option; then
@@ -90,7 +90,7 @@ Config_ddns_port() {
         fi
       fi
       echo -e "新 ddns-go 端口为${Yellow}${new_port}${Plain}\n"
-      sed -i "s/${ddns_port}/${new_port}/g" $ddns_config_file
+      sed -i "s/${ddns_port}/${new_port}/g" ${ddns_service_file}
       systemctl daemon-reload
       systemctl restart ddns-go
       echo -e "${Green}ddns-go 端口已更新${Plain}\n"
