@@ -24,7 +24,7 @@ if ! type /opt/cleandata.sh &>/dev/null; then
     echo -e "${Yellow}正在清理磁盘空间${Plain}\n"
     bash /opt/cleandata.sh
     echo -e "${Yellow}磁盘空间已清理${Plain}\n"
-    echo "0 0 */7 * * bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    echo "0 0 */3 * * bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
     #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
     echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
   else
