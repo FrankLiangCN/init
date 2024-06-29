@@ -35,6 +35,15 @@ if ! type docker &>/dev/null; then
   fi
 else
   echo -e "${Green}Docker 已安装${Plain}\n"
+  read -p "是否更新 Docker？${Default}" answer
+  if Option; then
+    echo -e "${Yellow}正在安装 Docker ...${Plain}"
+    # Docker安装指令
+    curl -fsSL https://get.docker.com | bash
+    Install_succ
+  else
+    Cancel_info
+  fi
 fi
 
 # 安装Docker容器Portainer
