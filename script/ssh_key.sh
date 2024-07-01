@@ -40,7 +40,11 @@ Import_sshkey() {
       fi
       echo -e "SSH Key来源路径为：${Yellow}${path}${Plain}\n"
       echo -e "${Yellow}开始导入 SSH Key...${Plain}\n"
-      mv /root/.ssh/authorized_keys /root/.ssh/authorized_keys.bak
+      if ls /root/.ssh/authorized_keys > /dev/null 2>&1; then
+        mv /root/.ssh/authorized_keys /root/.ssh/authorized_keys.bak
+      else
+        mkdir -p /root/.ssh
+      fi
       curl -s -o /root/.ssh/authorized_keys ${source_url}/${path}/authorized_keys
       if [[ $? -ne 0 ]]; then
       	mv /root/.ssh/authorized_keys.bak /root/.ssh/authorized_keys
