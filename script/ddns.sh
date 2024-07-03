@@ -94,7 +94,7 @@ Config_ddns_port() {
       systemctl daemon-reload
       systemctl restart ddns-go
       echo -e "${Green}ddns-go 端口已更新${Plain}\n"
-      ddns_login_info
+      echo -e "${Green}请访问 ${UBlue}http://IP${new_port}${Green} 进行初始化配置${Plain}\n"
     else
       echo -e "${Yellow}保留当前 ddns-go 端口${Plain}\n"
       ddns_login_info
