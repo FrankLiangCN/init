@@ -19,6 +19,7 @@ cmdline=(
     "vnstat"
     "dos2unix"
     "zsh"
+    "git"
 )
 
 for soft in "${cmdline[@]}"; do
