@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # 配置可执行
-# chmod +x /opt/cleandata.sh
+# chmod +x /opt/script/cleandata.sh
 
 # 配置到crontab
-# 0 0 */2 * *  bash /opt/cleandata.sh > /dev/null 2>&1
+# 0 0 */2 * *  bash /opt/script/cleandata.sh > /dev/null 2>&1
 
 Red='\033[0;31m'
 Green='\033[0;32m'
