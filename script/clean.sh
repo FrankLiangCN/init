@@ -15,17 +15,18 @@ Option() {
 Default='(y/n) [默认yes]:'
 
 # 清理磁盘空间
-if ! type /opt/cleandata.sh &>/dev/null; then
+if ! type /opt/script/cleandata.sh &>/dev/null; then
   read -p "是否设置定时清理磁盘空间任务？${Default}" answer
   if Option; then
     echo -e "${Yellow}正在设置定时清理磁盘空间任务...${Plain}"
-    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/cleandata.sh
-    chmod +x /opt/cleandata.sh
+    mkdir -p /opt/script
+    wget --no-check-certificate -O /opt/script/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/cleandata.sh
+    chmod +x /opt/script/cleandata.sh
     echo -e "${Yellow}正在清理磁盘空间${Plain}\n"
-    bash /opt/cleandata.sh
+    bash /opt/script/cleandata.sh
     echo -e "${Yellow}磁盘空间已清理${Plain}\n"
-    echo "0 0 */3 * * bash /opt/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-    #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+    echo "0 0 */3 * * bash /opt/script/cleandata.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+    #echo "0 0 */7 * * root bash /opt/script/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
     echo -e "${Green}定时清理磁盘空间任务已设置${Plain}\n"
   else
     echo -e "${Red}取消设置${Plain}\n"
@@ -34,7 +35,7 @@ else
   read -p "是否更新清理磁盘空间任务脚本？${Default}" answer
   if Option; then
     echo -e "${Yellow}正在更新清理磁盘空间任务脚本...${Plain}"
-    wget --no-check-certificate -O /opt/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/cleandata.sh
+    wget --no-check-certificate -O /opt/script/cleandata.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/cleandata.sh
     echo -e "${Green}清理磁盘空间任务脚本已更新${Plain}\n"
   else
     echo -e "${Yellow}保留当前清理磁盘空间任务脚本${Plain}\n"
