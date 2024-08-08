@@ -121,14 +121,14 @@ fi
 
 # 检测定时清理 Docker 容器日志任务是否已设置
 if type docker &>/dev/null; then
-  if ! type /opt/clean_docker_log.sh &>/dev/null; then
+  if ! type /opt/script/clean_docker_log.sh &>/dev/null; then
     read -p "是否设置定时清理 Docker 容器日志任务？${Default}" answer
     if Option; then
       echo -e "${Yellow}正在设置定时清理 Docker 容器日志任务...${Plain}"
-      wget --no-check-certificate -O /opt/clean_docker_log.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean_docker_log.sh
-      chmod +x /opt/clean_docker_log.sh
-      echo "0 0 */7 * * bash /opt/clean_docker_log.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
-      #echo "0 0 */7 * * root bash /opt/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
+      wget --no-check-certificate -O /opt/script/clean_docker_log.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean_docker_log.sh
+      chmod +x /opt/script/clean_docker_log.sh
+      echo "0 0 */7 * * bash /opt/script/clean_docker_log.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
+      #echo "0 0 */7 * * root bash /opt/script/cleandata.sh > /dev/null 2>&1" >> /etc/crontab
       echo -e "${Green}定时清理 Docker 容器日志任务已设置${Plain}\n"
     else
       echo -e "${Red}取消设置${Plain}\n"
@@ -137,7 +137,7 @@ if type docker &>/dev/null; then
     read -p "是否更新清理 Docker 容器日志任务脚本？${Default}" answer
     if Option; then
       echo -e "${Yellow}正在更新清理 Docker 容器日志任务脚本...${Plain}"
-      wget --no-check-certificate -O /opt/clean_docker_log.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean_docker_log.sh
+      wget --no-check-certificate -O /opt/script/clean_docker_log.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean_docker_log.sh
       echo -e "${Green}清理 Docker 容器日志任务脚本已更新${Plain}\n"
     else
       echo -e "${Yellow}保留当前清理 Docker 容器日志任务脚本${Plain}\n"
