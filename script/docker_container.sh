@@ -125,6 +125,7 @@ if type docker &>/dev/null; then
     read -p "是否设置定时清理 Docker 容器日志任务？${Default}" answer
     if Option; then
       echo -e "${Yellow}正在设置定时清理 Docker 容器日志任务...${Plain}"
+      mkdir -p /opt/script
       wget --no-check-certificate -O /opt/script/clean_docker_log.sh https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean_docker_log.sh
       chmod +x /opt/script/clean_docker_log.sh
       echo "0 0 */7 * * bash /opt/script/clean_docker_log.sh > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
