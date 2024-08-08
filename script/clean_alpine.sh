@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # 配置可执行
-# chmod +x /opt/clean_alpine.sh
+# chmod +x /opt/script/clean_alpine.sh
 
 # 配置到crontab
-# 0 0 */2 * *  bash /opt/clean_alpine.sh > /dev/null 2>&1
+# 0 0 */2 * *  bash /opt/script/clean_alpine.sh > /dev/null 2>&1
 
 red='\033[0;31m'
 green='\033[0;32m'
