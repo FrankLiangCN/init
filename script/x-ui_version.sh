@@ -66,6 +66,6 @@ if ! type x-ui &>/dev/null; then
     Cancel_info
   fi
 else
-  echo -e "${Green}x-ui ${x-ui_version}已安装${Plain}"
+  echo -e "${Green}x-ui 已安装${Plain}"
   x-ui_db
 fi
