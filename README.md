@@ -40,6 +40,10 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
 ```
+##### a) 安装x-ui指定版本：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui_version.sh)
+```
 #### H. 安装 Caddy：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
