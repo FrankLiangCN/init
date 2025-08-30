@@ -28,7 +28,7 @@ Install_ServerStatus() {
   if Option; then
     read -p "请输入服务端域名/IP:端口：" url
     if [ -z "$url" ]; then
-      url=https://vps.simpletechcn.com
+      url=https://vps.1980118.xyz
     fi
     echo -e "新服务端域名/IP:端口为：${Yellow}$url${Plain}\n"
     read -p "请输入用户名：" username
