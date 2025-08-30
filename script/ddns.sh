@@ -48,7 +48,7 @@ Config_ddns() {
     if Option; then
       read -p "输入配置来源URL：" source_url
       if [ -z "${source_url}" ]; then
-        source_url=https://sub.vsky.uk/ddns
+        source_url=https://sub.1980118.xyz/ddns
       fi
       echo -e "配置来源URL为：${Yellow}${source_url}${Plain}\n"
       read -p "输入配置来源路径：" path
