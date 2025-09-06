@@ -50,6 +50,9 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 # 安装/配置x-ui
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
 
+# 安装/配置 Hysteria
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hystera.sh)
+
 # 安装 Caddy
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
 
