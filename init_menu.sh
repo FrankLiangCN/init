@@ -86,7 +86,7 @@ function process_choice() {
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
       
       # 安装/配置 Hysteria
-      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hystera.sh)
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hysteria.sh)
       
       # 安装 Caddy
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
@@ -140,7 +140,7 @@ function process_choice() {
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui_version.sh)
       ;;
     10) # 安装/配置 Hysteria
-      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hystera.sh)
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hysteria.sh)
       ;;
     11) # 安装 Caddy
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
