@@ -37,18 +37,20 @@ function show_menu() {
   echo -e " 6. 配置 NAT64"
   echo -e " 7. 安装 ddns-go"
   echo -e " 8. 安装/配置 x-ui"
-  echo -e " 9. 安装 Caddy"
-  echo -e "10. 安装 Docker & Container"
-  echo -e "11. 安装 Fail2ban"
-  echo -e "12. 安装/配置 ufw"
-  echo -e "13. 安装 Rust 版 ServerStatus 云探针"
-  echo -e "14. 安装 Rclone"
-  echo -e "15. 安装 Tailscale"
-  echo -e "16. 清理磁盘空间"
-  echo -e "17. 修改 Root 密码"
-  echo -e "18. 安装 Oh My Zsh"
-  echo -e "19. 配置 Oh My Zsh"
-  echo -e "20. Oh My Zsh 配置生效"
+  echo -e " 9. 安装/配置 x-ui 指定版本"
+  echo -e "10. 安装/配置 Hysteria"
+  echo -e "11. 安装 Caddy"
+  echo -e "12. 安装 Docker & Container"
+  echo -e "13. 安装 Fail2ban"
+  echo -e "14. 安装/配置 ufw"
+  echo -e "15. 安装 Rust 版 ServerStatus 云探针"
+  echo -e "16. 安装 Rclone"
+  echo -e "17. 安装 Tailscale"
+  echo -e "18. 清理磁盘空间"
+  echo -e "19. 修改 Root 密码"
+  echo -e "20. 安装 Oh My Zsh"
+  echo -e "21. 配置 Oh My Zsh"
+  echo -e "22. Oh My Zsh 配置生效"
   echo -e " 0. 退出"
 }
 
@@ -82,6 +84,9 @@ function process_choice() {
       
       # 安装/配置 x-ui
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
+      
+      # 安装/配置 Hysteria
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hystera.sh)
       
       # 安装 Caddy
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
@@ -131,40 +136,46 @@ function process_choice() {
     8) # 安装/配置 x-ui
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui.sh)
       ;;
-    9) # 安装 Caddy
+    9) # 安装/配置 x-ui 指定版本 2.5.5
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui_version.sh)
+      ;;
+    10) # 安装/配置 Hysteria
+      bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hystera.sh)
+      ;;
+    11) # 安装 Caddy
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
       ;;
-    10) # 安装 Docker & Container
+    12) # 安装 Docker & Container
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/docker_container.sh)
       ;;
-    11) # 安装 Fail2ban
+    13) # 安装 Fail2ban
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/fail2ban.sh)
       ;;
-    12) # 安装/配置 ufw
+    14) # 安装/配置 ufw
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw.sh)
       ;;
-    13) # 安装 Rust 版 ServerStatus 云探针
+    15) # 安装 Rust 版 ServerStatus 云探针
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/server_status.sh)
       ;;
-    14) # 安装 Rclone
+    16) # 安装 Rclone
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/rclone.sh)
       ;;
-    15) # 安装 Tailscale
+    17) # 安装 Tailscale
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/tailscale.sh)
       ;;
-    16) # 清理磁盘空间
+    18) # 清理磁盘空间
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean.sh)
       ;;
-    17) # 修改Root密码
+    19) # 修改Root密码
       bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
       ;;
-    18) # 安装 Oh My Zsh
+    20) # 安装 Oh My Zsh
       sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
       ;;
-    19) # 配置 Oh My Zsh
+    21) # 配置 Oh My Zsh
       zsh -c "$(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/omz/init_omz.zsh)"
       ;;
-    20) # Oh My Zsh 配置生效
+    22) # Oh My Zsh 配置生效
       source ~/.zshrc
       ;;
     0)
