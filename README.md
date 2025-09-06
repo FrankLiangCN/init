@@ -44,22 +44,28 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/x-ui_version.sh)
 ```
-#### H. 安装 Caddy：
+
+#### H. 安装 Hysteria：
+```
+bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/hysteria.sh)
+```
+
+#### I. 安装 Caddy：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/caddy.sh)
 ```
 
-#### I. Docker & Cotainer：
+#### J. Docker & Cotainer：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/docker_container.sh)
 ```
 
-#### J. Fail2ban：
+#### K. Fail2ban：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/fail2ban.sh)
 ```
 
-#### K. 安装/配置 ufw：
+#### L. 安装/配置 ufw：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw.sh)
 ```
@@ -68,32 +74,32 @@ bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/scrip
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/ufw_allow_port.sh)
 ```
 
-#### L. 安装 Rust 版 ServerStatus 云探针：
+#### M. 安装 Rust 版 ServerStatus 云探针：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/server_status.sh)
 ```
 
-#### M. 安装 Rclone：
+#### N. 安装 Rclone：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/rclone.sh)
 ```
 
-#### N. 安装 Tailscale：
+#### O. 安装 Tailscale：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/tailscale.sh)
 ```
 
-#### O. 清理磁盘空间：
+#### P. 清理磁盘空间：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/clean.sh)
 ```
 
-#### P. 修改 Root 密码：
+#### Q. 修改 Root 密码：
 ```
 bash <(curl -fsSL https://raw.githubusercontent.com/FrankLiangCN/init/main/script/change_passwd.sh)
 ```
 
-#### Q. 安装 Oh My Zsh：
+#### R. 安装 Oh My Zsh：
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
