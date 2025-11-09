@@ -22,8 +22,17 @@ Cancel_info() {
 ntp_time() {
   if Option; then
     echo -e "${Yellow}正在同步系统时间...${Plain}"
-    ntpd -d -q -n -p ntp.aliyun.com
+
+    # 检查ntpd是否可用，如果不可用则使用ntpdate
+    if command -v ntpd &> /dev/null; then
+      ntpd -d -q -n -p ntp.aliyun.com
     #ntpdate time.windows.com
+    else
+      echo -e "${Red}错误: 未找到ntpd命令${Plain}"
+      echo -e "${Yellow}请先安装ntp工具包${Plain}"
+      return 1
+    fi
+    
     if [ $? -eq 0 ]; then
       echo -e "${Green}系统时间同步成功！${Plain}\n"
     else
